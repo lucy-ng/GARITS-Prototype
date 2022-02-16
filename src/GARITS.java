@@ -3,7 +3,7 @@ import Forms.*;
 // Creating the GARITS system
 public class GARITS {
     public GARITS() {
-        BookingService bookingService = new BookingService();
+        LoginAccount loginAccount = new LoginAccount();
     }
 
     // Running the GARITS system
