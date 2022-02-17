@@ -15,10 +15,10 @@ public class AdminPage extends JFrame {
     private JPanel mainPanel;
 
     public AdminPage() {
-        setContentPane(mainPanel);
-        setTitle("Login to Account");
-        setSize(500,500);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
+
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 }
