@@ -32,12 +32,26 @@ public class GARITS {
 
     // AdminPage
     public AdminPage adminPage(LoginAccount l) {
-        // Set up window
+        // Set up window for admin
         AdminPage a = new AdminPage();
         mainWindow.setContentPane(a.getMainPanel());
-        mainWindow.setSize(500,500);
+        mainWindow.setSize(1000,650);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
+
+        // Register account button
+        a.getAddAccountButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RegisterAccount r = new RegisterAccount();
+                r.getMainPanel().setSize(500,500);
+                r.getMainPanel().setVisible(true);
+                a.getContentPanel().add(r.getMainPanel());
+                a.getContentPanel().setSize(500,500);
+                a.getContentPanel().setVisible(true);
+                r.getMainPanel().requestFocus();
+            }
+        });
 
         // Logout button
         a.getLogoutButton().addActionListener(new ActionListener() {
@@ -60,6 +74,7 @@ public class GARITS {
 
     // Running the GARITS system
     public static void main (String[] args){
+
         new GARITS();
     }
 }

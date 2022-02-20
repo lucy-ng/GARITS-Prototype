@@ -15,4 +15,13 @@ public class RegisterAccount {
     private JButton registerButton;
     private JLabel roleLabel;
     private JTextField role;
+    private JPanel mainPanel;
+
+    public RegisterAccount() {
+
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 }
