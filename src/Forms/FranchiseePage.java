@@ -4,11 +4,17 @@ import javax.swing.*;
 
 public class FranchiseePage {
     private JLabel franchiseePageTitle;
-    private JLabel customerAccountsLabel;
-    private JLabel garageLabel;
-    private JButton customerAccountsMenuButton;
-    private JButton jobsMenuButton;
-    private JButton changeDiscountPlanForButton;
-    private JButton stockControlMenuButton;
-    private JLabel welcomeLabel;
+    private JButton addButton;
+    private JLabel custAccountsLabel;
+    private JButton updateDeleteButton;
+    private JButton addViewJobsButton;
+    private JButton jobSheetInvoiceButton;
+    private JLabel jobLabel;
+    private JButton updatePickJobButton;
+    private JButton logoutButton;
+    private JLabel stockControlLabel;
+    private JButton orderPartsButton;
+    private JButton reportButton;
+    private JButton searchPartsButton;
+    private JPanel contentPanel;
 }

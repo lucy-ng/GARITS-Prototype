@@ -9,6 +9,33 @@ public class GARITS {
     final public JFrame mainWindow = new JFrame("GARITS");
 
     // Methods to return forms
+    public Homepage homepage() {
+        // Set up window for homepage
+        Homepage h = new Homepage();
+        mainWindow.setContentPane(h.getMainPanel());
+        mainWindow.setSize(500,500);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+        // Login button
+        h.getLoginButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // New login page
+                LoginAccount loginAccount = loginAccount();
+            }
+        });
+
+        // Exit button
+        h.getExitButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        return h;
+    }
 
     // LoginAccount
     public LoginAccount loginAccount() {
@@ -66,7 +93,7 @@ public class GARITS {
 
     public GARITS() {
         // Create instance of login account form
-        LoginAccount loginAccount = loginAccount();
+        Homepage homepage = homepage();
     }
 
     // Running the GARITS system

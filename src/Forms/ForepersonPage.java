@@ -4,10 +4,17 @@ import javax.swing.*;
 
 public class ForepersonPage {
     private JLabel forepersonPageTitle;
-    private JButton jobsMenuButton;
-    private JButton createCustomerRecordButton;
-    private JButton stockControlMenuButton;
-    private JLabel welcomeLabel;
-    private JLabel garageLabel;
-    private JLabel receptionLabel;
+    private JButton addViewJobsButton;
+    private JButton jobSheetInvoiceButton;
+    private JLabel jobLabel;
+    private JButton logoutButton;
+    private JButton updateJobButton;
+    private JButton orderPartsButton;
+    private JButton reportButton;
+    private JLabel stockControlLabel;
+    private JButton searchPartsButton;
+    private JButton createButton;
+    private JButton monthlyReportButton;
+    private JLabel customerRecordLabel;
+    private JPanel contentPanel;
 }

@@ -7,8 +7,8 @@ public class AdminPage extends JFrame {
     private JButton logoutButton;
     private JLabel adminPageTitle;
     private JButton addAccountButton;
-    private JButton deleteAccountButton;
-    private JButton updateAccountButton;
+    private JButton deleteButton;
+    private JButton updateButton;
     private JButton backupButton;
     private JButton restoreButton;
     private JLabel staffAccountsLabel;
