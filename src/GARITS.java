@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 // Creating the GARITS system
 public class GARITS {
-    final public JFrame mainWindow = new JFrame();
+    final public JFrame mainWindow = new JFrame("GARITS");
 
     // Methods to return forms
 
@@ -44,12 +44,12 @@ public class GARITS {
             @Override
             public void actionPerformed(ActionEvent e) {
                 RegisterAccount r = new RegisterAccount();
-                r.getMainPanel().setSize(500,500);
-                r.getMainPanel().setVisible(true);
-                a.getContentPanel().add(r.getMainPanel());
+                r.setSize(500,500);
+                r.setVisible(true);
+                a.getContentPanel().add(r);
                 a.getContentPanel().setSize(500,500);
                 a.getContentPanel().setVisible(true);
-                r.getMainPanel().requestFocus();
+                r.requestFocus();
             }
         });
 
@@ -65,16 +65,12 @@ public class GARITS {
     }
 
     public GARITS() {
-        // GARITS Title
-        mainWindow.setTitle("GARITS");
-
         // Create instance of login account form
         LoginAccount loginAccount = loginAccount();
     }
 
     // Running the GARITS system
     public static void main (String[] args){
-
         new GARITS();
     }
 }
