@@ -17,4 +17,13 @@ public class ForepersonPage {
     private JButton monthlyReportButton;
     private JLabel customerRecordLabel;
     private JPanel contentPanel;
+    private JPanel mainPanel;
+
+    public ForepersonPage() {
+
+    }
+
+    public JPanel getMainPanel() {
+        return getMainPanel();
+    }
 }

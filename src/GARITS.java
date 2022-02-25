@@ -94,6 +94,9 @@ public class GARITS {
     public GARITS() {
         // Create instance of login account form
         Homepage homepage = homepage();
+
+        // Testing
+
     }
 
     // Running the GARITS system
