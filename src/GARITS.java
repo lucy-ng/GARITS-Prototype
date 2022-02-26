@@ -133,9 +133,18 @@ public class GARITS {
 
          */
 
+        /*
         CreateCustomerRecord createCustomerRecord = new CreateCustomerRecord();
         mainWindow.setContentPane(createCustomerRecord.getMainPanel());
         mainWindow.setSize(500,500);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        AddJob addJob = new AddJob();
+        mainWindow.setContentPane(addJob.getMainPanel());
+        mainWindow.setSize(500,600);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
     }
