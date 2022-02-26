@@ -17,4 +17,13 @@ public class ReceptionistPage {
     private JButton createButton;
     private JButton monthyReportButton;
     private JLabel customerRecordsLabel;
+    private JPanel mainPanel;
+
+    public ReceptionistPage() {
+
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 }

@@ -17,4 +17,13 @@ public class FranchiseePage {
     private JButton reportButton;
     private JButton searchPartsButton;
     private JPanel contentPanel;
+    private JPanel mainPanel;
+
+    public FranchiseePage() {
+
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 }

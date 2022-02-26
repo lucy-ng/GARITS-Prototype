@@ -1,4 +1,5 @@
 import Forms.*;
+import Users.Foreperson;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -93,10 +94,44 @@ public class GARITS {
 
     public GARITS() {
         // Create instance of login account form
-        Homepage homepage = homepage();
+        //Homepage homepage = homepage();
 
         // Testing
+        /*
+        ForepersonPage forepersonPage = new ForepersonPage();
+        mainWindow.setContentPane(forepersonPage.getMainPanel());
+        mainWindow.setSize(1250,650);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
 
+         */
+
+        /*
+        FranchiseePage franchiseePage = new FranchiseePage();
+        mainWindow.setContentPane(franchiseePage.getMainPanel());
+        mainWindow.setSize(1250,650);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        /*
+        MechanicPage mechanicPage = new MechanicPage();
+        mainWindow.setContentPane(mechanicPage.getMainPanel());
+        mainWindow.setSize(1250,650);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        /*
+        ReceptionistPage receptionistPage = new ReceptionistPage();
+        mainWindow.setContentPane(receptionistPage.getMainPanel());
+        mainWindow.setSize(1250,650);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
     }
 
     // Running the GARITS system

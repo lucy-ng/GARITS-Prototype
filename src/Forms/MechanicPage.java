@@ -11,4 +11,13 @@ public class MechanicPage {
     private JButton searchPartsButton;
     private JLabel partsLabel;
     private JPanel contentPanel;
+    private JPanel mainPanel;
+
+    public MechanicPage() {
+
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 }

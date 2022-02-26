@@ -24,6 +24,6 @@ public class ForepersonPage {
     }
 
     public JPanel getMainPanel() {
-        return getMainPanel();
+        return mainPanel;
     }
 }
