@@ -132,6 +132,12 @@ public class GARITS {
         mainWindow.setVisible(true);
 
          */
+
+        CreateCustomerRecord createCustomerRecord = new CreateCustomerRecord();
+        mainWindow.setContentPane(createCustomerRecord.getMainPanel());
+        mainWindow.setSize(500,500);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
     }
 
     // Running the GARITS system
