@@ -27,10 +27,10 @@ public class BookingService extends JFrame{
     private JLabel postCodeLabel;
 
     public BookingService() {
-        setContentPane(mainPanel);
-        setTitle("Book a Service");
-        setSize(500,500);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
+
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 }

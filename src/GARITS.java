@@ -142,8 +142,26 @@ public class GARITS {
 
          */
 
+        /*
         AddJob addJob = new AddJob();
         mainWindow.setContentPane(addJob.getMainPanel());
+        mainWindow.setSize(500,600);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        /*
+        BookingService bookingService = new BookingService();
+        mainWindow.setContentPane(bookingService.getMainPanel());
+        mainWindow.setSize(500,600);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        RegisterCustAccount registerCustAccount = new RegisterCustAccount();
+        mainWindow.setContentPane(registerCustAccount.getMainPanel());
         mainWindow.setSize(500,600);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
