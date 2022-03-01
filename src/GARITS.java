@@ -75,12 +75,9 @@ public class GARITS {
             @Override
             public void actionPerformed(ActionEvent e) {
                 RegisterAccount r = new RegisterAccount();
-                r.setSize(500,500);
-                r.setVisible(true);
-                a.getContentPanel().add(r);
+                a.getContentPanel().add(r.getMainPanel());
+                r.getMainPanel().setVisible(true);
                 a.getContentPanel().setSize(500,500);
-                a.getContentPanel().setVisible(true);
-                r.requestFocus();
             }
         });
 

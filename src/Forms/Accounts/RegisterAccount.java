@@ -2,7 +2,7 @@ package Forms.Accounts;
 
 import javax.swing.*;
 
-public class RegisterAccount extends JPanel {
+public class RegisterAccount {
     private JLabel registerTitle;
     private JLabel firstNameLabel;
     private JTextField firstName;
@@ -18,7 +18,6 @@ public class RegisterAccount extends JPanel {
     private JPanel mainPanel;
 
     public RegisterAccount() {
-        /*
         mainPanel.setLayout(null);
         mainPanel.add(registerTitle);
         mainPanel.add(firstNameLabel);
@@ -32,7 +31,7 @@ public class RegisterAccount extends JPanel {
         mainPanel.add(registerButton);
         mainPanel.add(roleLabel);
         mainPanel.add(role);
-         */
+
     }
 
     public JPanel getMainPanel() {
