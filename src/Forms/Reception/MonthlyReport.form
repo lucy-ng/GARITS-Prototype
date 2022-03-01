@@ -32,7 +32,7 @@
           <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="e2494" class="javax.swing.JLabel">
+      <component id="e2494" class="javax.swing.JLabel" binding="fromDateLabel">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -40,7 +40,7 @@
           <text value="From Date:"/>
         </properties>
       </component>
-      <component id="bfe76" class="javax.swing.JLabel">
+      <component id="bfe76" class="javax.swing.JLabel" binding="toDateLabel">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -53,7 +53,7 @@
           <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="cb3c6" class="javax.swing.JLabel">
+      <component id="cb3c6" class="javax.swing.JLabel" binding="numberOfVehiclesBookedLabel">
         <constraints>
           <grid row="7" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -61,7 +61,7 @@
           <text value="Number of Vehicles booked:"/>
         </properties>
       </component>
-      <component id="67b8e" class="javax.swing.JLabel">
+      <component id="67b8e" class="javax.swing.JLabel" binding="searchDatesLabel">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -69,7 +69,7 @@
           <text value="Search Dates"/>
         </properties>
       </component>
-      <component id="bb7f8" class="javax.swing.JTextField" binding="textField1" default-binding="true">
+      <component id="bb7f8" class="javax.swing.JTextField" binding="fromDate">
         <constraints>
           <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -77,7 +77,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="95af9" class="javax.swing.JTextField" binding="textField2" default-binding="true">
+      <component id="95af9" class="javax.swing.JTextField" binding="toDate">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -93,7 +93,7 @@
           <text value="Search"/>
         </properties>
       </component>
-      <component id="56dcb" class="javax.swing.JLabel">
+      <component id="56dcb" class="javax.swing.JLabel" binding="casualLabel">
         <constraints>
           <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -101,7 +101,7 @@
           <text value="Casual"/>
         </properties>
       </component>
-      <component id="1d8dc" class="javax.swing.JTextField" binding="textField3" default-binding="true">
+      <component id="1d8dc" class="javax.swing.JTextField" binding="vehiclesCasual">
         <constraints>
           <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -111,7 +111,7 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="c7f69" class="javax.swing.JTable" binding="table1" default-binding="true">
+      <component id="c7f69" class="javax.swing.JTable" binding="tblVehiclesCasual">
         <constraints>
           <grid row="9" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>
@@ -124,7 +124,7 @@
           <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="327d4" class="javax.swing.JLabel">
+      <component id="327d4" class="javax.swing.JLabel" binding="accountHolderLabel">
         <constraints>
           <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -132,7 +132,7 @@
           <text value="Account Holder"/>
         </properties>
       </component>
-      <component id="91d0d" class="javax.swing.JTextField" binding="textField4" default-binding="true">
+      <component id="91d0d" class="javax.swing.JTextField" binding="vehiclesAccount">
         <constraints>
           <grid row="11" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -140,7 +140,7 @@
         </constraints>
         <properties/>
       </component>
-      <component id="2f93d" class="javax.swing.JTable" binding="table2" default-binding="true">
+      <component id="2f93d" class="javax.swing.JTable" binding="tblVehiclesAccount">
         <constraints>
           <grid row="12" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="50"/>

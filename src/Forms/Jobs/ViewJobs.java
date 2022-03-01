@@ -7,8 +7,9 @@ public class ViewJobs {
     private JPanel mainPanel;
     private JLabel tableOfJobsLabel;
     private JTable jobs;
-    private JTextField textField1;
+    private JTextField searchJob;
     private JButton searchButton;
+    private JLabel searchForJobLabel;
 
     public ViewJobs() {
 

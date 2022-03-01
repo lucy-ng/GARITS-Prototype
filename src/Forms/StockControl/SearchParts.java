@@ -3,10 +3,13 @@ package Forms.StockControl;
 import javax.swing.*;
 
 public class SearchParts {
-    private JTextField textField1;
+    private JTextField searchParts;
     private JButton searchButton;
-    private JTable table1;
+    private JTable tblParts;
     private JPanel mainPanel;
+    private JLabel searchPartsTitle;
+    private JLabel searchForSparePartsLabel;
+    private JLabel tableOfSparePartsLabel;
 
     public SearchParts() {
 

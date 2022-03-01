@@ -5,17 +5,27 @@ import javax.swing.*;
 public class RegisterCustAccount {
     private JLabel registerCustomerAccountTitle;
     private JPanel mainPanel;
-    private JTextField textField1;
+    private JTextField username;
     private JPasswordField passwordField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JTextField textField6;
-    private JTextField textField7;
-    private JComboBox comboBox1;
-    private JComboBox comboBox2;
+    private JTextField firstName;
+    private JTextField secondName;
+    private JTextField email;
+    private JTextField address;
+    private JTextField phoneNumber;
+    private JTextField postCode;
+    private JComboBox membershipType;
+    private JComboBox discountPlan;
     private JButton registerButton;
+    private JLabel usernameLabel;
+    private JLabel firstNameLabel;
+    private JLabel emailLabel;
+    private JLabel addressLabel;
+    private JLabel passwordLabel;
+    private JLabel secondNameLabel;
+    private JLabel phoneNumberLabel;
+    private JLabel postCodeLabel;
+    private JLabel membershipTypeLabel;
+    private JLabel discountPlanLabel;
 
     public RegisterCustAccount() {
 

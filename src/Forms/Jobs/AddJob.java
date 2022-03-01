@@ -21,6 +21,8 @@ public class AddJob {
     private JLabel estimatedTimeLabel;
     private JLabel timeLabel;
     private JButton addJobButton;
+    private JLabel mechanicLabel;
+    private JTextField mechanic;
 
     public AddJob() {
 
