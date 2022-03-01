@@ -4,7 +4,9 @@ import Forms.StockControl.*;
 import Forms.Users.*;
 import Forms.Reception.*;
 import Forms.Jobs.*;
-import Forms.Payments.*;
+
+import javax.swing.*;
+import java.awt.event.*;
 
 public class GARITS_Testing {
     final public JFrame mainWindow = new JFrame("GARITS Testing");
@@ -83,8 +85,35 @@ public class GARITS_Testing {
 
          */
 
+        /*
         OrderParts orderParts = new OrderParts();
         mainWindow.setContentPane(orderParts.getMainPanel());
+        mainWindow.setSize(500,600);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        /*
+        SearchParts searchParts = new SearchParts();
+        mainWindow.setContentPane(searchParts.getMainPanel());
+        mainWindow.setSize(500,600);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        /*
+        ViewJobs viewJobs = new ViewJobs();
+        mainWindow.setContentPane(viewJobs.getMainPanel());
+        mainWindow.setSize(500,600);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        UpdateJob updateJob = new UpdateJob();
+        mainWindow.setContentPane(updateJob.getMainPanel());
         mainWindow.setSize(500,600);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);

@@ -4,7 +4,6 @@ import Forms.StockControl.*;
 import Forms.Users.*;
 import Forms.Reception.*;
 import Forms.Jobs.*;
-import Forms.Payments.*;
 
 import javax.swing.*;
 import java.awt.event.*;
