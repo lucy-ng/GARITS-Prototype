@@ -1,4 +1,4 @@
-package Forms;
+package Forms.Accounts;
 
 import javax.swing.*;
 

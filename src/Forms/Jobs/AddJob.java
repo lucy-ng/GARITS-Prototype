@@ -1,4 +1,4 @@
-package Forms;
+package Forms.Jobs;
 
 import javax.swing.*;
 

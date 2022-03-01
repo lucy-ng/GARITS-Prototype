@@ -1,5 +1,8 @@
 import Forms.*;
-import Users.Foreperson;
+import Forms.Accounts.LoginAccount;
+import Forms.Accounts.RegisterAccount;
+import Forms.Accounts.RegisterCustAccount;
+import Forms.Users.AdminPage;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

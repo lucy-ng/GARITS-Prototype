@@ -1,4 +1,4 @@
-package Forms;
+package Forms.Reception;
 
 import javax.swing.*;
 
