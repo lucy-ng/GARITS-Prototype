@@ -112,11 +112,25 @@ public class GARITS_Testing {
 
          */
 
+        /*
         UpdateJob updateJob = new UpdateJob();
         mainWindow.setContentPane(updateJob.getMainPanel());
         mainWindow.setSize(500,600);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
+
+         */
+
+        /*
+        MonthlyReport monthlyReport = new MonthlyReport();
+        mainWindow.setContentPane(monthlyReport.getMainPanel());
+        mainWindow.setSize(500,600);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+
     }
 
     // Testing the GARITS system
