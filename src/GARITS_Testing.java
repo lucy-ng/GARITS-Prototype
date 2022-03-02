@@ -131,8 +131,17 @@ public class GARITS_Testing {
 
          */
 
+        /*
         MakePayment makePayment = new MakePayment();
         mainWindow.setContentPane(makePayment.getMainPanel());
+        mainWindow.setSize(500,600);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        MOT_Reminder mot_reminder = new MOT_Reminder();
+        mainWindow.setContentPane(mot_reminder.getMainPanel());
         mainWindow.setSize(500,600);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
