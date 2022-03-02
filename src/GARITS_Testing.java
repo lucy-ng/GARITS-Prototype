@@ -140,8 +140,26 @@ public class GARITS_Testing {
 
          */
 
+        /*
         MOT_Reminder mot_reminder = new MOT_Reminder();
         mainWindow.setContentPane(mot_reminder.getMainPanel());
+        mainWindow.setSize(500,600);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        /*
+        JobSheetReport jobSheetReport = new JobSheetReport();
+        mainWindow.setContentPane(jobSheetReport.getMainPanel());
+        mainWindow.setSize(1100,600);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        Invoice invoice = new Invoice();
+        mainWindow.setContentPane(invoice.getMainPanel());
         mainWindow.setSize(500,600);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
