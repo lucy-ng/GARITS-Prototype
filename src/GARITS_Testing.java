@@ -1,5 +1,6 @@
 import Forms.*;
 import Forms.Accounts.*;
+import Forms.Payments.MakePayment;
 import Forms.StockControl.*;
 import Forms.Users.*;
 import Forms.Reception.*;
@@ -130,7 +131,11 @@ public class GARITS_Testing {
 
          */
 
-
+        MakePayment makePayment = new MakePayment();
+        mainWindow.setContentPane(makePayment.getMainPanel());
+        mainWindow.setSize(500,600);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
     }
 
     // Testing the GARITS system
