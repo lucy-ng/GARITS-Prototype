@@ -167,9 +167,18 @@ public class GARITS_Testing {
 
          */
 
+        /*
         StockLevel stockLevel = new StockLevel();
         mainWindow.setContentPane(stockLevel.getMainPanel());
         mainWindow.setSize(600,600);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        AddParts addParts = new AddParts();
+        mainWindow.setContentPane(addParts.getMainPanel());
+        mainWindow.setSize(500,500);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
     }
