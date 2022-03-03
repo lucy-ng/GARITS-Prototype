@@ -158,9 +158,18 @@ public class GARITS_Testing {
 
          */
 
+        /*
         Invoice invoice = new Invoice();
         mainWindow.setContentPane(invoice.getMainPanel());
         mainWindow.setSize(500,600);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        StockLevel stockLevel = new StockLevel();
+        mainWindow.setContentPane(stockLevel.getMainPanel());
+        mainWindow.setSize(600,600);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
     }
