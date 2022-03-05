@@ -18,19 +18,6 @@ public class RegisterAccount {
     private JPanel mainPanel;
 
     public RegisterAccount() {
-        mainPanel.setLayout(null);
-        mainPanel.add(registerTitle);
-        mainPanel.add(firstNameLabel);
-        mainPanel.add(firstName);
-        mainPanel.add(secondNameLabel);
-        mainPanel.add(secondName);
-        mainPanel.add(usernameLabel);
-        mainPanel.add(username);
-        mainPanel.add(passwordLabel);
-        mainPanel.add(password);
-        mainPanel.add(registerButton);
-        mainPanel.add(roleLabel);
-        mainPanel.add(role);
 
     }
 

@@ -2,7 +2,7 @@ package Forms.StockControl;
 
 import javax.swing.*;
 
-public class StockLevel {
+public class StockLevelReport {
     private JPanel mainPanel;
     private JLabel stockLevelTitle;
     private JTextPane address;
@@ -15,7 +15,7 @@ public class StockLevel {
     private JLabel reportDateLabel;
     private JTextField reportPeriod2;
 
-    public StockLevel() {
+    public StockLevelReport() {
 
     }
 

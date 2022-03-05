@@ -176,8 +176,26 @@ public class GARITS_Testing {
 
          */
 
+        /*
         AddParts addParts = new AddParts();
         mainWindow.setContentPane(addParts.getMainPanel());
+        mainWindow.setSize(500,500);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        /*
+        RegisterAccount registerAccount = new RegisterAccount();
+        mainWindow.setContentPane(registerAccount.getMainPanel());
+        mainWindow.setSize(500,500);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        mainWindow.setVisible(true);
+
+         */
+
+        UpdateAccount updateAccount = new UpdateAccount();
+        mainWindow.setContentPane(updateAccount.getMainPanel());
         mainWindow.setSize(500,500);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);

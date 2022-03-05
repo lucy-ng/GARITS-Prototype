@@ -15,4 +15,13 @@ public class UpdateAccount {
     private JLabel roleLabel;
     private JTextField role;
     private JButton updateButton;
+    private JPanel mainPanel;
+
+    public UpdateAccount() {
+
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 }
