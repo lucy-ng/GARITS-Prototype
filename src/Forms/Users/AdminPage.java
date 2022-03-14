@@ -16,7 +16,7 @@ public class AdminPage extends JFrame {
     private JPanel contentPanel;
 
     public AdminPage() {
-        contentPanel.setLayout(null);
+
     }
 
     // Return panels
@@ -33,10 +33,5 @@ public class AdminPage extends JFrame {
     }
     public JButton getAddAccountButton() {
         return addAccountButton;
-    }
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
-
     }
 }

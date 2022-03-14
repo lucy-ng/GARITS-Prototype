@@ -76,8 +76,7 @@ public class GARITS {
             public void actionPerformed(ActionEvent e) {
                 RegisterAccount r = new RegisterAccount();
                 a.getContentPanel().add(r.getMainPanel());
-                r.getMainPanel().setVisible(true);
-                a.getContentPanel().setSize(500,500);
+                a.getContentPanel().setVisible(true);
             }
         });
 
