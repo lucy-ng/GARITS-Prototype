@@ -1,9 +1,6 @@
 import Forms.*;
 import Forms.Accounts.*;
-import Forms.StockControl.*;
 import Forms.Users.*;
-import Forms.Reception.*;
-import Forms.Jobs.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,39 +48,40 @@ public class GARITS {
         l.getLoginButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // New admin page
-                AdminPage adminPage = adminPage(l);
+                // New adminPage page
+                AdminPage adminPage = adminPage();
             }
         });
         return l;
     }
 
-    // AdminPage
-    public AdminPage adminPage(LoginAccount l) {
-        // Set up window for admin
-        AdminPage a = new AdminPage();
-        mainWindow.setContentPane(a.getMainPanel());
+    // Admin Page
+    public AdminPage adminPage(){
+        AdminPage adminPage = new AdminPage();
+        mainWindow.setContentPane(adminPage.getMainPanel());
         mainWindow.setVisible(true);
 
-        // Register account button
-        a.getAddAccountButton().addActionListener(new ActionListener() {
+        adminPage.getAddAccountButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RegisterAccount r = new RegisterAccount();
-                a.getContentPanel().add(r.getMainPanel());
-
+                RegisterAccount registerAccount = new RegisterAccount();
+                adminPage.getContentPanel().removeAll();
+                adminPage.getContentPanel().add(registerAccount.getMainPanel());
+                adminPage.getContentPanel().revalidate();
             }
         });
 
-        // Logout button
-        a.getLogoutButton().addActionListener(new ActionListener() {
+        adminPage.getUpdateAccountButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // New login account page
-                LoginAccount loginAccount = loginAccount();
+                UpdateAccount updateAccount = new UpdateAccount();
+                adminPage.getContentPanel().removeAll();
+                adminPage.getContentPanel().add(updateAccount.getMainPanel());
+                adminPage.getContentPanel().revalidate();
             }
         });
-        return a;
+
+        return adminPage;
     }
 
     public GARITS() {
@@ -96,7 +94,23 @@ public class GARITS {
 
         // Home button
         JButton homeButton = new JButton("Home");
+        homeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Homepage homepage = homepage();
+            }
+        });
         menu.add(homeButton);
+
+        // Logout button
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginAccount loginAccount = loginAccount();
+            }
+        });
+        menu.add(logoutButton);
 
         // Exit button
         JButton exitButton = new JButton("Exit");

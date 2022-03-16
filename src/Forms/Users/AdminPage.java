@@ -3,17 +3,16 @@ package Forms.Users;
 import javax.swing.*;
 
 public class AdminPage {
-    private JPanel mainPanel;
-    private JButton logoutButton;
-    private JLabel adminPageTitle;
-    private JButton addAccountButton;
-    private JButton deleteButton;
+    private JButton addButton;
     private JButton updateButton;
+    private JButton deleteButton;
     private JButton backupButton;
     private JButton restoreButton;
-    private JLabel staffAccountsLabel;
-    private JLabel databaseLabel;
     private JPanel contentPanel;
+    private JLabel adminPageTitle;
+    private JPanel mainPanel;
+    private JLabel accountsLabel;
+    private JLabel databaseLabel;
 
     public AdminPage() {
 
@@ -28,10 +27,8 @@ public class AdminPage {
     public JPanel getContentPanel() { return contentPanel; }
 
     // Return buttons
-    public JButton getLogoutButton() {
-        return logoutButton;
-    }
     public JButton getAddAccountButton() {
-        return addAccountButton;
+        return addButton;
     }
+    public JButton getUpdateAccountButton() { return updateButton; }
 }
