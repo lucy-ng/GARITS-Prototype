@@ -2,7 +2,7 @@ package Forms.Users;
 
 import javax.swing.*;
 
-public class AdminPage extends JFrame {
+public class AdminPage {
     private JPanel mainPanel;
     private JButton logoutButton;
     private JLabel adminPageTitle;

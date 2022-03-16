@@ -6,6 +6,7 @@ import Forms.Reception.*;
 import Forms.Jobs.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 // Creating the GARITS system
@@ -17,8 +18,6 @@ public class GARITS {
         // Set up window for homepage
         Homepage h = new Homepage();
         mainWindow.setContentPane(h.getMainPanel());
-        mainWindow.setSize(500,500);
-        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
 
         // Login button
@@ -46,8 +45,6 @@ public class GARITS {
         // Set up window for login
         LoginAccount l = new LoginAccount();
         mainWindow.setContentPane(l.getMainPanel());
-        mainWindow.setSize(500,500);
-        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
 
         // Login button
@@ -66,8 +63,6 @@ public class GARITS {
         // Set up window for admin
         AdminPage a = new AdminPage();
         mainWindow.setContentPane(a.getMainPanel());
-        mainWindow.setSize(1000,650);
-        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
 
         // Register account button
@@ -76,7 +71,7 @@ public class GARITS {
             public void actionPerformed(ActionEvent e) {
                 RegisterAccount r = new RegisterAccount();
                 a.getContentPanel().add(r.getMainPanel());
-                a.getContentPanel().setVisible(true);
+
             }
         });
 
@@ -92,7 +87,30 @@ public class GARITS {
     }
 
     public GARITS() {
-        // Create instance of login account form
+        mainWindow.setLayout(new BorderLayout());
+        mainWindow.setSize(1250,650);
+        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        // Menu
+        JMenuBar menu = new JMenuBar();
+
+        // Home button
+        JButton homeButton = new JButton("Home");
+        menu.add(homeButton);
+
+        // Exit button
+        JButton exitButton = new JButton("Exit");
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        menu.add(exitButton);
+
+        // Add menu
+        mainWindow.setJMenuBar(menu);
+        // Homepage
         Homepage homepage = homepage();
     }
 

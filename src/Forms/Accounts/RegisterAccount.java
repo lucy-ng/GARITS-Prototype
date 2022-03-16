@@ -18,6 +18,7 @@ public class RegisterAccount {
     private JPanel mainPanel;
 
     public RegisterAccount() {
+        /*
         mainPanel.add(registerTitle);
         mainPanel.add(firstNameLabel);
         mainPanel.add(firstName);
@@ -30,6 +31,8 @@ public class RegisterAccount {
         mainPanel.add(registerButton);
         mainPanel.add(roleLabel);
         mainPanel.add(role);
+
+         */
     }
 
     public JPanel getMainPanel() {
