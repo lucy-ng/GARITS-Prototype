@@ -207,6 +207,7 @@ public class GARITS_Testing {
 
          */
 
+        /*
         MechanicPage mechanicPage = new MechanicPage();
         mainWindow.setContentPane(mechanicPage.getMainPanel());
         mainWindow.setVisible(true);
@@ -248,12 +249,91 @@ public class GARITS_Testing {
             }
         });
 
-        /*
+         */
+
         ReceptionistPage receptionistPage = new ReceptionistPage();
         mainWindow.setContentPane(receptionistPage.getMainPanel());
         mainWindow.setVisible(true);
 
-         */
+        receptionistPage.getCreateCustomerRecordButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CreateCustomerRecord createCustomerRecord = new CreateCustomerRecord();
+                receptionistPage.getContentPanel().removeAll();
+                receptionistPage.getContentPanel().add(createCustomerRecord.getMainPanel());
+                receptionistPage.getContentPanel().revalidate();
+            }
+        });
+
+        receptionistPage.getMonthlyReportButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MonthlyReport monthlyReport = new MonthlyReport();
+                receptionistPage.getContentPanel().removeAll();
+                receptionistPage.getContentPanel().add(monthlyReport.getMainPanel());
+                receptionistPage.getContentPanel().revalidate();
+            }
+        });
+
+        receptionistPage.getAddViewJobsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddJob addJob = new AddJob();
+                receptionistPage.getContentPanel().removeAll();
+                receptionistPage.getContentPanel().add(addJob.getMainPanel());
+                receptionistPage.getContentPanel().revalidate();
+            }
+        });
+
+        receptionistPage.getInvoiceButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Invoice invoice = new Invoice();
+                receptionistPage.getContentPanel().removeAll();
+                receptionistPage.getContentPanel().add(invoice.getMainPanel());
+                receptionistPage.getContentPanel().revalidate();
+            }
+        });
+
+        receptionistPage.getJobSheetButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JobSheetReport jobSheetReport = new JobSheetReport();
+                receptionistPage.getContentPanel().removeAll();
+                receptionistPage.getContentPanel().add(jobSheetReport.getMainPanel());
+                receptionistPage.getContentPanel().revalidate();
+            }
+        });
+
+        receptionistPage.getOrderPartsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OrderParts orderParts = new OrderParts();
+                receptionistPage.getContentPanel().removeAll();
+                receptionistPage.getContentPanel().add(orderParts.getMainPanel());
+                receptionistPage.getContentPanel().revalidate();
+            }
+        });
+
+        receptionistPage.getSearchPartsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SearchParts searchParts = new SearchParts();
+                receptionistPage.getContentPanel().removeAll();
+                receptionistPage.getContentPanel().add(searchParts.getMainPanel());
+                receptionistPage.getContentPanel().revalidate();
+            }
+        });
+
+        receptionistPage.getStockReportButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StockLevelReport stockLevelReport = new StockLevelReport();
+                receptionistPage.getContentPanel().removeAll();
+                receptionistPage.getContentPanel().add(stockLevelReport.getMainPanel());
+                receptionistPage.getContentPanel().revalidate();
+            }
+        });
 
         /*
         CreateCustomerRecord createCustomerRecord = new CreateCustomerRecord();
