@@ -7,27 +7,113 @@ import Forms.Reception.*;
 import Forms.Jobs.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class GARITS_Testing {
     final public JFrame mainWindow = new JFrame("GARITS Testing");
 
     public GARITS_Testing() {
-        // Testing
-        /*
-        ForepersonPage forepersonPage = new ForepersonPage();
-        mainWindow.setContentPane(forepersonPage.getMainPanel());
+        mainWindow.setLayout(new BorderLayout());
         mainWindow.setSize(1250,650);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        // Testing
+
+        /*
+        AdminPage adminPage = new AdminPage();
+        mainWindow.setContentPane(adminPage.getMainPanel());
         mainWindow.setVisible(true);
 
          */
 
+        ForepersonPage forepersonPage = new ForepersonPage();
+        mainWindow.setContentPane(forepersonPage.getMainPanel());
+        mainWindow.setVisible(true);
+
+        forepersonPage.getCreateCustomerRecordButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CreateCustomerRecord createCustomerRecord = new CreateCustomerRecord();
+                forepersonPage.getContentPanel().removeAll();
+                forepersonPage.getContentPanel().add(createCustomerRecord.getMainPanel());
+                forepersonPage.getContentPanel().revalidate();
+            }
+        });
+
+        forepersonPage.getMonthlyReportButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MonthlyReport monthlyReport = new MonthlyReport();
+                forepersonPage.getContentPanel().removeAll();
+                forepersonPage.getContentPanel().add(monthlyReport.getMainPanel());
+                forepersonPage.getContentPanel().revalidate();
+            }
+        });
+
+        forepersonPage.getAddViewJobsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddJob addJob = new AddJob();
+                forepersonPage.getContentPanel().removeAll();
+                forepersonPage.getContentPanel().add(addJob.getMainPanel());
+                forepersonPage.getContentPanel().revalidate();
+            }
+        });
+
+        forepersonPage.getUpdateJobButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateJob updateJob = new UpdateJob();
+                forepersonPage.getContentPanel().removeAll();
+                forepersonPage.getContentPanel().add(updateJob.getMainPanel());
+                forepersonPage.getContentPanel().revalidate();
+            }
+        });
+
+        forepersonPage.getJobSheetInvoiceButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Invoice invoice = new Invoice();
+                forepersonPage.getContentPanel().removeAll();
+                forepersonPage.getContentPanel().add(invoice.getMainPanel());
+                forepersonPage.getContentPanel().revalidate();
+            }
+        });
+
+        forepersonPage.getOrderPartsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OrderParts orderParts = new OrderParts();
+                forepersonPage.getContentPanel().removeAll();
+                forepersonPage.getContentPanel().add(orderParts.getMainPanel());
+                forepersonPage.getContentPanel().revalidate();
+            }
+        });
+
+        forepersonPage.getSearchPartsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SearchParts searchParts = new SearchParts();
+                forepersonPage.getContentPanel().removeAll();
+                forepersonPage.getContentPanel().add(searchParts.getMainPanel());
+                forepersonPage.getContentPanel().revalidate();
+            }
+        });
+
+        forepersonPage.getStockReportButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StockLevelReport stockLevelReport = new StockLevelReport();
+                forepersonPage.getContentPanel().removeAll();
+                forepersonPage.getContentPanel().add(stockLevelReport.getMainPanel());
+                forepersonPage.getContentPanel().revalidate();
+            }
+        });
+
         /*
         FranchiseePage franchiseePage = new FranchiseePage();
         mainWindow.setContentPane(franchiseePage.getMainPanel());
-        mainWindow.setSize(1250,650);
-        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
 
          */
@@ -35,8 +121,6 @@ public class GARITS_Testing {
         /*
         MechanicPage mechanicPage = new MechanicPage();
         mainWindow.setContentPane(mechanicPage.getMainPanel());
-        mainWindow.setSize(1250,650);
-        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
 
          */
@@ -44,8 +128,6 @@ public class GARITS_Testing {
         /*
         ReceptionistPage receptionistPage = new ReceptionistPage();
         mainWindow.setContentPane(receptionistPage.getMainPanel());
-        mainWindow.setSize(1250,650);
-        mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
 
          */
@@ -194,11 +276,14 @@ public class GARITS_Testing {
 
          */
 
+        /*
         UpdateAccount updateAccount = new UpdateAccount();
         mainWindow.setContentPane(updateAccount.getMainPanel());
         mainWindow.setSize(500,500);
         mainWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindow.setVisible(true);
+
+         */
     }
 
     // Testing the GARITS system
