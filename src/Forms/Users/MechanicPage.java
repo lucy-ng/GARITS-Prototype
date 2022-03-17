@@ -3,15 +3,15 @@ package Forms.Users;
 import javax.swing.*;
 
 public class MechanicPage {
-    private JLabel mechanicPageTitle;
-    private JButton viewJobsButton;
-    private JLabel jobLabel;
-    private JButton updatePickJobButton;
-    private JButton logoutButton;
-    private JButton searchPartsButton;
-    private JLabel partsLabel;
-    private JPanel contentPanel;
     private JPanel mainPanel;
+    private JButton viewJobsButton;
+    private JButton pickJobButton;
+    private JLabel jobsLabel;
+    private JButton updateJobButton;
+    private JLabel mechanicPageTitle;
+    private JButton searchPartsButton;
+    private JPanel contentPanel;
+    private JLabel partsLabel;
 
     public MechanicPage() {
 
@@ -19,5 +19,23 @@ public class MechanicPage {
 
     public JPanel getMainPanel() {
         return mainPanel;
+    }
+    public JPanel getContentPanel() { return contentPanel; }
+
+    // Return buttons
+    public JButton getViewJobsButton() {
+        return viewJobsButton;
+    }
+
+    public JButton getPickJobButton() {
+        return pickJobButton;
+    }
+
+    public JButton getUpdateJobButton() {
+        return updateJobButton;
+    }
+
+    public JButton getSearchPartsButton() {
+        return searchPartsButton;
     }
 }

@@ -7,6 +7,7 @@ import Forms.Reception.*;
 import Forms.Jobs.*;
 
 import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -115,6 +116,7 @@ public class GARITS_Testing {
 
          */
 
+        /*
         FranchiseePage franchiseePage = new FranchiseePage();
         mainWindow.setContentPane(franchiseePage.getMainPanel());
         mainWindow.setVisible(true);
@@ -203,12 +205,48 @@ public class GARITS_Testing {
             }
         });
 
-        /*
+         */
+
         MechanicPage mechanicPage = new MechanicPage();
         mainWindow.setContentPane(mechanicPage.getMainPanel());
         mainWindow.setVisible(true);
 
-         */
+        mechanicPage.getViewJobsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewJobs viewJobs = new ViewJobs();
+                mechanicPage.getContentPanel().removeAll();
+                mechanicPage.getContentPanel().add(viewJobs.getMainPanel());
+                mechanicPage.getContentPanel().revalidate();
+            }
+        });
+
+        mechanicPage.getUpdateJobButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateJob updateJob = new UpdateJob();
+                mechanicPage.getContentPanel().removeAll();
+                mechanicPage.getContentPanel().add(updateJob.getMainPanel());
+                mechanicPage.getContentPanel().revalidate();
+            }
+        });
+
+        mechanicPage.getPickJobButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        mechanicPage.getSearchPartsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SearchParts searchParts = new SearchParts();
+                mechanicPage.getContentPanel().removeAll();
+                mechanicPage.getContentPanel().add(searchParts.getMainPanel());
+                mechanicPage.getContentPanel().revalidate();
+            }
+        });
 
         /*
         ReceptionistPage receptionistPage = new ReceptionistPage();
