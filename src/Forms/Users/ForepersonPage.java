@@ -25,10 +25,7 @@ public class ForepersonPage {
     public JPanel getMainPanel() {
         return mainPanel;
     }
-
-    public JPanel getContentPanel() {
-        return contentPanel;
-    }
+    public JPanel getContentPanel() { return contentPanel; }
 
     // Return buttons
     public JButton getCreateCustomerRecordButton() {

@@ -27,6 +27,7 @@ public class GARITS_Testing {
 
          */
 
+        /*
         ForepersonPage forepersonPage = new ForepersonPage();
         mainWindow.setContentPane(forepersonPage.getMainPanel());
         mainWindow.setVisible(true);
@@ -111,12 +112,96 @@ public class GARITS_Testing {
             }
         });
 
-        /*
+
+         */
+
         FranchiseePage franchiseePage = new FranchiseePage();
         mainWindow.setContentPane(franchiseePage.getMainPanel());
         mainWindow.setVisible(true);
 
-         */
+        franchiseePage.getCreateButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RegisterCustAccount registerCustAccount = new RegisterCustAccount();
+                franchiseePage.getContentPanel().removeAll();
+                franchiseePage.getContentPanel().add(registerCustAccount.getMainPanel());
+                franchiseePage.getContentPanel().revalidate();
+            }
+        });
+
+        franchiseePage.getUpdateButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        franchiseePage.getDeleteButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        franchiseePage.getAddViewButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddJob addJob = new AddJob();
+                franchiseePage.getContentPanel().removeAll();
+                franchiseePage.getContentPanel().add(addJob.getMainPanel());
+                franchiseePage.getContentPanel().revalidate();
+            }
+        });
+
+        franchiseePage.getUpdatePickButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateJob updateJob = new UpdateJob();
+                franchiseePage.getContentPanel().removeAll();
+                franchiseePage.getContentPanel().add(updateJob.getMainPanel());
+                franchiseePage.getContentPanel().revalidate();
+            }
+        });
+
+        franchiseePage.getJobSheetInvoiceButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Invoice invoice = new Invoice();
+                franchiseePage.getContentPanel().removeAll();
+                franchiseePage.getContentPanel().add(invoice.getMainPanel());
+                franchiseePage.getContentPanel().revalidate();
+            }
+        });
+
+        franchiseePage.getOrderPartsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OrderParts orderParts = new OrderParts();
+                franchiseePage.getContentPanel().removeAll();
+                franchiseePage.getContentPanel().add(orderParts.getMainPanel());
+                franchiseePage.getContentPanel().revalidate();
+            }
+        });
+
+        franchiseePage.getSearchPartsButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SearchParts searchParts = new SearchParts();
+                franchiseePage.getContentPanel().removeAll();
+                franchiseePage.getContentPanel().add(searchParts.getMainPanel());
+                franchiseePage.getContentPanel().revalidate();
+            }
+        });
+
+        franchiseePage.getStockReportButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StockLevelReport stockLevelReport = new StockLevelReport();
+                franchiseePage.getContentPanel().removeAll();
+                franchiseePage.getContentPanel().add(stockLevelReport.getMainPanel());
+                franchiseePage.getContentPanel().revalidate();
+            }
+        });
 
         /*
         MechanicPage mechanicPage = new MechanicPage();
