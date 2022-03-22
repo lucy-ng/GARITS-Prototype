@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 
 // Creating the GARITS system
@@ -78,15 +79,26 @@ public class GARITS {
                         try {
 
                             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
-                            Statement statement = connection.createStatement();
+                            //Statement statement = connection.createStatement();
 
                             String usernameText = registerAccount.getUsername().getText();
                             String firstNameText = registerAccount.getFirstName().getText();
                             String secondNameText = registerAccount.getSecondName().getText();
                             String positionText = registerAccount.getRole().getText();
 
-                            String insertQuery = "insert into EmployeeAccount values(usernameText, firstNameText, secondNameText, positionText)";
+                            /*
+                            String insertQuery = "insert into EmployeeAccount (username, firstName, secondName, position) values("+usernameText+", "+firstNameText+", "+secondNameText+", "+positionText+")" ;
                             statement.executeUpdate(insertQuery);
+
+                             */
+
+                            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO EmployeeAccount VALUES (?,?,?,?)")) {
+                                statement.setString(1, usernameText);
+                                statement.setString(2, firstNameText);
+                                statement.setString(3, secondNameText);
+                                statement.setString(4, positionText);
+                                statement.executeUpdate();
+                            }
 
                         } catch (Exception ex) {
                             ex.printStackTrace();
