@@ -24,4 +24,29 @@ public class RegisterAccount {
     public JPanel getMainPanel() {
         return mainPanel;
     }
+
+    // Getters
+    public JTextField getFirstName() {
+        return firstName;
+    }
+
+    public JTextField getSecondName() {
+        return secondName;
+    }
+
+    public JTextField getUsername() {
+        return username;
+    }
+
+    public JPasswordField getPassword() {
+        return password;
+    }
+
+    public JTextField getRole() {
+        return role;
+    }
+
+    public JButton getRegisterButton() {
+        return registerButton;
+    }
 }

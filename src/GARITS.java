@@ -5,6 +5,9 @@ import Forms.Users.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 
 // Creating the GARITS system
 public class GARITS {
@@ -68,6 +71,28 @@ public class GARITS {
                 adminPage.getContentPanel().removeAll();
                 adminPage.getContentPanel().add(registerAccount.getMainPanel());
                 adminPage.getContentPanel().revalidate();
+
+                registerAccount.getRegisterButton().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        try {
+
+                            Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
+                            Statement statement = connection.createStatement();
+
+                            String usernameText = registerAccount.getUsername().getText();
+                            String firstNameText = registerAccount.getFirstName().getText();
+                            String secondNameText = registerAccount.getSecondName().getText();
+                            String positionText = registerAccount.getRole().getText();
+
+                            String insertQuery = "insert into EmployeeAccount values(usernameText, firstNameText, secondNameText, positionText)";
+                            statement.executeUpdate(insertQuery);
+
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
             }
         });
 
