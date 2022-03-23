@@ -1,7 +1,6 @@
 package Forms.Accounts;
-
-import Forms.Homepage;
 import Forms.Users.AdminPage;
+import Users.User;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,8 +9,6 @@ import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
-
 
 public class LoginAccount {
     private JLabel loginTitle;
@@ -22,34 +19,34 @@ public class LoginAccount {
     private JButton loginButton;
     private JPanel mainPanel;
 
+    public LoginAccount(JFrame window) {
 
-
-
-    public LoginAccount() {
+        window.setContentPane(mainPanel);
+        window.setVisible(true);
 
         loginButton.addActionListener(new ActionListener() {
             //@Override
             public void actionPerformed(ActionEvent e) {
-                String user = String.valueOf(username);
-                String pass = String.valueOf(password);
+                String user = String.valueOf(username.getText());
+                String pass = String.valueOf(password.getPassword());
 
                 try {
-
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
                     PreparedStatement statement = connection.prepareStatement("SELECT UserName,Password from UserAccounts where UserName = ? and Password = ?");
-                    statement.setString(1, String.valueOf(username));
-                    statement.setString(2, String.valueOf(password));
+                    statement.setString(1, String.valueOf(username.getText()));
+                    statement.setString(2, String.valueOf(password.getPassword()));
                     ResultSet rs = statement.executeQuery();
+
                     if(rs.next()) {
                         String username = rs.getString("UserName");
                         String password = rs.getString("Password");
                         if(user.equals(username) && pass.equals(password)) {
                             JOptionPane.showMessageDialog(null, "You have successfully logged in as Administrator");
-                            AdminPage adminPage = new AdminPage();
+                            AdminPage adminPage = new AdminPage(window);
                         }
                     } else {
                         JOptionPane.showMessageDialog(null,"Wrong username or password");
-                        LoginAccount loginAccount = new LoginAccount();
+                        LoginAccount loginAccount = new LoginAccount(window);
                     }
                 } catch (SQLException sqlException) {
                     sqlException.printStackTrace();;

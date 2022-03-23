@@ -17,114 +17,19 @@ public class GARITS {
     // Methods to return forms
     public Homepage homepage() {
         // Set up window for homepage
-        Homepage h = new Homepage();
-        mainWindow.setContentPane(h.getMainPanel());
-        mainWindow.setVisible(true);
-
-        // Login button
-        h.getLoginButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // New login page
-                LoginAccount loginAccount = loginAccount();
-            }
-        });
-
-        // Exit button
-        h.getExitButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
+        Homepage h = new Homepage(mainWindow);
         return h;
     }
 
     // LoginAccount
     public LoginAccount loginAccount() {
         // Set up window for login
-        LoginAccount l = new LoginAccount();
-        mainWindow.setContentPane(l.getMainPanel());
-        mainWindow.setVisible(true);
-
-        // Login button
-        /*l.getLoginButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //Check database for login details
-
-                // New adminPage page
-                AdminPage adminPage = adminPage();
-            }
-        });*/
+        LoginAccount l = new LoginAccount(mainWindow);
         return l;
     }
 
     public JFrame getMainWindow() {
         return mainWindow;
-    }
-
-    // Admin Page
-    public AdminPage adminPage(){
-        AdminPage adminPage = new AdminPage();
-        mainWindow.setContentPane(adminPage.getMainPanel());
-        mainWindow.setVisible(true);
-
-        adminPage.getAddAccountButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                RegisterAccount registerAccount = new RegisterAccount();
-                adminPage.getContentPanel().removeAll();
-                adminPage.getContentPanel().add(registerAccount.getMainPanel());
-                adminPage.getContentPanel().revalidate();
-
-                registerAccount.getRegisterButton().addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        try {
-
-                            Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
-                            //Statement statement = connection.createStatement();
-
-                            String usernameText = registerAccount.getUsername().getText();
-                            String firstNameText = registerAccount.getFirstName().getText();
-                            String secondNameText = registerAccount.getSecondName().getText();
-                            String positionText = registerAccount.getRole().getText();
-
-                            /*
-                            String insertQuery = "insert into EmployeeAccount (username, firstName, secondName, position) values("+usernameText+", "+firstNameText+", "+secondNameText+", "+positionText+")" ;
-                            statement.executeUpdate(insertQuery);
-
-                             */
-
-                            try (PreparedStatement statement = connection.prepareStatement("INSERT INTO EmployeeAccount VALUES (?,?,?,?)")) {
-                                statement.setString(1, usernameText);
-                                statement.setString(2, firstNameText);
-                                statement.setString(3, secondNameText);
-                                statement.setString(4, positionText);
-                                statement.executeUpdate();
-                            }
-
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                });
-            }
-        });
-
-        adminPage.getUpdateAccountButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                UpdateAccount updateAccount = new UpdateAccount();
-                adminPage.getContentPanel().removeAll();
-                adminPage.getContentPanel().add(updateAccount.getMainPanel());
-                adminPage.getContentPanel().revalidate();
-            }
-        });
-
-        return adminPage;
     }
 
     public GARITS() {
