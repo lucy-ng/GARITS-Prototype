@@ -4,14 +4,15 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+
 // Test class which prints a record from a table in the db
 public class DBconnection {
-    public static void main(String[] args) {
+    public static void Connection() {
 
         try {
 
-            Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
-            Statement statement = connection.createStatement();
+            Connection conn = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
+            Statement statement = conn.createStatement();
 
             ResultSet resultSet = statement.executeQuery("select * from people ");
 

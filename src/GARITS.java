@@ -1,7 +1,7 @@
 import Forms.*;
 import Forms.Accounts.*;
 import Forms.Users.*;
-
+import Database.DBconnection;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -49,14 +49,20 @@ public class GARITS {
         mainWindow.setVisible(true);
 
         // Login button
-        l.getLoginButton().addActionListener(new ActionListener() {
+        /*l.getLoginButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Check database for login details
+
                 // New adminPage page
                 AdminPage adminPage = adminPage();
             }
-        });
+        });*/
         return l;
+    }
+
+    public JFrame getMainWindow() {
+        return mainWindow;
     }
 
     // Admin Page

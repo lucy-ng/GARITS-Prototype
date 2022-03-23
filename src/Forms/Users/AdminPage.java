@@ -31,4 +31,17 @@ public class AdminPage {
         return addButton;
     }
     public JButton getUpdateAccountButton() { return updateButton; }
+
+    public AdminPage(JButton addButton, JButton updateButton, JButton deleteButton, JButton backupButton, JButton restoreButton, JPanel contentPanel, JLabel adminPageTitle, JPanel mainPanel, JLabel accountsLabel, JLabel databaseLabel) {
+        this.addButton = addButton;
+        this.updateButton = updateButton;
+        this.deleteButton = deleteButton;
+        this.backupButton = backupButton;
+        this.restoreButton = restoreButton;
+        this.contentPanel = contentPanel;
+        this.adminPageTitle = adminPageTitle;
+        this.mainPanel = mainPanel;
+        this.accountsLabel = accountsLabel;
+        this.databaseLabel = databaseLabel;
+    }
 }
