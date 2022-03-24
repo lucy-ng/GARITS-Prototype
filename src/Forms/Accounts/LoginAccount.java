@@ -1,5 +1,6 @@
 package Forms.Accounts;
 import Forms.Users.AdminPage;
+import Forms.Users.ForepersonPage;
 import Users.User;
 
 import javax.swing.*;
@@ -32,7 +33,8 @@ public class LoginAccount {
 
                 try {
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
-                    PreparedStatement statement = connection.prepareStatement("SELECT UserName,Password from UserAccounts where UserName = ? and Password = ?");
+                    //PreparedStatement statement = connection.prepareStatement("SELECT UserName,Password from UserAccounts where UserName = ? and Password = ?");
+                    PreparedStatement statement = connection.prepareStatement("SELECT UserAccounts.UserName, UserAccounts.Password, EmployeeAcct.EmployeePosition from UserAccounts INNER JOIN EmployeeAcct ON EmployeeAcct.AccountID = UserAccounts.AccountID where UserName = ? and Password = ?");
                     statement.setString(1, String.valueOf(username.getText()));
                     statement.setString(2, String.valueOf(password.getPassword()));
                     ResultSet rs = statement.executeQuery();
@@ -41,8 +43,15 @@ public class LoginAccount {
                         String username = rs.getString("UserName");
                         String password = rs.getString("Password");
                         if(user.equals(username) && pass.equals(password)) {
-                            JOptionPane.showMessageDialog(null, "You have successfully logged in as Administrator");
-                            AdminPage adminPage = new AdminPage(window);
+                            String role = rs.getString("EmployeePosition");
+                            if (role.equals("admin")) {
+                                JOptionPane.showMessageDialog(null, "You have successfully logged in as Administrator");
+                                AdminPage adminPage = new AdminPage(window);
+                            }
+                            else if (role.equals("foreperson")){
+                                JOptionPane.showMessageDialog(null, "You have successfully logged in as Foreperson");
+                                ForepersonPage forepersonPage = new ForepersonPage(window);
+                            }
                         }
                     } else {
                         JOptionPane.showMessageDialog(null,"Wrong username or password");

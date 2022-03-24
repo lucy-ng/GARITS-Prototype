@@ -1,14 +1,9 @@
 package Forms.Users;
 
-import Forms.Accounts.RegisterAccount;
-import Forms.Accounts.UpdateAccount;
+import Forms.Accounts.*;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.awt.event.*;
 
 public class AdminPage {
     private JButton addButton;
