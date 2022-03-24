@@ -21,6 +21,12 @@ public class RegisterAccount {
     private JLabel roleLabel;
     private JTextField role;
     private JPanel mainPanel;
+    private JLabel emailLabel;
+    private JTextField email;
+    private JLabel phoneNumberLabel;
+    private JTextField phoneNumber;
+    private JTextField department;
+    private JLabel departmentLabel;
 
     public RegisterAccount() {
 
@@ -30,26 +36,36 @@ public class RegisterAccount {
                 try {
 
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
-                    //Statement statement = connection.createStatement();
+                    connection.setAutoCommit(false);
 
                     String usernameText = username.getText();
                     String firstNameText = firstName.getText();
                     String secondNameText = secondName.getText();
-                    String positionText = role.getText();
+                    String passwordText = String.valueOf(password.getPassword());
+                    String emailText = email.getText();
+                    String phoneNumberText = phoneNumber.getText();
+                    String roleText = role.getText();
+                    String departmentText = department.getText();
 
-                            /*
-                            String insertQuery = "insert into EmployeeAccount (username, firstName, secondName, position) values("+usernameText+", "+firstNameText+", "+secondNameText+", "+positionText+")" ;
-                            statement.executeUpdate(insertQuery);
-
-                             */
-
-                    try (PreparedStatement statement = connection.prepareStatement("INSERT INTO EmployeeAccount VALUES (?,?,?,?)")) {
+                    try (PreparedStatement statement = connection.prepareStatement("INSERT INTO UserAccounts (username, firstName, lastName, password, email, phoneNo) VALUES (?,?,?,?,?,?)")) {
                         statement.setString(1, usernameText);
                         statement.setString(2, firstNameText);
                         statement.setString(3, secondNameText);
-                        statement.setString(4, positionText);
+                        statement.setString(4, passwordText);
+                        statement.setString(5, emailText);
+                        statement.setString(6, phoneNumberText);
                         statement.executeUpdate();
                     }
+
+                    try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO EmployeeAccount (EmployeePosition, Department) VALUES (?,?)")) {
+                        stmt.setString(1, roleText);
+                        stmt.setString(2, departmentText);
+                        stmt.executeUpdate();
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Account created!");
+                    connection.setAutoCommit(true);
+                    connection.close();
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
