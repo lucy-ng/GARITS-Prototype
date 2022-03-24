@@ -55,6 +55,7 @@ public class GARITS {
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null, "You have logged out");
                 LoginAccount loginAccount = loginAccount();
             }
         });

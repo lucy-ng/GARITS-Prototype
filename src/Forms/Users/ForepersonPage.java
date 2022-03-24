@@ -1,13 +1,8 @@
 package Forms.Users;
 
-import Forms.Jobs.AddJob;
-import Forms.Jobs.UpdateJob;
-import Forms.Reception.CreateCustomerRecord;
-import Forms.Reception.Invoice;
-import Forms.Reception.MonthlyReport;
-import Forms.StockControl.OrderParts;
-import Forms.StockControl.SearchParts;
-import Forms.StockControl.StockLevelReport;
+import Forms.Jobs.*;
+import Forms.Reception.*;
+import Forms.StockControl.*;
 
 import javax.swing.*;
 import java.awt.event.*;

@@ -1,6 +1,7 @@
 package Forms.Accounts;
 import Forms.Users.AdminPage;
 import Forms.Users.ForepersonPage;
+import Forms.Users.FranchiseePage;
 import Users.User;
 
 import javax.swing.*;
@@ -52,6 +53,10 @@ public class LoginAccount {
                                 JOptionPane.showMessageDialog(null, "You have successfully logged in as Foreperson");
                                 ForepersonPage forepersonPage = new ForepersonPage(window);
                             }
+                            else if (role.equals("franchisee")){
+                                JOptionPane.showMessageDialog(null, "You have successfully logged in as Franchisee");
+                                FranchiseePage franchiseePage = new FranchiseePage(window);
+                            }
                         }
                     } else {
                         JOptionPane.showMessageDialog(null,"Wrong username or password");
@@ -60,8 +65,6 @@ public class LoginAccount {
                 } catch (SQLException sqlException) {
                     sqlException.printStackTrace();;
                 }
-
-
             }
         });
     }

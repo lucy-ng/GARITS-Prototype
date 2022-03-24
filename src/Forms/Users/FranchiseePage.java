@@ -1,6 +1,12 @@
 package Forms.Users;
 
+import Forms.Accounts.*;
+import Forms.Jobs.*;
+import Forms.Reception.*;
+import Forms.StockControl.*;
+
 import javax.swing.*;
+import java.awt.event.*;
 
 public class FranchiseePage {
     private JPanel mainPanel;
@@ -19,8 +25,93 @@ public class FranchiseePage {
     private JLabel franchiseePageTitle;
     private JPanel contentPanel;
 
-    public FranchiseePage() {
+    public FranchiseePage(JFrame window) {
+        window.setContentPane(mainPanel);
+        window.setVisible(true);
 
+        createButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                RegisterCustAccount registerCustAccount = new RegisterCustAccount();
+                contentPanel.removeAll();
+                contentPanel.add(registerCustAccount.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        addViewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddJob addJob = new AddJob();
+                contentPanel.removeAll();
+                contentPanel.add(addJob.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        updatePickButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateJob updateJob = new UpdateJob();
+                contentPanel.removeAll();
+                contentPanel.add(updateJob.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        jobSheetInvoiceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Invoice invoice = new Invoice();
+                contentPanel.removeAll();
+                contentPanel.add(invoice.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        orderPartsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OrderParts orderParts = new OrderParts();
+                contentPanel.removeAll();
+                contentPanel.add(orderParts.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        searchPartsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SearchParts searchParts = new SearchParts();
+                contentPanel.removeAll();
+                contentPanel.add(searchParts.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        stockReportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StockLevelReport stockLevelReport = new StockLevelReport();
+                contentPanel.removeAll();
+                contentPanel.add(stockLevelReport.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
     }
 
     public JPanel getMainPanel() {
