@@ -1,8 +1,5 @@
 package Forms.Accounts;
-import Forms.Users.AdminPage;
-import Forms.Users.ForepersonPage;
-import Forms.Users.FranchiseePage;
-import Forms.Users.MechanicPage;
+import Forms.Users.*;
 import Users.User;
 
 import javax.swing.*;
@@ -61,6 +58,10 @@ public class LoginAccount {
                             else if (role.equals("mechanic")){
                                 JOptionPane.showMessageDialog(null, "You have successfully logged in as Mechanic");
                                 MechanicPage mechanicPage = new MechanicPage(window);
+                            }
+                            else if (role.equals("receptionist")){
+                                JOptionPane.showMessageDialog(null, "You have successfully logged in as Receptionist");
+                                ReceptionistPage receptionistPage = new ReceptionistPage(window);
                             }
                         }
                     } else {

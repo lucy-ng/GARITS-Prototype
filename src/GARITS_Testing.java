@@ -251,6 +251,7 @@ public class GARITS_Testing {
 
          */
 
+        /*
         ReceptionistPage receptionistPage = new ReceptionistPage();
         mainWindow.setContentPane(receptionistPage.getMainPanel());
         mainWindow.setVisible(true);
@@ -334,6 +335,8 @@ public class GARITS_Testing {
                 receptionistPage.getContentPanel().revalidate();
             }
         });
+
+         */
 
         /*
         CreateCustomerRecord createCustomerRecord = new CreateCustomerRecord();
