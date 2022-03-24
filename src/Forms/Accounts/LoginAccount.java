@@ -2,6 +2,7 @@ package Forms.Accounts;
 import Forms.Users.AdminPage;
 import Forms.Users.ForepersonPage;
 import Forms.Users.FranchiseePage;
+import Forms.Users.MechanicPage;
 import Users.User;
 
 import javax.swing.*;
@@ -56,6 +57,10 @@ public class LoginAccount {
                             else if (role.equals("franchisee")){
                                 JOptionPane.showMessageDialog(null, "You have successfully logged in as Franchisee");
                                 FranchiseePage franchiseePage = new FranchiseePage(window);
+                            }
+                            else if (role.equals("mechanic")){
+                                JOptionPane.showMessageDialog(null, "You have successfully logged in as Mechanic");
+                                MechanicPage mechanicPage = new MechanicPage(window);
                             }
                         }
                     } else {

@@ -1,6 +1,10 @@
 package Forms.Users;
 
+import Forms.Jobs.*;
+import Forms.StockControl.*;
+
 import javax.swing.*;
+import java.awt.event.*;
 
 public class MechanicPage {
     private JPanel mainPanel;
@@ -13,7 +17,46 @@ public class MechanicPage {
     private JPanel contentPanel;
     private JLabel partsLabel;
 
-    public MechanicPage() {
+    public MechanicPage(JFrame window) {
+        window.setContentPane(mainPanel);
+        window.setVisible(true);
+
+        viewJobsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewJobs viewJobs = new ViewJobs();
+                contentPanel.removeAll();
+                contentPanel.add(viewJobs.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        updateJobButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateJob updateJob = new UpdateJob();
+                contentPanel.removeAll();
+                contentPanel.add(updateJob.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        pickJobButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        searchPartsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SearchParts searchParts = new SearchParts();
+                contentPanel.removeAll();
+                contentPanel.add(searchParts.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
 
     }
 
