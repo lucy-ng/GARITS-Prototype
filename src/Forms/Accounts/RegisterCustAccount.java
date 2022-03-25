@@ -1,34 +1,93 @@
 package Forms.Accounts;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 public class RegisterCustAccount {
     private JLabel registerCustomerAccountTitle;
     private JPanel mainPanel;
     private JTextField username;
-    private JPasswordField passwordField1;
+    private JPasswordField password;
     private JTextField firstName;
-    private JTextField secondName;
+    private JTextField lastName;
     private JTextField email;
-    private JTextField address;
-    private JTextField phoneNumber;
-    private JTextField postCode;
+    private JTextField mobileNo;
     private JComboBox membershipType;
-    private JComboBox discountPlan;
     private JButton registerButton;
     private JLabel usernameLabel;
     private JLabel firstNameLabel;
     private JLabel emailLabel;
-    private JLabel addressLabel;
+    private JLabel mobileNoLabel;
     private JLabel passwordLabel;
-    private JLabel secondNameLabel;
-    private JLabel phoneNumberLabel;
-    private JLabel postCodeLabel;
+    private JLabel lastNameLabel;
+    private JLabel addressLabel;
     private JLabel membershipTypeLabel;
+    private JTextField daytimePhoneNo;
+    private JTextField homePhoneNo;
+    private JTextField eveningPhoneNo;
+    private JComboBox discountPlan;
+    private JTextArea address;
+    private JLabel customerDetailsLabel;
+    private JLabel homePhoneNoLabel;
+    private JLabel daytimePhoneNoLabel;
+    private JLabel eveningPhoneNoLabel;
     private JLabel discountPlanLabel;
 
     public RegisterCustAccount() {
 
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
+
+                    String usernameText = username.getText();
+                    String firstNameText = firstName.getText();
+                    String lastNameText = lastName.getText();
+                    String passwordText = String.valueOf(password.getPassword());
+                    String emailText = email.getText();
+                    String addressText = address.getText();
+                    String mobileNoText = mobileNo.getText();
+                    String homePhoneNoText = homePhoneNo.getText();
+                    String daytimePhoneNoText = daytimePhoneNo.getText();
+                    String eveningPhoneNoText = eveningPhoneNo.getText();
+                    String membershipTypeText = membershipType.getSelectedItem().toString();
+                    String discountPlanText = discountPlan.getSelectedItem().toString();
+
+                    connection.setAutoCommit(false);
+                    try (PreparedStatement statement = connection.prepareStatement("INSERT INTO UserAccounts (username, firstName, lastName, password, email, phoneNo) VALUES (?,?,?,?,?,?)")) {
+                        statement.setString(1, usernameText);
+                        statement.setString(2, firstNameText);
+                        statement.setString(3, lastNameText);
+                        statement.setString(4, passwordText);
+                        statement.setString(5, emailText);
+                        statement.setString(6, mobileNoText);
+                        statement.executeUpdate();
+                    }
+
+                    try (PreparedStatement stmtInsert = connection.prepareStatement("INSERT INTO CustomerAccount (address, homePhoneNo, daytimePhoneNo, eveningPhoneNo, membershipType, discountPlan, AccountID) VALUES (?,?,?,?,?,?, LAST_INSERT_ID())")) {
+                        stmtInsert.setString(1, addressText);
+                        stmtInsert.setString(2, homePhoneNoText);
+                        stmtInsert.setString(3, daytimePhoneNoText);
+                        stmtInsert.setString(4, eveningPhoneNoText);
+                        stmtInsert.setString(5, membershipTypeText);
+                        stmtInsert.setString(6, discountPlanText);
+                        stmtInsert.executeUpdate();
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Account created!");
+                    connection.setAutoCommit(true);
+                    connection.close();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
 
     public JPanel getMainPanel() {

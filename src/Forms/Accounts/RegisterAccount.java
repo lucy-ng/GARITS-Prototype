@@ -8,8 +8,8 @@ public class RegisterAccount {
     private JLabel registerTitle;
     private JLabel firstNameLabel;
     private JTextField firstName;
-    private JLabel secondNameLabel;
-    private JTextField secondName;
+    private JLabel lastNameLabel;
+    private JTextField lastName;
     private JLabel usernameLabel;
     private JTextField username;
     private JLabel passwordLabel;
@@ -35,37 +35,18 @@ public class RegisterAccount {
 
                     String usernameText = username.getText();
                     String firstNameText = firstName.getText();
-                    String secondNameText = secondName.getText();
+                    String lastNameText = lastName.getText();
                     String passwordText = String.valueOf(password.getPassword());
                     String emailText = email.getText();
                     String phoneNumberText = phoneNumber.getText();
                     String roleText = role.getText();
                     String departmentText = department.getText();
 
-                    /*
-                    try (PreparedStatement statement = connection.prepareStatement("INSERT INTO UserAccounts (username, firstName, lastName, password, email, phoneNo) VALUES (?,?,?,?,?,?)")) {
-                        statement.setString(1, usernameText);
-                        statement.setString(2, firstNameText);
-                        statement.setString(3, secondNameText);
-                        statement.setString(4, passwordText);
-                        statement.setString(5, emailText);
-                        statement.setString(6, phoneNumberText);
-                        statement.executeUpdate();
-                    }
-
-                    try (PreparedStatement stmtInsert = connection.prepareStatement("INSERT INTO EmployeeAccount (EmployeePosition, Department) VALUES (?,?)")) {
-                        stmtInsert.setString(1, roleText);
-                        stmtInsert.setString(2, departmentText);
-                        stmtInsert.executeUpdate();
-                    }
-
-                     */
-
                     connection.setAutoCommit(false);
                     try (PreparedStatement statement = connection.prepareStatement("INSERT INTO UserAccounts (username, firstName, lastName, password, email, phoneNo) VALUES (?,?,?,?,?,?)")) {
                         statement.setString(1, usernameText);
                         statement.setString(2, firstNameText);
-                        statement.setString(3, secondNameText);
+                        statement.setString(3, lastNameText);
                         statement.setString(4, passwordText);
                         statement.setString(5, emailText);
                         statement.setString(6, phoneNumberText);
@@ -99,7 +80,7 @@ public class RegisterAccount {
     }
 
     public JTextField getSecondName() {
-        return secondName;
+        return lastName;
     }
 
     public JTextField getUsername() {

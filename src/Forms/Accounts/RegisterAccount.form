@@ -153,16 +153,16 @@
           <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
-      <component id="a5327" class="javax.swing.JLabel" binding="secondNameLabel">
+      <component id="a5327" class="javax.swing.JLabel" binding="lastNameLabel">
         <constraints>
           <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <foreground color="-1"/>
-          <text value="Second Name"/>
+          <text value="Last Name"/>
         </properties>
       </component>
-      <component id="68510" class="javax.swing.JTextField" binding="secondName">
+      <component id="68510" class="javax.swing.JTextField" binding="lastName">
         <constraints>
           <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>

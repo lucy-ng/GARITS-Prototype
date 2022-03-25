@@ -32,10 +32,18 @@ public class FranchiseePage {
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RegisterCustAccount registerCustAccount = new RegisterCustAccount();
-                contentPanel.removeAll();
-                contentPanel.add(registerCustAccount.getMainPanel());
-                contentPanel.revalidate();
+                int choice = JOptionPane.showOptionDialog(new JFrame(), "Is the customer working for a company?", "",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                        null, new Object[] {"Yes", "No"}, JOptionPane.YES_OPTION);
+                if (choice == JOptionPane.YES_OPTION){
+
+                }
+                else if (choice == JOptionPane.NO_OPTION){
+                    RegisterCustAccount registerCustAccount = new RegisterCustAccount();
+                    contentPanel.removeAll();
+                    contentPanel.add(registerCustAccount.getMainPanel());
+                    contentPanel.revalidate();
+                }
             }
         });
 
