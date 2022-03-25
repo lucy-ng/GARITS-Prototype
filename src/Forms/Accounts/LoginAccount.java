@@ -66,7 +66,6 @@ public class LoginAccount {
                         JOptionPane.showMessageDialog(null,"Wrong username or password");
                         LoginAccount loginAccount = new LoginAccount(window);
                     }
-
                     connection.close();
                 } catch (SQLException sqlException) {
                     sqlException.printStackTrace();;

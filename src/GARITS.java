@@ -3,15 +3,10 @@
 
 import Forms.*;
 import Forms.Accounts.*;
-import Forms.Users.*;
-import Database.DBconnection;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 
 // Creating the GARITS system
 public class GARITS {

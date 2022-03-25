@@ -1,11 +1,8 @@
 package Forms.Accounts;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.awt.event.*;
+import java.sql.*;
 
 public class RegisterAccount {
     private JLabel registerTitle;
@@ -34,9 +31,7 @@ public class RegisterAccount {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
-                    connection.setAutoCommit(false);
 
                     String usernameText = username.getText();
                     String firstNameText = firstName.getText();
@@ -47,6 +42,7 @@ public class RegisterAccount {
                     String roleText = role.getText();
                     String departmentText = department.getText();
 
+                    /*
                     try (PreparedStatement statement = connection.prepareStatement("INSERT INTO UserAccounts (username, firstName, lastName, password, email, phoneNo) VALUES (?,?,?,?,?,?)")) {
                         statement.setString(1, usernameText);
                         statement.setString(2, firstNameText);
@@ -57,10 +53,29 @@ public class RegisterAccount {
                         statement.executeUpdate();
                     }
 
-                    try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO EmployeeAccount (EmployeePosition, Department) VALUES (?,?)")) {
-                        stmt.setString(1, roleText);
-                        stmt.setString(2, departmentText);
-                        stmt.executeUpdate();
+                    try (PreparedStatement stmtInsert = connection.prepareStatement("INSERT INTO EmployeeAccount (EmployeePosition, Department) VALUES (?,?)")) {
+                        stmtInsert.setString(1, roleText);
+                        stmtInsert.setString(2, departmentText);
+                        stmtInsert.executeUpdate();
+                    }
+
+                     */
+
+                    connection.setAutoCommit(false);
+                    try (PreparedStatement statement = connection.prepareStatement("INSERT INTO UserAccounts (username, firstName, lastName, password, email, phoneNo) VALUES (?,?,?,?,?,?)")) {
+                        statement.setString(1, usernameText);
+                        statement.setString(2, firstNameText);
+                        statement.setString(3, secondNameText);
+                        statement.setString(4, passwordText);
+                        statement.setString(5, emailText);
+                        statement.setString(6, phoneNumberText);
+                        statement.executeUpdate();
+                    }
+
+                    try (PreparedStatement stmtInsert = connection.prepareStatement("INSERT INTO EmployeeAccount (EmployeePosition, Department, AccountID) VALUES (?,?, LAST_INSERT_ID())")) {
+                        stmtInsert.setString(1, roleText);
+                        stmtInsert.setString(2, departmentText);
+                        stmtInsert.executeUpdate();
                     }
 
                     JOptionPane.showMessageDialog(null, "Account created!");
