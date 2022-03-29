@@ -26,8 +26,11 @@ public class CreateVehicleRecord {
     private JLabel engineSerialLabel;
     private JTextField engineSerial;
     private JTextField year;
-    private JLabel yearLabel;
     private JButton createButton;
+    private JLabel yearLabel;
+    private JLabel accountUsernameLabel;
+    private JTextField username;
+    private JPanel mainPanel;
 
     public CreateVehicleRecord() {
         searchButton.addActionListener(new ActionListener() {
@@ -87,9 +90,11 @@ public class CreateVehicleRecord {
                     String chassisNoText = chassisNumber.getText();
                     String engineSerialText = engineSerial.getText();
                     String yearText = year.getText();
+                    String usernameText = username.getText();
 
                     connection.setAutoCommit(false);
-                    try (PreparedStatement statement = connection.prepareStatement("INSERT INTO Vehicles (registrationNo, colour, make, model, chassisNo, engineSerial, year) VALUES (?,?,?,?,?,?,?)")) {
+
+                    try (PreparedStatement statement = connection.prepareStatement("INSERT INTO Vehicles (registrationNo, colour, make, model, chassisNo, engineSerial, year, AccountID) VALUES (?,?,?,?,?,?,?,(SELECT AccountID FROM UserAccounts WHERE username = ?))")) {
                         statement.setString(1, registrationNoText);
                         statement.setString(2, colourText);
                         statement.setString(3, makeText);
@@ -97,6 +102,7 @@ public class CreateVehicleRecord {
                         statement.setString(5, chassisNoText);
                         statement.setString(6, engineSerialText);
                         statement.setString(7, yearText);
+                        statement.setString(8, usernameText);
                         statement.executeUpdate();
                     }
 
@@ -109,5 +115,9 @@ public class CreateVehicleRecord {
                 }
             }
         });
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 }

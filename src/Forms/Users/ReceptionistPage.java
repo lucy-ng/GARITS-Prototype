@@ -27,16 +27,6 @@ public class ReceptionistPage {
         window.setContentPane(mainPanel);
         window.setVisible(true);
 
-        createCustomerRecordButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                CreateCustomerRecord createCustomerRecord = new CreateCustomerRecord();
-                contentPanel.removeAll();
-                contentPanel.add(createCustomerRecord.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
         monthlyReportButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

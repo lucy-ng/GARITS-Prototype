@@ -1,148 +1,52 @@
 package Forms.Users;
 
-import Forms.Jobs.*;
-import Forms.Reception.*;
-import Forms.StockControl.*;
-
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import Forms.*;
+import Forms.Accounts.RegisterCustAccount;
+import Forms.Vehicles.CreateVehicleRecord;
 
 public class ForepersonPage {
     private JPanel mainPanel;
-    private JButton createCustomerRecordButton;
-    private JLabel customerRecordLabel;
-    private JButton monthlyReportButton;
-    private JButton addViewJobsButton;
-    private JButton jobSheetInvoiceButton;
-    private JLabel jobsLabel;
-    private JButton updateJobButton;
-    private JPanel contentPanel;
-    private JButton orderPartsButton;
-    private JButton stockReportButton;
-    private JLabel stockControlLabel;
-    private JButton searchPartsButton;
     private JLabel forepersonPageTitle;
+    private JButton addCustomerAccountButton;
+    private JLabel accountsLabel;
+    private JButton updateCustomerAccountButton;
+    private JButton deleteCustomerAccountButton;
+    private JButton addVehicleRecordButton;
+    private JButton updateVehicleRecordButton;
+    private JButton deleteVehicleRecordButton;
+    private JPanel contentPanel;
+    private JButton viewJobsButton;
+    private JButton allocateMechanicButton;
+    private JButton sellPartsButton;
+    private JButton stockLevelReportButton;
+    private JButton makePaymentButton;
+    private JButton generateMOTReminderButton;
 
     public ForepersonPage(JFrame window) {
         window.setContentPane(mainPanel);
         window.setVisible(true);
 
-        createCustomerRecordButton.addActionListener(new ActionListener() {
+        addCustomerAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateCustomerRecord createCustomerRecord = new CreateCustomerRecord();
+                RegisterCustAccount registerCustAccount = new RegisterCustAccount();
                 contentPanel.removeAll();
-                contentPanel.add(createCustomerRecord.getMainPanel());
+                contentPanel.add(registerCustAccount.getMainPanel());
                 contentPanel.revalidate();
             }
         });
 
-        monthlyReportButton.addActionListener(new ActionListener() {
+        addVehicleRecordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MonthlyReport monthlyReport = new MonthlyReport();
+                CreateVehicleRecord createVehicleRecord = new CreateVehicleRecord();
                 contentPanel.removeAll();
-                contentPanel.add(monthlyReport.getMainPanel());
+                contentPanel.add(createVehicleRecord.getMainPanel());
                 contentPanel.revalidate();
             }
         });
-
-        addViewJobsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddJob addJob = new AddJob();
-                contentPanel.removeAll();
-                contentPanel.add(addJob.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        updateJobButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                UpdateJob updateJob = new UpdateJob();
-                contentPanel.removeAll();
-                contentPanel.add(updateJob.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        jobSheetInvoiceButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Invoice invoice = new Invoice();
-                contentPanel.removeAll();
-                contentPanel.add(invoice.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        orderPartsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                OrderParts orderParts = new OrderParts();
-                contentPanel.removeAll();
-                contentPanel.add(orderParts.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        searchPartsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SearchParts searchParts = new SearchParts();
-                contentPanel.removeAll();
-                contentPanel.add(searchParts.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        stockReportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                StockLevelReport stockLevelReport = new StockLevelReport();
-                contentPanel.removeAll();
-                contentPanel.add(stockLevelReport.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-    }
-
-    public JPanel getMainPanel() {
-        return mainPanel;
-    }
-    public JPanel getContentPanel() { return contentPanel; }
-
-    // Return buttons
-    public JButton getCreateCustomerRecordButton() {
-        return createCustomerRecordButton;
-    }
-
-    public JButton getMonthlyReportButton() {
-        return monthlyReportButton;
-    }
-
-    public JButton getAddViewJobsButton() {
-        return addViewJobsButton;
-    }
-
-    public JButton getJobSheetInvoiceButton() {
-        return jobSheetInvoiceButton;
-    }
-
-    public JButton getUpdateJobButton() {
-        return updateJobButton;
-    }
-
-    public JButton getOrderPartsButton() {
-        return orderPartsButton;
-    }
-
-    public JButton getStockReportButton() {
-        return stockReportButton;
-    }
-
-    public JButton getSearchPartsButton() {
-        return searchPartsButton;
     }
 }
