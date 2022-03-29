@@ -17,11 +17,11 @@ public class ForepersonPage {
     private JLabel jobsLabel;
     private JButton updateJobButton;
     private JPanel contentPanel;
-    private JLabel forepersonPageTitle;
     private JButton orderPartsButton;
     private JButton stockReportButton;
     private JLabel stockControlLabel;
     private JButton searchPartsButton;
+    private JLabel forepersonPageTitle;
 
     public ForepersonPage(JFrame window) {
         window.setContentPane(mainPanel);
