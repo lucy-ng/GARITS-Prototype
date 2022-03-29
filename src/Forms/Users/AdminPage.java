@@ -55,5 +55,15 @@ public class AdminPage {
             }
         });
 
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DeleteAccount deleteAccount = new DeleteAccount();
+                contentPanel.removeAll();
+                contentPanel.add(deleteAccount.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
     }
 }

@@ -16,6 +16,7 @@ public class DeleteAccount {
     private JButton deleteButton;
     private JTextField usernameDelete;
     private JLabel usernameDeleteLabel;
+    private JPanel mainPanel;
 
     public DeleteAccount() {
         searchButton.addActionListener(new ActionListener() {
@@ -71,15 +72,11 @@ public class DeleteAccount {
                     String usernameText = usernameDelete.getText();
 
                     connection.setAutoCommit(false);
+
                     try (PreparedStatement statement = connection.prepareStatement("DELETE FROM UserAccounts WHERE username = ?")) {
                         statement.setString(1, usernameText);
                         statement.executeUpdate();
                     }
-
-                    try (PreparedStatement stmtInsert = connection.prepareStatement("DELTE FROM EmployeeAccount WHERE AccountID = LAST_INSERT_ID()")) {
-                        stmtInsert.executeUpdate();
-                    }
-
 
                     JOptionPane.showMessageDialog(null, "Account deleted!");
                     connection.setAutoCommit(true);
@@ -90,5 +87,9 @@ public class DeleteAccount {
                 }
             }
         });
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 }
