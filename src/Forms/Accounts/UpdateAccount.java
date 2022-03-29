@@ -30,6 +30,8 @@ public class UpdateAccount {
     private JButton searchButton;
     private JTextField searchField;
     private JScrollPane scrollPane;
+    private JLabel oldUsernameLabel;
+    private JTextField oldUsername;
 
     public UpdateAccount() {
         searchButton.addActionListener(new ActionListener() {
@@ -90,22 +92,25 @@ public class UpdateAccount {
                     String phoneNumberText = phoneNumber.getText();
                     String roleText = role.getText();
                     String departmentText = department.getText();
+                    String oldUsernameText = oldUsername.getText();
 
                     connection.setAutoCommit(false);
-                    try (PreparedStatement statement = connection.prepareStatement("UPDATE UserAccounts SET username = ?, firstName = ?, lastName = ?, password = ?, email = ?, phoneNo = ?")) {
+                    try (PreparedStatement statement = connection.prepareStatement("UPDATE UserAccounts SET username = ?, firstName = ?, lastName = ?, password = ?, email = ?, phoneNo = ? WHERE username = ?")) {
                         statement.setString(1, usernameText);
                         statement.setString(2, firstNameText);
                         statement.setString(3, lastNameText);
                         statement.setString(4, passwordText);
                         statement.setString(5, emailText);
                         statement.setString(6, phoneNumberText);
+                        statement.setString(7, oldUsernameText);
                         statement.executeUpdate();
                     }
 
-                    try (PreparedStatement stmtInsert = connection.prepareStatement("")) {
-                        stmtInsert.setString(1, roleText);
-                        stmtInsert.setString(2, departmentText);
-                        stmtInsert.executeUpdate();
+                    try (PreparedStatement stmt = connection.prepareStatement("UPDATE EmployeeAccount SET EmployeePosition = ?, Department = ? WHERE AccountID = (SELECT AccountID FROM UserAccounts WHERE username = ?)")) {
+                        stmt.setString(1, roleText);
+                        stmt.setString(2, departmentText);
+                        stmt.setString(3, usernameText);
+                        stmt.executeUpdate();
                     }
 
                     JOptionPane.showMessageDialog(null, "Account updated!");

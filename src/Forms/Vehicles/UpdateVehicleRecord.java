@@ -8,13 +8,13 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CreateVehicleRecord {
-    private JLabel createVehicleRecordTitle;
-    private JLabel registrationNumberLabel;
-    private JTextField registrationNumber;
+public class UpdateVehicleRecord {
+    private JLabel updateVehicleRecordTitle;
     private JTextField searchField;
     private JButton searchButton;
     private JScrollPane scrollPane;
+    private JLabel registrationNumberLabel;
+    private JTextField registrationNumber;
     private JLabel colourLabel;
     private JTextField colour;
     private JLabel makeLabel;
@@ -25,11 +25,11 @@ public class CreateVehicleRecord {
     private JTextField chassisNumber;
     private JLabel engineSerialLabel;
     private JTextField engineSerial;
-    private JTextField year;
     private JLabel yearLabel;
-    private JButton createButton;
+    private JTextField year;
+    private JButton updateButton;
 
-    public CreateVehicleRecord() {
+    public UpdateVehicleRecord() {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,7 +74,7 @@ public class CreateVehicleRecord {
             }
         });
 
-        createButton.addActionListener(new ActionListener() {
+        updateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -89,7 +89,7 @@ public class CreateVehicleRecord {
                     String yearText = year.getText();
 
                     connection.setAutoCommit(false);
-                    try (PreparedStatement statement = connection.prepareStatement("INSERT INTO Vehicles (registrationNo, colour, make, model, chassisNo, engineSerial, year) VALUES (?,?,?,?,?,?,?)")) {
+                    try (PreparedStatement statement = connection.prepareStatement("UPDATE Vehicles SET registrationNo = ?, colour = ?, make = ?, model = ?, chassisNo = ?, engineSerial = ?, year = ?")) {
                         statement.setString(1, registrationNoText);
                         statement.setString(2, colourText);
                         statement.setString(3, makeText);
@@ -100,7 +100,7 @@ public class CreateVehicleRecord {
                         statement.executeUpdate();
                     }
 
-                    JOptionPane.showMessageDialog(null, "Vehicle record created!");
+                    JOptionPane.showMessageDialog(null, "Vehicle record updated!");
                     connection.setAutoCommit(true);
                     connection.close();
 

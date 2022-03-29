@@ -1,4 +1,4 @@
-package Forms.Vehicles;
+package Forms.Accounts;
 
 import Database.UserAccount;
 
@@ -8,28 +8,16 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class CreateVehicleRecord {
-    private JLabel createVehicleRecordTitle;
-    private JLabel registrationNumberLabel;
-    private JTextField registrationNumber;
+public class DeleteAccount {
+    private JLabel deleteAccountTitle;
     private JTextField searchField;
     private JButton searchButton;
     private JScrollPane scrollPane;
-    private JLabel colourLabel;
-    private JTextField colour;
-    private JLabel makeLabel;
-    private JTextField make;
-    private JLabel modelLabel;
-    private JTextField model;
-    private JLabel chassisNumberLabel;
-    private JTextField chassisNumber;
-    private JLabel engineSerialLabel;
-    private JTextField engineSerial;
-    private JTextField year;
-    private JLabel yearLabel;
-    private JButton createButton;
+    private JButton deleteButton;
+    private JTextField usernameDelete;
+    private JLabel usernameDeleteLabel;
 
-    public CreateVehicleRecord() {
+    public DeleteAccount() {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,33 +62,26 @@ public class CreateVehicleRecord {
             }
         });
 
-        createButton.addActionListener(new ActionListener() {
+        deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
 
-                    String registrationNoText = registrationNumber.getText();
-                    String colourText = colour.getText();
-                    String makeText = make.getText();
-                    String modelText = model.getText();
-                    String chassisNoText = chassisNumber.getText();
-                    String engineSerialText = engineSerial.getText();
-                    String yearText = year.getText();
+                    String usernameText = usernameDelete.getText();
 
                     connection.setAutoCommit(false);
-                    try (PreparedStatement statement = connection.prepareStatement("INSERT INTO Vehicles (registrationNo, colour, make, model, chassisNo, engineSerial, year) VALUES (?,?,?,?,?,?,?)")) {
-                        statement.setString(1, registrationNoText);
-                        statement.setString(2, colourText);
-                        statement.setString(3, makeText);
-                        statement.setString(4, modelText);
-                        statement.setString(5, chassisNoText);
-                        statement.setString(6, engineSerialText);
-                        statement.setString(7, yearText);
+                    try (PreparedStatement statement = connection.prepareStatement("DELETE FROM UserAccounts WHERE username = ?")) {
+                        statement.setString(1, usernameText);
                         statement.executeUpdate();
                     }
 
-                    JOptionPane.showMessageDialog(null, "Vehicle record created!");
+                    try (PreparedStatement stmtInsert = connection.prepareStatement("DELTE FROM EmployeeAccount WHERE AccountID = LAST_INSERT_ID()")) {
+                        stmtInsert.executeUpdate();
+                    }
+
+
+                    JOptionPane.showMessageDialog(null, "Account deleted!");
                     connection.setAutoCommit(true);
                     connection.close();
 
