@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import Forms.*;
 import Forms.Accounts.RegisterCustAccount;
 import Forms.Vehicles.CreateVehicleRecord;
+import Forms.Vehicles.UpdateVehicleRecord;
 
 public class ForepersonPage {
     private JPanel mainPanel;
@@ -45,6 +46,16 @@ public class ForepersonPage {
                 CreateVehicleRecord createVehicleRecord = new CreateVehicleRecord();
                 contentPanel.removeAll();
                 contentPanel.add(createVehicleRecord.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        updateVehicleRecordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateVehicleRecord updateVehicleRecord = new UpdateVehicleRecord();
+                contentPanel.removeAll();
+                contentPanel.add(updateVehicleRecord.getMainPanel());
                 contentPanel.revalidate();
             }
         });

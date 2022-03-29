@@ -1,7 +1,6 @@
 package Forms.Vehicles;
 
-import Database.UserAccount;
-
+import Database.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,9 +9,9 @@ import java.util.ArrayList;
 
 public class UpdateVehicleRecord {
     private JLabel updateVehicleRecordTitle;
-    private JTextField searchField;
-    private JButton searchButton;
-    private JScrollPane scrollPane;
+    private JTextField usernameSearchField;
+    private JButton searchAccountButton;
+    private JScrollPane usernameScrollPane;
     private JLabel registrationNumberLabel;
     private JTextField registrationNumber;
     private JLabel colourLabel;
@@ -25,15 +24,21 @@ public class UpdateVehicleRecord {
     private JTextField chassisNumber;
     private JLabel engineSerialLabel;
     private JTextField engineSerial;
-    private JLabel yearLabel;
     private JTextField year;
     private JButton updateButton;
+    private JLabel accountUsernameLabel;
+    private JTextField username;
+    private JLabel yearLabel;
+    private JPanel mainPanel;
+    private JButton searchVehicleButton;
+    private JTextField regNoSearchField;
+    private JScrollPane regNoScrollPane;
 
     public UpdateVehicleRecord() {
-        searchButton.addActionListener(new ActionListener() {
+        searchAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String text = searchField.getText();
+                String text = usernameSearchField.getText();
                 ArrayList<UserAccount> userAccountList = new ArrayList<>();
                 try {
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
@@ -64,7 +69,55 @@ public class UpdateVehicleRecord {
                         Object[][] data =  {row};
                         String[] columnNames = {"Username", "First Name", "Last Name", "Email", "Phone Number"};
                         JTable searchResults = new JTable(data, columnNames);
-                        scrollPane.setViewportView(searchResults);
+                        usernameScrollPane.setViewportView(searchResults);
+                        searchResults.setVisible(true);
+                    }
+                    connection.close();
+                } catch (SQLException sqlException) {
+                    sqlException.printStackTrace();;
+                }
+            }
+        });
+
+        searchVehicleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = regNoSearchField.getText();
+                ArrayList<Vehicle> vehicleList = new ArrayList<>();
+                try {
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
+                    PreparedStatement statement = connection.prepareStatement("SELECT registrationNo, colour, make, model, chassisNo, engineSerial, year from Vehicles where registrationNo = ?");
+                    statement.setString(1, text);
+                    ResultSet rs = statement.executeQuery();
+                    Vehicle vehicle;
+
+                    while (rs.next()) {
+                        String registrationNo = rs.getString("registrationNo");
+                        String colour = rs.getString("colour");
+                        String make = rs.getString("make");
+                        String model = rs.getString("model");
+                        String chassisNo = rs.getString("chassisNo");
+                        String engineSerial = rs.getString("engineSerial");
+                        String year = rs.getString("year");
+
+                        vehicle = new Vehicle(registrationNo, colour, make, model, chassisNo, engineSerial, year);
+                        vehicleList.add(vehicle);
+
+                        Object[] row = new Object[7];
+                        for (int i = 0; i < vehicleList.size(); i++) {
+                            row[0] = vehicle.getRegistrationNo();
+                            row[1] = vehicle.getColour();
+                            row[2] = vehicle.getMake();
+                            row[3] = vehicle.getModel();
+                            row[4] = vehicle.getChassisNo();
+                            row[5] = vehicle.getEngineSerial();
+                            row[6] = vehicle.getYear();
+                        }
+
+                        Object[][] data =  {row};
+                        String[] columnNames = {"Registration Number", "Colour", "Make", "Model", "Chassis Number", "Engine Serial", "Year"};
+                        JTable searchResults = new JTable(data, columnNames);
+                        regNoScrollPane.setViewportView(searchResults);
                         searchResults.setVisible(true);
                     }
                     connection.close();
@@ -87,9 +140,10 @@ public class UpdateVehicleRecord {
                     String chassisNoText = chassisNumber.getText();
                     String engineSerialText = engineSerial.getText();
                     String yearText = year.getText();
+                    String usernameText = username.getText();
 
                     connection.setAutoCommit(false);
-                    try (PreparedStatement statement = connection.prepareStatement("UPDATE Vehicles SET registrationNo = ?, colour = ?, make = ?, model = ?, chassisNo = ?, engineSerial = ?, year = ?")) {
+                    try (PreparedStatement statement = connection.prepareStatement("UPDATE Vehicles SET registrationNo = ?, colour = ?, make = ?, model = ?, chassisNo = ?, engineSerial = ?, year = ? WHERE (SELECT AccountID FROM UserAccounts WHERE username = ?)")) {
                         statement.setString(1, registrationNoText);
                         statement.setString(2, colourText);
                         statement.setString(3, makeText);
@@ -97,6 +151,7 @@ public class UpdateVehicleRecord {
                         statement.setString(5, chassisNoText);
                         statement.setString(6, engineSerialText);
                         statement.setString(7, yearText);
+                        statement.setString(8, usernameText);
                         statement.executeUpdate();
                     }
 
@@ -109,5 +164,9 @@ public class UpdateVehicleRecord {
                 }
             }
         });
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
     }
 }
