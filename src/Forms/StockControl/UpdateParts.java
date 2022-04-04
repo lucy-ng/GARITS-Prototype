@@ -126,4 +126,8 @@ public class UpdateParts {
             }
         });
     }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
 }

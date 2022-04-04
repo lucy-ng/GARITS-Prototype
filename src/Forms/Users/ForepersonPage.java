@@ -8,6 +8,7 @@ import Forms.Accounts.DeleteCustAccount;
 import Forms.Accounts.RegisterCustAccount;
 import Forms.Accounts.UpdateCustAccount;
 import Forms.StockControl.AddParts;
+import Forms.StockControl.UpdateParts;
 import Forms.Vehicles.CreateVehicleRecord;
 import Forms.Vehicles.DeleteVehicleRecord;
 import Forms.Vehicles.UpdateVehicleRecord;
@@ -109,6 +110,16 @@ public class ForepersonPage {
                 AddParts addParts = new AddParts();
                 contentPanel.removeAll();
                 contentPanel.add(addParts.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        updatePartsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateParts updateParts = new UpdateParts();
+                contentPanel.removeAll();
+                contentPanel.add(updateParts.getMainPanel());
                 contentPanel.revalidate();
             }
         });
