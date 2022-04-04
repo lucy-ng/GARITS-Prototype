@@ -28,11 +28,13 @@ public class UpdateVehicleRecord {
     private JButton updateButton;
     private JLabel accountUsernameLabel;
     private JTextField username;
-    private JLabel yearLabel;
     private JPanel mainPanel;
     private JButton searchVehicleButton;
     private JTextField regNoSearchField;
     private JScrollPane regNoScrollPane;
+    private JLabel oldRegistrationNumberLabel;
+    private JTextField oldRegNo;
+    private JLabel yearLabel;
 
     public UpdateVehicleRecord() {
         searchAccountButton.addActionListener(new ActionListener() {
@@ -140,10 +142,10 @@ public class UpdateVehicleRecord {
                     String chassisNoText = chassisNumber.getText();
                     String engineSerialText = engineSerial.getText();
                     String yearText = year.getText();
-                    String usernameText = username.getText();
+                    String oldRegNoText = oldRegNo.getText();
 
                     connection.setAutoCommit(false);
-                    try (PreparedStatement statement = connection.prepareStatement("UPDATE Vehicles SET registrationNo = ?, colour = ?, make = ?, model = ?, chassisNo = ?, engineSerial = ?, year = ? WHERE (SELECT AccountID FROM UserAccounts WHERE username = ?)")) {
+                    try (PreparedStatement statement = connection.prepareStatement("UPDATE Vehicles SET registrationNo = ?, colour = ?, make = ?, model = ?, chassisNo = ?, engineSerial = ?, year = ? WHERE registrationNo = ?")) {
                         statement.setString(1, registrationNoText);
                         statement.setString(2, colourText);
                         statement.setString(3, makeText);
@@ -151,7 +153,7 @@ public class UpdateVehicleRecord {
                         statement.setString(5, chassisNoText);
                         statement.setString(6, engineSerialText);
                         statement.setString(7, yearText);
-                        statement.setString(8, usernameText);
+                        statement.setString(8, oldRegNoText);
                         statement.executeUpdate();
                     }
 
