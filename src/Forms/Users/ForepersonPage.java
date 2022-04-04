@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import Forms.Accounts.DeleteCustAccount;
 import Forms.Accounts.RegisterCustAccount;
 import Forms.Accounts.UpdateCustAccount;
+import Forms.StockControl.AddParts;
 import Forms.Vehicles.CreateVehicleRecord;
 import Forms.Vehicles.DeleteVehicleRecord;
 import Forms.Vehicles.UpdateVehicleRecord;
@@ -29,6 +30,14 @@ public class ForepersonPage {
     private JButton makePaymentButton;
     private JButton generateMOTReminderButton;
     private JButton orderPartsButton;
+    private JButton addPartsButton;
+    private JButton searchPartsButton;
+    private JButton updatePartsButton;
+    private JButton addJobButton;
+    private JButton updateJobButton;
+    private JButton pickJobButton;
+    private JLabel jobsLabel;
+    private JLabel stockControlLabel;
 
     public ForepersonPage(JFrame window) {
         window.setContentPane(mainPanel);
@@ -90,6 +99,16 @@ public class ForepersonPage {
                 DeleteVehicleRecord deleteVehicleRecord = new DeleteVehicleRecord();
                 contentPanel.removeAll();
                 contentPanel.add(deleteVehicleRecord.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        addPartsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddParts addParts = new AddParts();
+                contentPanel.removeAll();
+                contentPanel.add(addParts.getMainPanel());
                 contentPanel.revalidate();
             }
         });

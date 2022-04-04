@@ -113,7 +113,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="aed5" class="javax.swing.JButton" default-binding="true">
+          <component id="aed5" class="javax.swing.JButton" binding="addJobButton">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -121,7 +121,7 @@
               <text value="Add Job"/>
             </properties>
           </component>
-          <component id="4e698" class="javax.swing.JLabel">
+          <component id="4e698" class="javax.swing.JLabel" binding="jobsLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -130,7 +130,7 @@
               <text value="Jobs"/>
             </properties>
           </component>
-          <component id="62eba" class="javax.swing.JButton" default-binding="true">
+          <component id="62eba" class="javax.swing.JButton" binding="updateJobButton">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -138,7 +138,7 @@
               <text value="Update Job"/>
             </properties>
           </component>
-          <component id="71f3d" class="javax.swing.JButton" default-binding="true">
+          <component id="71f3d" class="javax.swing.JButton" binding="pickJobButton">
             <constraints>
               <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -176,7 +176,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="be6fd" class="javax.swing.JButton" default-binding="true">
+          <component id="be6fd" class="javax.swing.JButton" binding="addPartsButton">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -184,7 +184,7 @@
               <text value="Add Parts"/>
             </properties>
           </component>
-          <component id="eea7f" class="javax.swing.JLabel">
+          <component id="eea7f" class="javax.swing.JLabel" binding="stockControlLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -193,7 +193,7 @@
               <text value="Stock Control"/>
             </properties>
           </component>
-          <component id="da4fd" class="javax.swing.JButton" default-binding="true">
+          <component id="da4fd" class="javax.swing.JButton" binding="searchPartsButton">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -201,7 +201,7 @@
               <text value="Search Parts"/>
             </properties>
           </component>
-          <component id="15740" class="javax.swing.JButton" default-binding="true">
+          <component id="15740" class="javax.swing.JButton" binding="updatePartsButton">
             <constraints>
               <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
