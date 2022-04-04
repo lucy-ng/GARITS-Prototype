@@ -4,7 +4,6 @@ import javax.swing.*;
 
 public class OrderParts {
     private JTextField searchParts;
-    private JTable tblParts;
     private JButton searchButton;
     private JList spareParts;
     private JButton orderButton;

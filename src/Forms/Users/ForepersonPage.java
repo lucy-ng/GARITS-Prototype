@@ -3,9 +3,12 @@ package Forms.Users;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import Forms.*;
+
+import Forms.Accounts.DeleteCustAccount;
 import Forms.Accounts.RegisterCustAccount;
+import Forms.Accounts.UpdateCustAccount;
 import Forms.Vehicles.CreateVehicleRecord;
+import Forms.Vehicles.DeleteVehicleRecord;
 import Forms.Vehicles.UpdateVehicleRecord;
 
 public class ForepersonPage {
@@ -25,6 +28,7 @@ public class ForepersonPage {
     private JButton stockLevelReportButton;
     private JButton makePaymentButton;
     private JButton generateMOTReminderButton;
+    private JButton orderPartsButton;
 
     public ForepersonPage(JFrame window) {
         window.setContentPane(mainPanel);
@@ -36,6 +40,26 @@ public class ForepersonPage {
                 RegisterCustAccount registerCustAccount = new RegisterCustAccount();
                 contentPanel.removeAll();
                 contentPanel.add(registerCustAccount.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        updateCustomerAccountButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateCustAccount updateCustAccount = new UpdateCustAccount();
+                contentPanel.removeAll();
+                contentPanel.add(updateCustAccount.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        deleteCustomerAccountButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DeleteCustAccount deleteCustAccount = new DeleteCustAccount();
+                contentPanel.removeAll();
+                contentPanel.add(deleteCustAccount.getMainPanel());
                 contentPanel.revalidate();
             }
         });
@@ -56,6 +80,16 @@ public class ForepersonPage {
                 UpdateVehicleRecord updateVehicleRecord = new UpdateVehicleRecord();
                 contentPanel.removeAll();
                 contentPanel.add(updateVehicleRecord.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        deleteVehicleRecordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DeleteVehicleRecord deleteVehicleRecord = new DeleteVehicleRecord();
+                contentPanel.removeAll();
+                contentPanel.add(deleteVehicleRecord.getMainPanel());
                 contentPanel.revalidate();
             }
         });

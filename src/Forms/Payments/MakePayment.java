@@ -10,6 +10,10 @@ public class MakePayment {
     private JPanel mainPanel;
     private JLabel cardNumberLabel;
     private JLabel amountLabel;
+    private JLabel expiryDateLabel;
+    private JTextField expiryDate;
+    private JLabel companyNameLabel;
+    private JTextField companyName;
 
     public MakePayment() {
 

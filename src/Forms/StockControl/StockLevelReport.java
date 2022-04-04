@@ -6,7 +6,6 @@ public class StockLevelReport {
     private JPanel mainPanel;
     private JLabel stockLevelTitle;
     private JTextPane address;
-    private JTable tblStockLevel;
     private JTextField reportPeriod1;
     private JTextField reportDate;
     private JButton printButton;

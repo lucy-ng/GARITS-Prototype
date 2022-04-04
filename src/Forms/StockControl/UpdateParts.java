@@ -1,6 +1,6 @@
 package Forms.StockControl;
 
-import Database.*;
+import Database.Part;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -8,16 +8,34 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class SearchParts {
+public class UpdateParts {
+    private JLabel updatePartsTitle;
+    private JPanel mainPanel;
+    private JLabel partNameLabel;
+    private JTextField partName;
+    private JLabel searchForSparePartsLabel;
     private JTextField searchParts;
     private JButton searchButton;
-    private JPanel mainPanel;
-    private JLabel searchPartsTitle;
-    private JLabel searchForSparePartsLabel;
-    private JLabel tableOfSparePartsLabel;
     private JScrollPane scrollPane;
+    private JLabel codeLabel;
+    private JTextField code;
+    private JLabel manufacturerLabel;
+    private JTextField manufacturer;
+    private JLabel vehicleTypeLabel;
+    private JTextField vehicleType;
+    private JLabel yearLabel;
+    private JTextField year;
+    private JLabel priceLabel;
+    private JTextField price;
+    private JLabel quantityLabel;
+    private JTextField quantity;
+    private JButton updateButton;
+    private JLabel lowThresholdLabel;
+    private JTextField lowThreshold;
+    private JLabel oldPartNameLabel;
+    private JTextField oldPartName;
 
-    public SearchParts() {
+    public UpdateParts() {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,9 +85,45 @@ public class SearchParts {
                 }
             }
         });
-    }
 
-    public JPanel getMainPanel() {
-        return mainPanel;
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
+
+                    String partNameText = partName.getText();
+                    String codeText = code.getText();
+                    String manufacturerText = manufacturer.getText();
+                    String vehicleTypeText = vehicleType.getText();
+                    String yearText = year.getText();
+                    String priceText = price.getText();
+                    String quantityText = quantity.getText();
+                    String lowThresholdText = lowThreshold.getText();
+                    String oldPartNameText = oldPartName.getText();
+
+                    connection.setAutoCommit(false);
+                    try (PreparedStatement statement = connection.prepareStatement("UPDATE SpareParts SET name = ?, code = ?, manufacturer = ?, vehicleType = ?, year = ?, price = ?, quantity = ?, lowThreshold = ? WHERE name = ?")) {
+                        statement.setString(1, partNameText);
+                        statement.setString(2, codeText);
+                        statement.setString(3, manufacturerText);
+                        statement.setString(4, vehicleTypeText);
+                        statement.setString(5, yearText);
+                        statement.setString(6, priceText);
+                        statement.setString(7, quantityText);
+                        statement.setString(8, lowThresholdText);
+                        statement.setString(9, oldPartNameText);
+                        statement.executeUpdate();
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Part updated!");
+                    connection.setAutoCommit(true);
+                    connection.close();
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
     }
 }
