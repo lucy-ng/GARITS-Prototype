@@ -1,30 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Forms.Users.ForepersonPage">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="559" height="435"/>
+      <xy x="20" y="20" width="1093" height="435"/>
     </constraints>
     <properties>
       <background color="-16537100"/>
     </properties>
     <border type="none"/>
     <children>
-      <component id="7e78a" class="javax.swing.JLabel" binding="forepersonPageTitle">
-        <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <font name="Calibri Light" size="28" style="1"/>
-          <foreground color="-1"/>
-          <text value="Foreperson Page"/>
-        </properties>
-      </component>
-      <hspacer id="7e297">
-        <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </hspacer>
       <hspacer id="391ae">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -33,7 +18,7 @@
       <grid id="e8b88" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="344" height="59"/>
           </grid>
         </constraints>
@@ -104,7 +89,7 @@
       <grid id="e872d" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="344" height="59"/>
           </grid>
         </constraints>
@@ -167,7 +152,7 @@
       <grid id="a84fd" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="344" height="59"/>
           </grid>
         </constraints>
@@ -217,12 +202,12 @@
               <text value="Sell Parts"/>
             </properties>
           </component>
-          <component id="8e194" class="javax.swing.JButton" binding="stockLevelReportButton" default-binding="true">
+          <component id="8e194" class="javax.swing.JButton" binding="manageStockButton" default-binding="true">
             <constraints>
               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Stock Level Report"/>
+              <text value="Manage Stock"/>
             </properties>
           </component>
           <component id="adb69" class="javax.swing.JButton" binding="orderPartsButton" default-binding="true">
@@ -238,7 +223,7 @@
       <grid id="c58a7" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="4" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="344" height="59"/>
           </grid>
         </constraints>
@@ -247,7 +232,7 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="d5f9d" class="javax.swing.JButton" default-binding="true">
+          <component id="d5f9d" class="javax.swing.JButton" binding="jobSheetButton">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -255,7 +240,7 @@
               <text value="Job Sheet"/>
             </properties>
           </component>
-          <component id="369ee" class="javax.swing.JLabel">
+          <component id="369ee" class="javax.swing.JLabel" binding="receptionLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -264,7 +249,7 @@
               <text value="Reception"/>
             </properties>
           </component>
-          <component id="ec69f" class="javax.swing.JButton" default-binding="true">
+          <component id="ec69f" class="javax.swing.JButton" binding="invoiceButton">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -272,7 +257,7 @@
               <text value="Invoice"/>
             </properties>
           </component>
-          <component id="6a9d8" class="javax.swing.JButton" default-binding="true">
+          <component id="6a9d8" class="javax.swing.JButton" binding="monthlyReportButton">
             <constraints>
               <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -296,11 +281,19 @@
               <text value="Generate MOT Reminder"/>
             </properties>
           </component>
+          <component id="e58a9" class="javax.swing.JButton" binding="stockLevelReportButton">
+            <constraints>
+              <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Stock Level Report"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="64c3a" binding="contentPanel" layout-manager="CardLayout" hgap="0" vgap="0">
         <constraints>
-          <grid row="1" column="2" row-span="4" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-16537100"/>
@@ -308,6 +301,21 @@
         <border type="none"/>
         <children/>
       </grid>
+      <component id="7e78a" class="javax.swing.JLabel" binding="forepersonPageTitle">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font name="Calibri Light" size="28" style="1"/>
+          <foreground color="-1"/>
+          <text value="Foreperson Page"/>
+        </properties>
+      </component>
+      <hspacer id="50731">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
     </children>
   </grid>
 </form>

@@ -32,6 +32,8 @@ public class UpdateAccount {
     private JScrollPane scrollPane;
     private JLabel oldUsernameLabel;
     private JTextField oldUsername;
+    private JTextField labourRate;
+    private JLabel labourRateLabel;
 
     public UpdateAccount() {
         searchButton.addActionListener(new ActionListener() {
@@ -93,6 +95,7 @@ public class UpdateAccount {
                     String roleText = role.getText();
                     String departmentText = department.getText();
                     String oldUsernameText = oldUsername.getText();
+                    String labourRateText = labourRate.getText();
 
                     connection.setAutoCommit(false);
                     try (PreparedStatement statement = connection.prepareStatement("UPDATE UserAccounts SET username = ?, firstName = ?, lastName = ?, password = ?, email = ?, phoneNo = ? WHERE username = ?")) {
@@ -106,10 +109,11 @@ public class UpdateAccount {
                         statement.executeUpdate();
                     }
 
-                    try (PreparedStatement stmt = connection.prepareStatement("UPDATE EmployeeAccount SET EmployeePosition = ?, Department = ? WHERE AccountID = (SELECT AccountID FROM UserAccounts WHERE username = ?)")) {
+                    try (PreparedStatement stmt = connection.prepareStatement("UPDATE EmployeeAccount SET EmployeePosition = ?, Department = ?, labourRate = ? WHERE AccountID = (SELECT AccountID FROM UserAccounts WHERE username = ?)")) {
                         stmt.setString(1, roleText);
                         stmt.setString(2, departmentText);
-                        stmt.setString(3, usernameText);
+                        stmt.setString(3, labourRateText);
+                        stmt.setString(4, usernameText);
                         stmt.executeUpdate();
                     }
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Forms.Accounts.RegisterCustAccount">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="22" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="26" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="544" height="619"/>
+      <xy x="20" y="20" width="544" height="734"/>
     </constraints>
     <properties>
       <background color="-16537100"/>
@@ -140,12 +140,12 @@
       </component>
       <vspacer id="ca4f0">
         <constraints>
-          <grid row="20" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="23" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
       <component id="fe6d3" class="javax.swing.JButton" binding="registerButton" default-binding="true">
         <constraints>
-          <grid row="21" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="25" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Register"/>
@@ -298,6 +298,44 @@
         </constraints>
         <properties>
           <text value=""/>
+        </properties>
+      </component>
+      <vspacer id="94b1a">
+        <constraints>
+          <grid row="24" column="1" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </vspacer>
+      <component id="a3647" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="20" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <foreground color="-1"/>
+          <text value="Discount Details"/>
+        </properties>
+      </component>
+      <scrollpane id="9a6af" binding="scrollPane">
+        <constraints>
+          <grid row="21" column="1" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </scrollpane>
+      <component id="87be3" class="javax.swing.JTextField" binding="discountDetails">
+        <constraints>
+          <grid row="22" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="8253e" class="javax.swing.JButton" binding="addDiscountButton" default-binding="true">
+        <constraints>
+          <grid row="21" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Add Discount"/>
         </properties>
       </component>
     </children>

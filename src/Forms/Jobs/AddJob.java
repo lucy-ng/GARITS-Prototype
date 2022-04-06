@@ -18,15 +18,18 @@ public class AddJob {
     private JLabel estimatedTimeLabel;
     private JLabel mechanicLabel;
     private JTextField mechanic;
-    private JScrollPane scrollPane;
+    private JScrollPane resultsJobs;
     private JButton searchCustomerButton;
     private JButton searchVehicleButton;
     private JButton searchMechanicButton;
-    private JTextArea spareParts;
     private JTextField estimatedTime;
     private JButton addJobButton;
     private JLabel jobStatusLabel;
-    private JTextField jobStatus;
+    private JTextField searchSparePart;
+    private JButton addSparePartButton;
+    private JScrollPane resultsMechanic;
+    private JScrollPane resultsSpareParts;
+    private JComboBox jobStatus;
 
     public AddJob() {
 

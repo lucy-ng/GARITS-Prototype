@@ -14,6 +14,11 @@ public class MakePayment {
     private JTextField expiryDate;
     private JLabel companyNameLabel;
     private JTextField companyName;
+    private JTextField searchField;
+    private JButton searchButton;
+    private JScrollPane scrollPane;
+    private JLabel usernameLabel;
+    private JTextField username;
 
     public MakePayment() {
 

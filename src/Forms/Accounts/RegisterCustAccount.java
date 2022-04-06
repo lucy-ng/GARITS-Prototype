@@ -36,6 +36,9 @@ public class RegisterCustAccount {
     private JLabel daytimePhoneNoLabel;
     private JLabel eveningPhoneNoLabel;
     private JLabel discountPlanLabel;
+    private JTextField discountDetails;
+    private JButton addDiscountButton;
+    private JScrollPane scrollPane;
 
     public RegisterCustAccount() {
 

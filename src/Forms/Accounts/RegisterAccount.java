@@ -24,6 +24,8 @@ public class RegisterAccount {
     private JTextField phoneNumber;
     private JTextField department;
     private JLabel departmentLabel;
+    private JLabel labourRateLabel;
+    private JTextField labourRate;
 
     public RegisterAccount() {
 
@@ -41,6 +43,7 @@ public class RegisterAccount {
                     String phoneNumberText = phoneNumber.getText();
                     String roleText = role.getText();
                     String departmentText = department.getText();
+                    String labourRateText = labourRate.getText();
 
                     connection.setAutoCommit(false);
                     try (PreparedStatement statement = connection.prepareStatement("INSERT INTO UserAccounts (username, firstName, lastName, password, email, phoneNo) VALUES (?,?,?,?,?,?)")) {
@@ -50,12 +53,14 @@ public class RegisterAccount {
                         statement.setString(4, passwordText);
                         statement.setString(5, emailText);
                         statement.setString(6, phoneNumberText);
+
                         statement.executeUpdate();
                     }
 
-                    try (PreparedStatement stmtInsert = connection.prepareStatement("INSERT INTO EmployeeAccount (EmployeePosition, Department, AccountID) VALUES (?,?, LAST_INSERT_ID())")) {
+                    try (PreparedStatement stmtInsert = connection.prepareStatement("INSERT INTO EmployeeAccount (EmployeePosition, Department, AccountID, labourRate) VALUES (?,?, LAST_INSERT_ID(), ?)")) {
                         stmtInsert.setString(1, roleText);
                         stmtInsert.setString(2, departmentText);
+                        stmtInsert.setString(3, labourRateText);
                         stmtInsert.executeUpdate();
                     }
 

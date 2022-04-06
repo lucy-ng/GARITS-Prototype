@@ -3,11 +3,16 @@ package Forms.Users;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import Forms.Accounts.DeleteCustAccount;
 import Forms.Accounts.RegisterCustAccount;
 import Forms.Accounts.UpdateCustAccount;
 import Forms.StockControl.AddParts;
+import Forms.StockControl.ManageStock;
 import Forms.StockControl.UpdateParts;
 import Forms.Vehicles.CreateVehicleRecord;
 import Forms.Vehicles.DeleteVehicleRecord;
@@ -27,7 +32,7 @@ public class ForepersonPage {
     private JButton viewJobsButton;
     private JButton allocateMechanicButton;
     private JButton sellPartsButton;
-    private JButton stockLevelReportButton;
+    private JButton manageStockButton;
     private JButton makePaymentButton;
     private JButton generateMOTReminderButton;
     private JButton orderPartsButton;
@@ -39,10 +44,39 @@ public class ForepersonPage {
     private JButton pickJobButton;
     private JLabel jobsLabel;
     private JLabel stockControlLabel;
+    private JButton jobSheetButton;
+    private JLabel receptionLabel;
+    private JButton invoiceButton;
+    private JButton monthlyReportButton;
+    private JButton stockLevelReportButton;
 
     public ForepersonPage(JFrame window) {
         window.setContentPane(mainPanel);
         window.setVisible(true);
+
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
+
+            connection.setAutoCommit(false);
+            try (PreparedStatement statement = connection.prepareStatement("SELECT name, lowThreshold, quantity FROM SpareParts")) {
+                ResultSet rs = statement.executeQuery();
+
+                while (rs.next()){
+                    String nameText = rs.getString("name");
+                    int lowThresholdText = rs.getInt("lowThreshold");
+                    int quantityText = rs.getInt("quantity");
+
+                    if (quantityText < lowThresholdText) {
+                        JOptionPane.showMessageDialog(null, nameText + " is low in stock!");
+                    }
+                }
+            }
+            connection.setAutoCommit(true);
+            connection.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         addCustomerAccountButton.addActionListener(new ActionListener() {
             @Override
@@ -120,6 +154,16 @@ public class ForepersonPage {
                 UpdateParts updateParts = new UpdateParts();
                 contentPanel.removeAll();
                 contentPanel.add(updateParts.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        manageStockButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ManageStock manageStock = new ManageStock();
+                contentPanel.removeAll();
+                contentPanel.add(manageStock.getMainPanel());
                 contentPanel.revalidate();
             }
         });
