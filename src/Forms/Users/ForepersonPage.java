@@ -12,6 +12,7 @@ import Forms.Accounts.DeleteCustAccount;
 import Forms.Accounts.RegisterCustAccount;
 import Forms.Accounts.UpdateCustAccount;
 import Forms.Jobs.AddJob;
+import Forms.Jobs.UpdateJob;
 import Forms.Jobs.UseParts;
 import Forms.Jobs.ViewJobs;
 import Forms.StockControl.AddParts;
@@ -33,7 +34,6 @@ public class ForepersonPage {
     private JButton deleteVehicleRecordButton;
     private JPanel contentPanel;
     private JButton viewJobsButton;
-    private JButton allocateMechanicButton;
     private JButton sellPartsButton;
     private JButton manageStockButton;
     private JButton makePaymentButton;
@@ -50,7 +50,6 @@ public class ForepersonPage {
     private JButton invoiceButton;
     private JButton stockLevelReportButton;
     private JButton monthlyReportButton;
-    private JButton pickJobButton;
     private JButton orderPartsButton;
     private JButton usePartsButton;
 
@@ -204,6 +203,16 @@ public class ForepersonPage {
                 AddJob addJob = new AddJob();
                 contentPanel.removeAll();
                 contentPanel.add(addJob.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        updateJobButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateJob updateJob = new UpdateJob();
+                contentPanel.removeAll();
+                contentPanel.add(updateJob.getMainPanel());
                 contentPanel.revalidate();
             }
         });
