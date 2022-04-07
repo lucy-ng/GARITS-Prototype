@@ -3,6 +3,7 @@ package Forms.Vehicles;
 import Database.Vehicle;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -19,6 +20,8 @@ public class DeleteVehicleRecord {
     private JButton deleteButton;
 
     public DeleteVehicleRecord() {
+        regNoScrollPane.setPreferredSize(new Dimension(500,500));
+
         searchVehicleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

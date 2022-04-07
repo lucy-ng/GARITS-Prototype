@@ -3,6 +3,7 @@ package Forms.Jobs;
 import Database.Job;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
@@ -30,6 +31,8 @@ public class UpdateJob {
     private JTextField newJobID;
 
     public UpdateJob() {
+        resultsJobs.setPreferredSize(new Dimension(500,500));
+
         ArrayList<Job> jobList = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");

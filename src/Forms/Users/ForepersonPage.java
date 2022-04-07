@@ -17,6 +17,7 @@ import Forms.Jobs.UseParts;
 import Forms.Jobs.ViewJobs;
 import Forms.StockControl.AddParts;
 import Forms.StockControl.ManageStock;
+import Forms.StockControl.SearchParts;
 import Forms.StockControl.UpdateParts;
 import Forms.Vehicles.CreateVehicleRecord;
 import Forms.Vehicles.DeleteVehicleRecord;
@@ -183,6 +184,16 @@ public class ForepersonPage {
                 UpdateParts updateParts = new UpdateParts();
                 contentPanel.removeAll();
                 contentPanel.add(updateParts.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        searchPartsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SearchParts searchParts = new SearchParts();
+                contentPanel.removeAll();
+                contentPanel.add(searchParts.getMainPanel());
                 contentPanel.revalidate();
             }
         });

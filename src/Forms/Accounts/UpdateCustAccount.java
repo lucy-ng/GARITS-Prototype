@@ -3,6 +3,7 @@ package Forms.Accounts;
 import Database.CustomerAccount;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -46,6 +47,8 @@ public class UpdateCustAccount {
     private JTable searchResults;
 
     public UpdateCustAccount() {
+        scrollPane.setPreferredSize(new Dimension(500,500));
+
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

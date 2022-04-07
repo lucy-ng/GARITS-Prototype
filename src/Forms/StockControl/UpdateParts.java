@@ -3,6 +3,7 @@ package Forms.StockControl;
 import Database.Part;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -37,6 +38,8 @@ public class UpdateParts {
     private JTextField oldPartName;
 
     public UpdateParts() {
+        scrollPane.setPreferredSize(new Dimension(500,500));
+
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -2,6 +2,7 @@ package Forms.Accounts;
 
 import Database.*;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.math.BigDecimal;
 import java.sql.*;
@@ -37,6 +38,8 @@ public class UpdateAccount {
     private JTable searchResults;
 
     public UpdateAccount() {
+        scrollPane.setPreferredSize(new Dimension(500,500));
+
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
