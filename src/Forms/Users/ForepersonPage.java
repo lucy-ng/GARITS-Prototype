@@ -11,6 +11,9 @@ import java.sql.ResultSet;
 import Forms.Accounts.DeleteCustAccount;
 import Forms.Accounts.RegisterCustAccount;
 import Forms.Accounts.UpdateCustAccount;
+import Forms.Jobs.AddJob;
+import Forms.Jobs.PickJob;
+import Forms.Jobs.UpdateJob;
 import Forms.StockControl.AddParts;
 import Forms.StockControl.ManageStock;
 import Forms.StockControl.UpdateParts;
@@ -167,5 +170,19 @@ public class ForepersonPage {
                 contentPanel.revalidate();
             }
         });
+        addJobButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddJob addJob = new AddJob();
+                contentPanel.removeAll();
+                contentPanel.add(addJob.getMainPanel());
+                contentPanel.revalidate();;
+            }
+        });
+
+
+
+
+
     }
 }

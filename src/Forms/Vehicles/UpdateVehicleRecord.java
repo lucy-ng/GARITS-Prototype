@@ -88,7 +88,7 @@ public class UpdateVehicleRecord {
                 ArrayList<Vehicle> vehicleList = new ArrayList<>();
                 try {
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
-                    PreparedStatement statement = connection.prepareStatement("SELECT registrationNo, colour, make, model, chassisNo, engineSerial, year from Vehicles where registrationNo = ?");
+                    PreparedStatement statement = connection.prepareStatement("SELECT registrationNo, colour, make, model, chassisNo, engineSerial, year, AccountID from Vehicles where registrationNo = ?");
                     statement.setString(1, text);
                     ResultSet rs = statement.executeQuery();
                     Vehicle vehicle;
@@ -101,6 +101,7 @@ public class UpdateVehicleRecord {
                         String chassisNo = rs.getString("chassisNo");
                         String engineSerial = rs.getString("engineSerial");
                         String year = rs.getString("year");
+                        int accountID = rs.getInt("AccountID");
 
                         vehicle = new Vehicle(registrationNo, colour, make, model, chassisNo, engineSerial, year);
                         vehicleList.add(vehicle);
@@ -114,6 +115,7 @@ public class UpdateVehicleRecord {
                             row[4] = vehicle.getChassisNo();
                             row[5] = vehicle.getEngineSerial();
                             row[6] = vehicle.getYear();
+
                         }
 
                         Object[][] data =  {row};
