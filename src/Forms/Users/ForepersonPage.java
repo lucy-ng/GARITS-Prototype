@@ -15,10 +15,7 @@ import Forms.Jobs.AddJob;
 import Forms.Jobs.UpdateJob;
 import Forms.Jobs.UseParts;
 import Forms.Jobs.ViewJobs;
-import Forms.StockControl.AddParts;
-import Forms.StockControl.ManageStock;
-import Forms.StockControl.SearchParts;
-import Forms.StockControl.UpdateParts;
+import Forms.StockControl.*;
 import Forms.Vehicles.CreateVehicleRecord;
 import Forms.Vehicles.DeleteVehicleRecord;
 import Forms.Vehicles.UpdateVehicleRecord;
@@ -46,13 +43,15 @@ public class ForepersonPage {
     private JButton updateJobButton;
     private JLabel jobsLabel;
     private JLabel stockControlLabel;
-    private JButton jobSheetButton;
     private JLabel receptionLabel;
-    private JButton invoiceButton;
     private JButton stockLevelReportButton;
     private JButton monthlyReportButton;
     private JButton orderPartsButton;
     private JButton usePartsButton;
+    private JButton jobSheetButton;
+    private JButton invoiceButton;
+    private JButton addDiscountDetailsButton;
+    private JButton updateDiscountDetailsButton;
 
     public ForepersonPage(JFrame window) {
         window.setContentPane(mainPanel);
@@ -244,6 +243,16 @@ public class ForepersonPage {
                 UseParts useParts = new UseParts();
                 contentPanel.removeAll();
                 contentPanel.add(useParts.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        stockLevelReportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StockLevelReport stockLevelReport = new StockLevelReport();
+                contentPanel.removeAll();
+                contentPanel.add(stockLevelReport.getMainPanel());
                 contentPanel.revalidate();
             }
         });
