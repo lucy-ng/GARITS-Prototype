@@ -153,15 +153,20 @@ public class UpdateCustAccount {
                         statement.executeUpdate();
                     }
 
-                    try (PreparedStatement stmt = connection.prepareStatement("UPDATE CustomerAccount SET address = ?, homePhoneNo = ?, daytimePhoneNo = ?, eveningPhoneNo = ?, membershipType = ?, discountPlan = ? WHERE AccountID = (SELECT AccountID FROM UserAccounts WHERE username = ?)")) {
+                    try (PreparedStatement stmt = connection.prepareStatement("UPDATE CustomerAccount SET address = ?, homePhoneNo = ?, daytimePhoneNo = ?, eveningPhoneNo = ?, membershipType = ? WHERE AccountID = (SELECT AccountID FROM UserAccounts WHERE username = ?)")) {
                         stmt.setString(1, addressText);
                         stmt.setString(2, homePhoneNoText);
                         stmt.setString(3, daytimePhoneNoText);
                         stmt.setString(4, eveningPhoneNoText);
                         stmt.setString(5, membershipTypeText);
-                        stmt.setString(6, discountPlanText);
-                        stmt.setString(7, oldUsernameText);
+                        stmt.setString(6, usernameText);
                         stmt.executeUpdate();
+                    }
+
+                    try (PreparedStatement updateStmt = connection.prepareStatement("UPDATE Discounts SET discountPlan = ? WHERE CustomerAccountID = (SELECT CustomerAccountID FROM CustomerAccount WHERE AccountID = (SELECT AccountID FROM UserAccounts WHERE username = ?))")) {
+                        updateStmt.setString(1, discountPlanText);
+                        updateStmt.setString(2, usernameText);
+                        updateStmt.executeUpdate();
                     }
 
                     JOptionPane.showMessageDialog(null, "Account updated!");

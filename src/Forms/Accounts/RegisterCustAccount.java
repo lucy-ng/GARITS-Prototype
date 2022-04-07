@@ -69,14 +69,18 @@ public class RegisterCustAccount {
                         statement.executeUpdate();
                     }
 
-                    try (PreparedStatement stmtInsert = connection.prepareStatement("INSERT INTO CustomerAccount (address, homePhoneNo, daytimePhoneNo, eveningPhoneNo, membershipType, discountPlan, AccountID) VALUES (?,?,?,?,?,?, LAST_INSERT_ID())")) {
+                    try (PreparedStatement stmtInsert = connection.prepareStatement("INSERT INTO CustomerAccount (address, homePhoneNo, daytimePhoneNo, eveningPhoneNo, membershipType, AccountID) VALUES (?,?,?,?,?, LAST_INSERT_ID())")) {
                         stmtInsert.setString(1, addressText);
                         stmtInsert.setString(2, homePhoneNoText);
                         stmtInsert.setString(3, daytimePhoneNoText);
                         stmtInsert.setString(4, eveningPhoneNoText);
                         stmtInsert.setString(5, membershipTypeText);
-                        stmtInsert.setString(6, discountPlanText);
                         stmtInsert.executeUpdate();
+                    }
+
+                    try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO Discounts (discountPlan, CustomerAccountID) VALUES (?, LAST_INSERT_ID())")) {
+                        stmt.setString(1,discountPlanText);
+                        stmt.executeUpdate();
                     }
 
                     JOptionPane.showMessageDialog(null, "Account created!");

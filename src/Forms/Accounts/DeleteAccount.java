@@ -40,35 +40,37 @@ public class DeleteAccount {
                     EmployeeAccount employeeAccount;
 
                     while (rs.next()) {
-                        String usernameText = rs.getString("username");
-                        String firstNameText = rs.getString("firstName");
-                        String lastNameText = rs.getString("lastName");
-                        String emailText = rs.getString("email");
-                        String phoneNoText = rs.getString("phoneNo");
-                        String employeePositionText = rsrs.getString("EmployeePosition");
-                        String departmentText = rsrs.getString("Department");
-                        BigDecimal labourRateValue = rsrs.getBigDecimal("labourRate");
+                        while (rsrs.next()) {
+                            String usernameText = rs.getString("username");
+                            String firstNameText = rs.getString("firstName");
+                            String lastNameText = rs.getString("lastName");
+                            String emailText = rs.getString("email");
+                            String phoneNoText = rs.getString("phoneNo");
+                            String employeePositionText = rsrs.getString("EmployeePosition");
+                            String departmentText = rsrs.getString("Department");
+                            BigDecimal labourRateValue = rsrs.getBigDecimal("labourRate");
 
-                        employeeAccount = new EmployeeAccount(usernameText, firstNameText, lastNameText, emailText, phoneNoText, employeePositionText, departmentText, labourRateValue);
-                        employeeAccountList.add(employeeAccount);
+                            employeeAccount = new EmployeeAccount(usernameText, firstNameText, lastNameText, emailText, phoneNoText, employeePositionText, departmentText, labourRateValue);
+                            employeeAccountList.add(employeeAccount);
 
-                        Object[] row = new Object[8];
-                        for (int i = 0; i < employeeAccountList.size(); i++) {
-                            row[0] = employeeAccount.getUsername();
-                            row[1] = employeeAccount.getFirstName();
-                            row[2] = employeeAccount.getLastName();
-                            row[3] = employeeAccount.getEmail();
-                            row[4] = employeeAccount.getPhoneNo();
-                            row[5] = employeeAccount.getEmployeePosition();
-                            row[6] = employeeAccount.getDepartment();
-                            row[7] = employeeAccount.getLabourRate();
+                            Object[] row = new Object[8];
+                            for (int i = 0; i < employeeAccountList.size(); i++) {
+                                row[0] = employeeAccount.getUsername();
+                                row[1] = employeeAccount.getFirstName();
+                                row[2] = employeeAccount.getLastName();
+                                row[3] = employeeAccount.getEmail();
+                                row[4] = employeeAccount.getPhoneNo();
+                                row[5] = employeeAccount.getEmployeePosition();
+                                row[6] = employeeAccount.getDepartment();
+                                row[7] = employeeAccount.getLabourRate();
+                            }
+
+                            Object[][] data =  {row};
+                            String[] columnNames = {"Username", "First Name", "Last Name", "Email", "Phone Number", "Employee Position", "Department", "Labour Rate"};
+                            searchResults = new JTable(data, columnNames);
+                            scrollPane.setViewportView(searchResults);
+                            searchResults.setVisible(true);
                         }
-
-                        Object[][] data =  {row};
-                        String[] columnNames = {"Username", "First Name", "Last Name", "Email", "Phone Number", "Employee Position", "Department", "Labour Rate"};
-                        searchResults = new JTable(data, columnNames);
-                        scrollPane.setViewportView(searchResults);
-                        searchResults.setVisible(true);
                     }
                     connection.setAutoCommit(true);
                     connection.close();

@@ -35,54 +35,58 @@ public class DeleteCustAccount {
                     statement.setString(1, text);
                     ResultSet rs = statement.executeQuery();
 
-                    PreparedStatement stmt = connection.prepareStatement("SELECT EmployeePosition, Department, labourRate FROM EmployeeAccount WHERE AccountID = (SELECT AccountID FROM UserAccounts where username = ?)");
+                    PreparedStatement stmt = connection.prepareStatement("SELECT address, homePhoneNo, daytimePhoneNo, eveningPhoneNo, membershipType FROM CustomerAccount WHERE AccountID = (SELECT AccountID FROM UserAccounts where username = ?)");
                     stmt.setString(1, text);
                     ResultSet rsrs = stmt.executeQuery();
 
-                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT discountPlan FROM Discounts WHERE AccountID = (SELECT AccountID FROM UserAccounts where username = ?)");
+                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT discountPlan FROM Discounts WHERE CustomerAccountID = (SELECT CustomerAccountID FROM CustomerAccount WHERE AccountID = (SELECT AccountID FROM UserAccounts WHERE username = ?))");
                     preparedStatement.setString(1, text);
                     ResultSet r = preparedStatement.executeQuery();
 
                     CustomerAccount customerAccount;
 
                     while (rs.next()) {
-                        String usernameText = rs.getString("username");
-                        String firstNameText = rs.getString("firstName");
-                        String lastNameText = rs.getString("lastName");
-                        String emailText = rs.getString("email");
-                        String phoneNoText = rs.getString("phoneNo");
+                        while (rsrs.next()){
+                            while (r.next()){
+                                String usernameText = rs.getString("username");
+                                String firstNameText = rs.getString("firstName");
+                                String lastNameText = rs.getString("lastName");
+                                String emailText = rs.getString("email");
+                                String phoneNoText = rs.getString("phoneNo");
 
-                        String addressText = rsrs.getString("address");
-                        String homePhoneNoText = rsrs.getString("homePhoneNo");
-                        String daytimePhoneNoText = rsrs.getString("daytimePhoneNo");
-                        String eveningPhoneNoText = rsrs.getString("eveningPhoneNo");
-                        String membershipTypeText = rsrs.getString("membershipType");
+                                String addressText = rsrs.getString("address");
+                                String homePhoneNoText = rsrs.getString("homePhoneNo");
+                                String daytimePhoneNoText = rsrs.getString("daytimePhoneNo");
+                                String eveningPhoneNoText = rsrs.getString("eveningPhoneNo");
+                                String membershipTypeText = rsrs.getString("membershipType");
 
-                        String discountPlanText = r.getString("discountPlan");
+                                String discountPlanText = r.getString("discountPlan");
 
-                        customerAccount = new CustomerAccount(usernameText, firstNameText, lastNameText, emailText, phoneNoText, addressText, homePhoneNoText, daytimePhoneNoText, eveningPhoneNoText, membershipTypeText, discountPlanText);
-                        customerAccountList.add(customerAccount);
+                                customerAccount = new CustomerAccount(usernameText, firstNameText, lastNameText, emailText, phoneNoText, addressText, homePhoneNoText, daytimePhoneNoText, eveningPhoneNoText, membershipTypeText, discountPlanText);
+                                customerAccountList.add(customerAccount);
 
-                        Object[] row = new Object[11];
-                        for (int i = 0; i < customerAccountList.size(); i++) {
-                            row[0] = customerAccount.getUsername();
-                            row[1] = customerAccount.getFirstName();
-                            row[2] = customerAccount.getLastName();
-                            row[3] = customerAccount.getEmail();
-                            row[4] = customerAccount.getPhoneNo();
-                            row[5] = customerAccount.getAddress();
-                            row[6] = customerAccount.getHomePhoneNo();
-                            row[7] = customerAccount.getDaytimePhoneNo();
-                            row[8] = customerAccount.getEveningPhoneNo();
-                            row[9] = customerAccount.getMembershipType();
-                            row[10] = customerAccount.getDiscountPlan();
+                                Object[] row = new Object[11];
+                                for (int i = 0; i < customerAccountList.size(); i++) {
+                                    row[0] = customerAccount.getUsername();
+                                    row[1] = customerAccount.getFirstName();
+                                    row[2] = customerAccount.getLastName();
+                                    row[3] = customerAccount.getEmail();
+                                    row[4] = customerAccount.getPhoneNo();
+                                    row[5] = customerAccount.getAddress();
+                                    row[6] = customerAccount.getHomePhoneNo();
+                                    row[7] = customerAccount.getDaytimePhoneNo();
+                                    row[8] = customerAccount.getEveningPhoneNo();
+                                    row[9] = customerAccount.getMembershipType();
+                                    row[10] = customerAccount.getDiscountPlan();
+                                }
+
+                                Object[][] data =  {row};
+                                String[] columnNames = {"Username", "First Name", "Last Name", "Email", "Phone Number", "Address", "Home Phone", "Daytime Phone", "Evening Phone", "Membership Type", "Discount Plan"};
+                                searchResults = new JTable(data, columnNames);
+                                scrollPane.setViewportView(searchResults);
+                                searchResults.setVisible(true);
+                            }
                         }
-
-                        Object[][] data =  {row};
-                        String[] columnNames = {"Username", "First Name", "Last Name", "Email", "Phone Number", "Address", "Home Phone", "Daytime Phone", "Evening Phone", "Membership Type", "Discount Plan"};
-                        searchResults = new JTable(data, columnNames);
-                        scrollPane.setViewportView(searchResults);
-                        searchResults.setVisible(true);
                     }
                     connection.setAutoCommit(true);
                     connection.close();

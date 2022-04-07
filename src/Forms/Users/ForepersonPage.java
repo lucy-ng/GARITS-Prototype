@@ -12,6 +12,7 @@ import Forms.Accounts.DeleteCustAccount;
 import Forms.Accounts.RegisterCustAccount;
 import Forms.Accounts.UpdateCustAccount;
 import Forms.Jobs.AddJob;
+import Forms.Jobs.UseParts;
 import Forms.Jobs.ViewJobs;
 import Forms.StockControl.AddParts;
 import Forms.StockControl.ManageStock;
@@ -51,6 +52,7 @@ public class ForepersonPage {
     private JButton monthlyReportButton;
     private JButton pickJobButton;
     private JButton orderPartsButton;
+    private JButton usePartsButton;
 
     public ForepersonPage(JFrame window) {
         window.setContentPane(mainPanel);
@@ -212,6 +214,16 @@ public class ForepersonPage {
                 ViewJobs viewJobs = new ViewJobs();
                 contentPanel.removeAll();
                 contentPanel.add(viewJobs.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        usePartsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UseParts useParts = new UseParts();
+                contentPanel.removeAll();
+                contentPanel.add(useParts.getMainPanel());
                 contentPanel.revalidate();
             }
         });
