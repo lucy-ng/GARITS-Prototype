@@ -24,24 +24,26 @@ public class ViewJobs {
             Job job;
 
             while (rs.next()) {
+                int jobID = rs.getInt("jobID");
                 String description = rs.getString("description");
                 String estimatedTime = rs.getString("estimatedTime");
                 String jobStatus = rs.getString("jobStatus");
                 String registrationNo = rs.getString("registrationNo");
 
-                job = new Job(description, estimatedTime, jobStatus, registrationNo);
+                job = new Job(jobID, description, estimatedTime, jobStatus, registrationNo);
                 jobList.add(job);
 
-                Object[] row = new Object[4];
+                Object[] row = new Object[5];
                 for (int i = 0; i < jobList.size(); i++) {
-                    row[0] = job.getDescription();
-                    row[1] = job.getEstimatedTime();
-                    row[2] = job.getJobStatus();
-                    row[3] = job.getRegistrationNo();
+                    row[0] = job.getJobID();
+                    row[1] = job.getDescription();
+                    row[2] = job.getEstimatedTime();
+                    row[3] = job.getJobStatus();
+                    row[4] = job.getRegistrationNo();
                 }
 
                 Object[][] data =  {row};
-                String[] columnNames = {"Description", "Estimated Time", "Job Status", "Registration Number"};
+                String[] columnNames = {"JobID", "Description", "Estimated Time", "Job Status", "Registration Number"};
                 JTable jobSearchResults = new JTable(data, columnNames);
                 scrollPane.setViewportView(jobSearchResults);
                 jobSearchResults.setVisible(true);

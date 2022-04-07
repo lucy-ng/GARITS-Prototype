@@ -19,7 +19,6 @@ public class AddJob {
     private JPanel mainPanel;
     private JLabel addJobLabel;
     private JLabel descriptionOfJobLabel;
-    private JLabel sparePartsLabel;
     private JLabel tableOfJobsLabel;
     private JLabel vehicleDetailsLabel;
     private JScrollPane resultsVehicle;
@@ -87,20 +86,6 @@ public class AddJob {
     }
 
     public AddJob() {
-        Vector headers = new Vector();
-        headers.addElement("Part Name");
-        headers.addElement("Manufacturer");
-        headers.addElement("Vehicle Type");
-        headers.addElement("Year");
-        headers.addElement("Price");
-        headers.addElement("Quantity");
-        headers.addElement("Low Threshold");
-        Vector rows = new Vector();
-        sparePartsTable = new JTable(rows, headers);
-        DefaultTableModel sparePartsModel = (DefaultTableModel) sparePartsTable.getModel();
-        resultsSpareParts.setViewportView(sparePartsTable);
-        sparePartsTable.setVisible(true);
-
         displayMechanics();
 
         ArrayList<Job> jobList = new ArrayList<>();
@@ -111,24 +96,26 @@ public class AddJob {
             Job job;
 
             while (rs.next()) {
+                int jobID = rs.getInt("jobID");
                 String description = rs.getString("description");
                 String estimatedTime = rs.getString("estimatedTime");
                 String jobStatus = rs.getString("jobStatus");
                 String registrationNo = rs.getString("registrationNo");
 
-                job = new Job(description, estimatedTime, jobStatus, registrationNo);
+                job = new Job(jobID, description, estimatedTime, jobStatus, registrationNo);
                 jobList.add(job);
 
-                Object[] row = new Object[4];
+                Object[] row = new Object[5];
                 for (int i = 0; i < jobList.size(); i++) {
-                    row[0] = job.getDescription();
-                    row[1] = job.getEstimatedTime();
-                    row[2] = job.getJobStatus();
-                    row[3] = job.getRegistrationNo();
+                    row[0] = job.getJobID();
+                    row[1] = job.getDescription();
+                    row[2] = job.getEstimatedTime();
+                    row[3] = job.getJobStatus();
+                    row[4] = job.getRegistrationNo();
                 }
 
                 Object[][] data =  {row};
-                String[] columnNames = {"Description", "Estimated Time", "Job Status", "Registration Number"};
+                String[] columnNames = {"JobID", "Description", "Estimated Time", "Job Status", "Registration Number"};
                 JTable jobSearchResults = new JTable(data, columnNames);
                 resultsJobs.setViewportView(jobSearchResults);
                 jobSearchResults.setVisible(true);
@@ -137,50 +124,6 @@ public class AddJob {
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();;
         }
-
-        addSparePartButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    String partNameText = searchSparePart.getText();
-                    ArrayList<Part> partList = new ArrayList<>();
-                    Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
-                    PreparedStatement statement = connection.prepareStatement("SELECT name, manufacturer, vehicleType, year, price, quantity, lowThreshold from SpareParts where name = ?");
-                    statement.setString(1, partNameText);
-                    ResultSet rs = statement.executeQuery();
-                    Part part;
-
-                    while (rs.next()) {
-                        String nameText = rs.getString("name");
-                        String manufacturerText = rs.getString("manufacturer");
-                        String vehicleTypeText = rs.getString("vehicleType");
-                        String yearText = rs.getString("year");
-                        BigDecimal priceText = rs.getBigDecimal("price");
-                        int quantityText = rs.getInt("quantity");
-                        int lowThresholdText = rs.getInt("lowThreshold");
-
-                        part = new Part(nameText, manufacturerText, vehicleTypeText, yearText, priceText, quantityText, lowThresholdText);
-                        partList.add(part);
-
-                        Object[] row = new Object[7];
-                        for (int i = 0; i < partList.size(); i++) {
-                            row[0] = part.getName();
-                            row[1] = part.getManufacturer();
-                            row[2] = part.getVehicleType();
-                            row[3] = part.getYear();
-                            row[4] = part.getPrice();
-                            row[5] = part.getQuantity();
-                            row[6] = part.getLowThreshold();
-                        }
-
-                        sparePartsModel.addRow(row);
-                    }
-                    connection.close();
-                } catch (SQLException sqlException) {
-                    sqlException.printStackTrace();;
-                }
-            }
-        });
 
         addJobButton.addActionListener(new ActionListener() {
             @Override
@@ -208,30 +151,6 @@ public class AddJob {
                     try (PreparedStatement stmt = connection.prepareStatement("UPDATE EmployeeAccount SET jobID = LAST_INSERT_ID() WHERE EmployeePosition = 'Mechanic' AND AccountID = (SELECT AccountID FROM UserAccounts WHERE username = ?) ")) {
                         stmt.setString(1, mechanicText);
                         stmt.executeUpdate();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    try (PreparedStatement updatePartStmt = connection.prepareStatement("UPDATE SpareParts SET quantity = ? WHERE name = ?")) {
-                        for (int i = 1; i < sparePartsModel.getRowCount(); i++) {
-                            String partName = sparePartsModel.getValueAt(i,1).toString();
-                            int partQuantity = (int) sparePartsModel.getValueAt(i, 6);
-                            int newPartQuantity = partQuantity - 1;
-
-                            updatePartStmt.setInt(1,  newPartQuantity);
-                            updatePartStmt.setString(2, partName);
-                            updatePartStmt.executeUpdate();
-                        }
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-
-                    try (PreparedStatement updateJobStmt = connection.prepareStatement("UPDATE Job SET partID = (SELECT partID FROM SpareParts WHERE name = ?)")) {
-                        for (int i = 1; i < sparePartsModel.getRowCount(); i++) {
-                            String partNameText = sparePartsModel.getValueAt(i,1).toString();
-                            updateJobStmt.setString(1, partNameText);
-                            updateJobStmt.executeUpdate();
-                        }
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }

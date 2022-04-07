@@ -26,8 +26,58 @@ public class UseParts {
     private JButton useButton;
     private JLabel newQuantityLabel;
     private JTextField newQuantity;
+    private JButton searchButton;
 
     public UseParts() {
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = searchParts.getText();
+                ArrayList<Part> partList = new ArrayList<>();
+                try {
+                    Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
+                    PreparedStatement statement = connection.prepareStatement("SELECT name, manufacturer, vehicleType, year, price, quantity, lowThreshold from SpareParts where name = ?");
+                    statement.setString(1, text);
+                    ResultSet rs = statement.executeQuery();
+                    Part part;
+
+                    while (rs.next()) {
+                        String name = rs.getString("name");
+                        String manufacturer = rs.getString("manufacturer");
+                        String vehicleType = rs.getString("vehicleType");
+                        String year = rs.getString("year");
+                        BigDecimal price = rs.getBigDecimal("price");
+                        int quantity = rs.getInt("quantity");
+                        int lowThreshold = rs.getInt("lowThreshold");
+
+                        part = new Part(name, manufacturer, vehicleType, year, price, quantity, lowThreshold);
+                        partList.add(part);
+
+                        Object[] row = new Object[7];
+                        for (int i = 0; i < partList.size(); i++) {
+                            row[0] = part.getName();
+                            row[1] = part.getManufacturer();
+                            row[2] = part.getVehicleType();
+                            row[3] = part.getYear();
+                            row[4] = part.getPrice();
+                            row[5] = part.getQuantity();
+                            row[6] = part.getLowThreshold();
+                        }
+
+                        Object[][] data =  {row};
+                        String[] columnNames = {"Part Name", "Manufacturer", "Vehicle Type", "Year", "Price", "Quantity", "Low Threshold"};
+                        JTable searchResults = new JTable(data, columnNames);
+                        scrollPane.setViewportView(searchResults);
+                        searchResults.setVisible(true);
+                    }
+                    connection.close();
+                } catch (SQLException sqlException) {
+                    sqlException.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Parts used!");
+                }
+            }
+        });
+
         ArrayList<Job> jobList = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
@@ -36,24 +86,26 @@ public class UseParts {
             Job job;
 
             while (rs.next()) {
+                int jobID = rs.getInt("jobID");
                 String description = rs.getString("description");
                 String estimatedTime = rs.getString("estimatedTime");
                 String jobStatus = rs.getString("jobStatus");
                 String registrationNo = rs.getString("registrationNo");
 
-                job = new Job(description, estimatedTime, jobStatus, registrationNo);
+                job = new Job(jobID, description, estimatedTime, jobStatus, registrationNo);
                 jobList.add(job);
 
-                Object[] row = new Object[4];
+                Object[] row = new Object[5];
                 for (int i = 0; i < jobList.size(); i++) {
-                    row[0] = job.getDescription();
-                    row[1] = job.getEstimatedTime();
-                    row[2] = job.getJobStatus();
-                    row[3] = job.getRegistrationNo();
+                    row[0] = job.getJobID();
+                    row[1] = job.getDescription();
+                    row[2] = job.getEstimatedTime();
+                    row[3] = job.getJobStatus();
+                    row[4] = job.getRegistrationNo();
                 }
 
                 Object[][] data =  {row};
-                String[] columnNames = {"Description", "Estimated Time", "Job Status", "Registration Number"};
+                String[] columnNames = {"JobID", "Description", "Estimated Time", "Job Status", "Registration Number"};
                 JTable jobSearchResults = new JTable(data, columnNames);
                 resultsJobs.setViewportView(jobSearchResults);
                 jobSearchResults.setVisible(true);
