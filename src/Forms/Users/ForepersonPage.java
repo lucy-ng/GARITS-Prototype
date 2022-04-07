@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import Forms.Accounts.DeleteCustAccount;
 import Forms.Accounts.RegisterCustAccount;
 import Forms.Accounts.UpdateCustAccount;
+import Forms.Discounts.AddDiscountDetails;
 import Forms.Jobs.AddJob;
 import Forms.Jobs.UpdateJob;
 import Forms.Jobs.UseParts;
@@ -253,6 +254,16 @@ public class ForepersonPage {
                 StockLevelReport stockLevelReport = new StockLevelReport();
                 contentPanel.removeAll();
                 contentPanel.add(stockLevelReport.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        addDiscountDetailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddDiscountDetails addDiscountDetails = new AddDiscountDetails();
+                contentPanel.removeAll();
+                contentPanel.add(addDiscountDetails.getMainPanel());
                 contentPanel.revalidate();
             }
         });
