@@ -16,6 +16,7 @@ import Forms.Jobs.PickJob;
 import Forms.Jobs.UpdateJob;
 import Forms.StockControl.AddParts;
 import Forms.StockControl.ManageStock;
+import Forms.StockControl.SearchParts;
 import Forms.StockControl.UpdateParts;
 import Forms.Vehicles.CreateVehicleRecord;
 import Forms.Vehicles.DeleteVehicleRecord;
@@ -30,7 +31,7 @@ public class ForepersonPage {
     private JButton deleteCustomerAccountButton;
     private JButton addVehicleRecordButton;
     private JButton updateVehicleRecordButton;
-    private JButton deleteVehicleRecordButton;
+    private JButton deleteVehicleRecordButton;-
     private JPanel contentPanel;
     private JButton viewJobsButton;
     private JButton allocateMechanicButton;
@@ -181,8 +182,14 @@ public class ForepersonPage {
         });
 
 
-
-
-
+        searchPartsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SearchParts searchParts = new SearchParts();
+                contentPanel.removeAll();
+                contentPanel.add(searchParts.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
     }
 }

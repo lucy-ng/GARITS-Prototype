@@ -80,7 +80,7 @@ public class AddJob {
                     ex.printStackTrace();
                 }
 
-                arrayList<Job> jobList = new arrayList
+
             }
         });
 
@@ -234,7 +234,7 @@ public class AddJob {
     }
 
 
-    }
+
 
     public JPanel getMainPanel() {
         return mainPanel;
