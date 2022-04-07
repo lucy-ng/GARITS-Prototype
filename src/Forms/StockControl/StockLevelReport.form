@@ -116,7 +116,7 @@
           <text value="Quick Fix Fitters,  19 High St.,  Ashford,  Kent CT16 8YY"/>
         </properties>
       </component>
-      <scrollpane id="43012">
+      <scrollpane id="43012" binding="stockTable">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="3" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
