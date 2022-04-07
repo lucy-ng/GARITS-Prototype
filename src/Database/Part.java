@@ -1,18 +1,18 @@
 package Database;
 
+import java.math.BigDecimal;
+
 public class Part {
     private String name;
-    private String code;
     private String manufacturer;
     private String vehicleType;
     private String year;
-    private String price;
+    private BigDecimal price;
     private int quantity;
     private int lowThreshold;
 
-    public Part(String name, String code, String manufacturer, String vehicleType, String year, String price, int quantity, int lowThreshold) {
+    public Part(String name, String manufacturer, String vehicleType, String year, BigDecimal price, int quantity, int lowThreshold) {
         this.name = name;
-        this.code = code;
         this.manufacturer = manufacturer;
         this.vehicleType = vehicleType;
         this.year = year;
@@ -23,10 +23,6 @@ public class Part {
 
     public String getName() {
         return name;
-    }
-
-    public String getCode() {
-        return code;
     }
 
     public String getManufacturer() {
@@ -41,7 +37,7 @@ public class Part {
         return year;
     }
 
-    public String getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 

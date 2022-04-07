@@ -70,6 +70,7 @@ public class RegisterAccount {
 
                 } catch (Exception ex) {
                     ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Fields cannot be null!");
                 }
             }
         });

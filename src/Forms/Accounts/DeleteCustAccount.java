@@ -1,10 +1,13 @@
 package Forms.Accounts;
 
-import Database.UserAccount;
+import Database.CustomerAccount;
+import Database.EmployeeAccount;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -17,48 +20,75 @@ public class DeleteCustAccount {
     private JLabel usernameDeleteLabel;
     private JScrollPane scrollPane;
     private JButton deleteButton;
+    private JTable searchResults;
 
     public DeleteCustAccount() {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = searchField.getText();
-                ArrayList<UserAccount> userAccountList = new ArrayList<>();
+                ArrayList<CustomerAccount> customerAccountList = new ArrayList<>();
                 try {
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
+                    connection.setAutoCommit(false);
                     PreparedStatement statement = connection.prepareStatement("SELECT username, firstName, lastName, email, phoneNo from UserAccounts where username = ?");
                     statement.setString(1, text);
                     ResultSet rs = statement.executeQuery();
-                    UserAccount userAccount;
+
+                    PreparedStatement stmt = connection.prepareStatement("SELECT EmployeePosition, Department, labourRate FROM EmployeeAccount WHERE AccountID = (SELECT AccountID FROM UserAccounts where username = ?)");
+                    stmt.setString(1, text);
+                    ResultSet rsrs = stmt.executeQuery();
+
+                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT discountPlan FROM Discounts WHERE AccountID = (SELECT AccountID FROM UserAccounts where username = ?)");
+                    preparedStatement.setString(1, text);
+                    ResultSet r = preparedStatement.executeQuery();
+
+                    CustomerAccount customerAccount;
 
                     while (rs.next()) {
-                        String username = rs.getString("username");
-                        String firstName = rs.getString("firstName");
-                        String lastName = rs.getString("lastName");
-                        String email = rs.getString("email");
-                        String phoneNo = rs.getString("phoneNo");
+                        String usernameText = rs.getString("username");
+                        String firstNameText = rs.getString("firstName");
+                        String lastNameText = rs.getString("lastName");
+                        String emailText = rs.getString("email");
+                        String phoneNoText = rs.getString("phoneNo");
 
-                        userAccount = new UserAccount(username, firstName, lastName, email, phoneNo);
-                        userAccountList.add(userAccount);
+                        String addressText = rsrs.getString("address");
+                        String homePhoneNoText = rsrs.getString("homePhoneNo");
+                        String daytimePhoneNoText = rsrs.getString("daytimePhoneNo");
+                        String eveningPhoneNoText = rsrs.getString("eveningPhoneNo");
+                        String membershipTypeText = rsrs.getString("membershipType");
 
-                        Object[] row = new Object[5];
-                        for (int i = 0; i < userAccountList.size(); i++) {
-                            row[0] = userAccount.getUsername();
-                            row[1] = userAccount.getFirstName();
-                            row[2] = userAccount.getLastName();
-                            row[3] = userAccount.getEmail();
-                            row[4] = userAccount.getPhoneNo();
+                        String discountPlanText = r.getString("discountPlan");
+
+                        customerAccount = new CustomerAccount(usernameText, firstNameText, lastNameText, emailText, phoneNoText, addressText, homePhoneNoText, daytimePhoneNoText, eveningPhoneNoText, membershipTypeText, discountPlanText);
+                        customerAccountList.add(customerAccount);
+
+                        Object[] row = new Object[11];
+                        for (int i = 0; i < customerAccountList.size(); i++) {
+                            row[0] = customerAccount.getUsername();
+                            row[1] = customerAccount.getFirstName();
+                            row[2] = customerAccount.getLastName();
+                            row[3] = customerAccount.getEmail();
+                            row[4] = customerAccount.getPhoneNo();
+                            row[5] = customerAccount.getAddress();
+                            row[6] = customerAccount.getHomePhoneNo();
+                            row[7] = customerAccount.getDaytimePhoneNo();
+                            row[8] = customerAccount.getEveningPhoneNo();
+                            row[9] = customerAccount.getMembershipType();
+                            row[10] = customerAccount.getDiscountPlan();
                         }
 
                         Object[][] data =  {row};
-                        String[] columnNames = {"Username", "First Name", "Last Name", "Email", "Phone Number"};
-                        JTable searchResults = new JTable(data, columnNames);
+                        String[] columnNames = {"Username", "First Name", "Last Name", "Email", "Phone Number", "Address", "Home Phone", "Daytime Phone", "Evening Phone", "Membership Type", "Discount Plan"};
+                        searchResults = new JTable(data, columnNames);
                         scrollPane.setViewportView(searchResults);
                         searchResults.setVisible(true);
                     }
+                    connection.setAutoCommit(true);
                     connection.close();
                 } catch (SQLException sqlException) {
-                    sqlException.printStackTrace();;
+                    sqlException.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "No account found!");
                 }
             }
         });

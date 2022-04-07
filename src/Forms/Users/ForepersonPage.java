@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import Forms.Accounts.DeleteCustAccount;
 import Forms.Accounts.RegisterCustAccount;
 import Forms.Accounts.UpdateCustAccount;
+import Forms.Jobs.AddJob;
+import Forms.Jobs.ViewJobs;
 import Forms.StockControl.AddParts;
 import Forms.StockControl.ManageStock;
 import Forms.StockControl.UpdateParts;
@@ -35,25 +37,26 @@ public class ForepersonPage {
     private JButton manageStockButton;
     private JButton makePaymentButton;
     private JButton generateMOTReminderButton;
-    private JButton orderPartsButton;
     private JButton addPartsButton;
     private JButton searchPartsButton;
     private JButton updatePartsButton;
     private JButton addJobButton;
     private JButton updateJobButton;
-    private JButton pickJobButton;
     private JLabel jobsLabel;
     private JLabel stockControlLabel;
     private JButton jobSheetButton;
     private JLabel receptionLabel;
     private JButton invoiceButton;
-    private JButton monthlyReportButton;
     private JButton stockLevelReportButton;
+    private JButton monthlyReportButton;
+    private JButton pickJobButton;
+    private JButton orderPartsButton;
 
     public ForepersonPage(JFrame window) {
         window.setContentPane(mainPanel);
         window.setVisible(true);
 
+        // Low stock alert
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
 
@@ -77,6 +80,31 @@ public class ForepersonPage {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
+        // Late payment alert
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
+
+            connection.setAutoCommit(false);
+            try (PreparedStatement statement = connection.prepareStatement("SELECT UserAccounts.username, CustomerAccount.hasPaid FROM UserAccounts INNER JOIN CustomerAccount ON UserAccounts.AccountID = CustomerAccount.AccountID")) {
+                ResultSet rs = statement.executeQuery();
+
+                while (rs.next()){
+                    String usernameText = rs.getString("username");
+                    int hasPaid = rs.getInt("hasPaid");
+
+                    if (hasPaid == 0) {
+                        JOptionPane.showMessageDialog(null, usernameText + " has not paid!");
+                    }
+                }
+            }
+            connection.setAutoCommit(true);
+            connection.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
 
         addCustomerAccountButton.addActionListener(new ActionListener() {
             @Override
@@ -164,6 +192,26 @@ public class ForepersonPage {
                 ManageStock manageStock = new ManageStock();
                 contentPanel.removeAll();
                 contentPanel.add(manageStock.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        addJobButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddJob addJob = new AddJob();
+                contentPanel.removeAll();
+                contentPanel.add(addJob.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        viewJobsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ViewJobs viewJobs = new ViewJobs();
+                contentPanel.removeAll();
+                contentPanel.add(viewJobs.getMainPanel());
                 contentPanel.revalidate();
             }
         });
