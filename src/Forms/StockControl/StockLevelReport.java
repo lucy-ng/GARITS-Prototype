@@ -4,10 +4,18 @@ import Database.Job;
 import Database.Stock;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class StockLevelReport {
+
+public class StockLevelReport extends Component {
     private JPanel mainPanel;
     private JLabel stockLevelTitle;
     private JTextPane address;
@@ -71,7 +79,44 @@ public class StockLevelReport {
         }
 
 
+        printButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                printPanel(mainPanel,"Stock Level report");
+            }
+        });
     }
+
+    public void printPanel(JPanel panel, String name) {
+        PrinterJob printerJob = PrinterJob.getPrinterJob();
+        printerJob.setJobName(name);
+        printerJob.setPrintable(new Printable() {
+            @Override
+            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                if(pageIndex > 0){
+                    return Printable.NO_SUCH_PAGE;
+                }
+                Graphics2D graphics2D = (Graphics2D)graphics;
+                graphics2D.translate(pageFormat.getImageableX()*2,(pageFormat.getImageableY()*2));
+                graphics2D.scale(0.5,0.5);
+                panel.paint(graphics2D);
+                return Printable.PAGE_EXISTS;
+            }
+        });
+        boolean returningResult = printerJob.printDialog();
+        if(returningResult){
+            try {
+                // here
+                printButton.setVisible(false);
+                printerJob.print();
+                printButton.setVisible(true);
+            }catch (PrinterException printerException){
+                JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
+            }
+        }
+    }
+
+
 
     public JPanel getMainPanel() {
         return mainPanel;
