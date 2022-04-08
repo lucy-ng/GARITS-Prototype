@@ -278,6 +278,16 @@ public class ForepersonPage {
                     contentPanel.revalidate();
                 }
                 else if (result == 1) {
+                    String[] options = new String[] {"Automatic", "On Demand"};
+                    int option = JOptionPane.showOptionDialog(null, "Choose options below:","Automatic or On Demand", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                    if (option == 0) {
+
+                    }
+                    else if (option == 1) {
+                        String reply;
+                        String date;
+                        date = JOptionPane.showInputDialog("Enter Date:");
+                    }
                     StockLevelReport stockLevelReport = new StockLevelReport();
                     contentPanel.removeAll();
                     contentPanel.add(stockLevelReport.getMainPanel());

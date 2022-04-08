@@ -27,8 +27,13 @@ public class UseParts {
     private JLabel newQuantityLabel;
     private JTextField newQuantity;
     private JButton searchButton;
+    private JLabel amountUsedLabel;
+    private JTextField amountUsed;
+    private JLabel dateUsedLabel;
+    private JTextField dateUsed;
 
     public UseParts() {
+        scrollPane.setSize(500,500);
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -170,6 +175,19 @@ public class UseParts {
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
                     String partNameText = partName.getText();
                     int newQuantityText = Integer.parseInt(newQuantity.getText());
+                    Date dateUsedText = Date.valueOf(dateUsed.getText());
+                    int amountUsedText = Integer.parseInt(amountUsed.getText());
+
+                    PreparedStatement selectStmt = connection.prepareStatement("SELECT partID FROM SpareParts WHERE name = ?");
+                    selectStmt.setString(1, partNameText);
+                    ResultSet rs = selectStmt.executeQuery();
+
+                    while (rs.next()) {
+                        PreparedStatement insertStmt = connection.prepareStatement("INSERT INTO SparePartsUse(amountUsed, partUseDate, partID) VALUES (?,?,?)");
+                        insertStmt.setInt(1, amountUsedText);
+                        insertStmt.setDate(2, dateUsedText);
+                        insertStmt.setInt(3, rs.getInt("partID"));
+                    }
 
                     try (PreparedStatement updatePartStmt = connection.prepareStatement("UPDATE SpareParts SET quantity = ? WHERE name = ?")) {
                         updatePartStmt.setInt(1,  newQuantityText);

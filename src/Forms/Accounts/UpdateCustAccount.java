@@ -296,13 +296,12 @@ public class UpdateCustAccount {
             public void mouseClicked(MouseEvent e) {
             super.mouseClicked(e);
             int selectedRow = searchResults.getSelectedRow();
-            companyName.setText(searchResults.getModel().getValueAt(selectedRow, 0).toString());
             oldUsername.setText(searchResults.getModel().getValueAt(selectedRow, 1).toString());
             firstName.setText(searchResults.getModel().getValueAt(selectedRow,2).toString());
             lastName.setText(searchResults.getModel().getValueAt(selectedRow,3).toString());
             email.setText(searchResults.getModel().getValueAt(selectedRow,4).toString());
-            address.setText(searchResults.getModel().getValueAt(selectedRow,5).toString());
-            mobileNo.setText(searchResults.getModel().getValueAt(selectedRow,6).toString());
+            address.setText(searchResults.getModel().getValueAt(selectedRow,6).toString());
+            mobileNo.setText(searchResults.getModel().getValueAt(selectedRow,5).toString());
             homePhoneNo.setText(searchResults.getModel().getValueAt(selectedRow,7).toString());
             daytimePhoneNo.setText(searchResults.getModel().getValueAt(selectedRow,8).toString());
             eveningPhoneNo.setText(searchResults.getModel().getValueAt(selectedRow,9).toString());

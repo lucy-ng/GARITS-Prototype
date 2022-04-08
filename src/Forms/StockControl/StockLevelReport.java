@@ -82,7 +82,7 @@ public class StockLevelReport extends Component {
         printButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                printPanel(mainPanel,"Stock Level report");
+                printPanel(mainPanel,"Stock Level Report");
             }
         });
     }

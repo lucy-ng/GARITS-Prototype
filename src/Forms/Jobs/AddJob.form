@@ -52,7 +52,7 @@
         </constraints>
         <properties>
           <foreground color="-1"/>
-          <text value="Estimated Time"/>
+          <text value="Estimated Time (hours)"/>
         </properties>
       </component>
       <hspacer id="58c8d">
