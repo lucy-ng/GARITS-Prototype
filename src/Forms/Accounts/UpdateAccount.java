@@ -2,6 +2,7 @@ package Forms.Accounts;
 
 import Database.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.math.BigDecimal;
@@ -38,7 +39,67 @@ public class UpdateAccount {
     private JTable searchResults;
 
     public UpdateAccount() {
-        scrollPane.setPreferredSize(new Dimension(500,500));
+        scrollPane.setPreferredSize(new Dimension(500,700));
+
+        Vector headers = new Vector();
+        headers.addElement("Username");
+        headers.addElement("First Name");
+        headers.addElement("Last Name");
+        headers.addElement("Email");
+        headers.addElement("Phone Number");
+        headers.addElement("Role");
+        headers.addElement("Department");
+        headers.addElement("Labour Rate");
+        Vector rows = new Vector();
+        searchResults = new JTable(rows, headers);
+        DefaultTableModel accountTableModel = (DefaultTableModel) searchResults.getModel();
+        scrollPane.setViewportView(searchResults);
+        searchResults.setVisible(true);
+
+        ArrayList<EmployeeAccount> employeeAccountList = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
+            PreparedStatement statement = connection.prepareStatement("SELECT * from EmployeeAccount");
+            ResultSet rs = statement.executeQuery();
+
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM UserAccounts WHERE AccountID = ?");
+
+            while (rs.next()) {
+                stmt.setInt(1, rs.getInt("AccountID"));
+                ResultSet r = stmt.executeQuery();
+                while (r.next()) {
+                    String username = r.getString("username");
+                    String firstName = r.getString("firstName");
+                    String lastName = r.getString("lastName");
+                    String email = r.getString("email");
+                    String phoneNumber = r.getString("phoneNo");
+                    String role = rs.getString("EmployeePosition");
+                    String department = rs.getString("Department");
+                    BigDecimal labourRate = rs.getBigDecimal("labourRate");
+
+                    EmployeeAccount employeeAccount;
+                    employeeAccount = new EmployeeAccount(username, firstName, lastName, email, phoneNumber, role, department, labourRate);
+                    employeeAccountList.add(employeeAccount);
+
+                    Object[] row = new Object[8];
+                    for (int i = 0; i < employeeAccountList.size(); i++) {
+                        row[0] = employeeAccount.getUsername();
+                        row[1] = employeeAccount.getFirstName();
+                        row[2] = employeeAccount.getLastName();
+                        row[3] = employeeAccount.getEmail();
+                        row[4] = employeeAccount.getPhoneNo();
+                        row[5] = employeeAccount.getEmployeePosition();
+                        row[6] = employeeAccount.getDepartment();
+                        row[7] = employeeAccount.getLabourRate();
+                    }
+                    accountTableModel.addRow(row);
+                    fillResults();
+                }
+            }
+            connection.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
 
         searchButton.addActionListener(new ActionListener() {
             @Override
@@ -154,16 +215,16 @@ public class UpdateAccount {
         searchResults.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                int selectedRow = searchResults.getSelectedRow();
-                oldUsername.setText(searchResults.getModel().getValueAt(selectedRow, 1).toString());
-                firstName.setText(searchResults.getModel().getValueAt(selectedRow,2).toString());
-                lastName.setText(searchResults.getModel().getValueAt(selectedRow,3).toString());
-                email.setText(searchResults.getModel().getValueAt(selectedRow,4).toString());
-                phoneNumber.setText(searchResults.getModel().getValueAt(selectedRow,5).toString());
-                role.setText(searchResults.getModel().getValueAt(selectedRow,6).toString());
-                department.setText(searchResults.getModel().getValueAt(selectedRow,7).toString());
-                labourRate.setText(searchResults.getModel().getValueAt(selectedRow,8).toString());
+            super.mouseClicked(e);
+            int selectedRow = searchResults.getSelectedRow();
+            oldUsername.setText(searchResults.getModel().getValueAt(selectedRow, 0).toString());
+            firstName.setText(searchResults.getModel().getValueAt(selectedRow,1).toString());
+            lastName.setText(searchResults.getModel().getValueAt(selectedRow,2).toString());
+            email.setText(searchResults.getModel().getValueAt(selectedRow,3).toString());
+            phoneNumber.setText(searchResults.getModel().getValueAt(selectedRow,4).toString());
+            role.setText(searchResults.getModel().getValueAt(selectedRow,5).toString());
+            department.setText(searchResults.getModel().getValueAt(selectedRow,6).toString());
+            labourRate.setText(searchResults.getModel().getValueAt(selectedRow,7).toString());
             }
         });
     }

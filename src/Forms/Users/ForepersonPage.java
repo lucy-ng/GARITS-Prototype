@@ -1,6 +1,7 @@
 package Forms.Users;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -13,10 +14,12 @@ import Forms.Accounts.RegisterCustAccount;
 import Forms.Accounts.UpdateCustAccount;
 import Forms.Discounts.AddDiscountDetails;
 import Forms.Discounts.UpdateDiscountDetails;
-import Forms.Jobs.AddJob;
-import Forms.Jobs.UpdateJob;
-import Forms.Jobs.UseParts;
-import Forms.Jobs.ViewJobs;
+import Forms.Jobs.*;
+import Forms.Payments.MakePayment;
+import Forms.Reception.Invoice;
+import Forms.Reception.MOTServiceBooking;
+import Forms.Reception.MOT_Reminder;
+import Forms.Reception.ServiceBooking;
 import Forms.StockControl.*;
 import Forms.Vehicles.CreateVehicleRecord;
 import Forms.Vehicles.DeleteVehicleRecord;
@@ -25,35 +28,24 @@ import Forms.Vehicles.UpdateVehicleRecord;
 public class ForepersonPage {
     private JPanel mainPanel;
     private JLabel forepersonPageTitle;
-    private JButton addCustomerAccountButton;
     private JLabel accountsLabel;
-    private JButton updateCustomerAccountButton;
-    private JButton deleteCustomerAccountButton;
-    private JButton addVehicleRecordButton;
-    private JButton updateVehicleRecordButton;
-    private JButton deleteVehicleRecordButton;
     private JPanel contentPanel;
-    private JButton viewJobsButton;
-    private JButton sellPartsButton;
     private JButton manageStockButton;
-    private JButton makePaymentButton;
-    private JButton generateMOTReminderButton;
-    private JButton addPartsButton;
-    private JButton searchPartsButton;
-    private JButton updatePartsButton;
-    private JButton addJobButton;
-    private JButton updateJobButton;
+    private JButton managePaymentsButton;
     private JLabel jobsLabel;
     private JLabel stockControlLabel;
     private JLabel receptionLabel;
-    private JButton stockLevelReportButton;
-    private JButton monthlyReportButton;
-    private JButton orderPartsButton;
-    private JButton usePartsButton;
-    private JButton jobSheetButton;
-    private JButton invoiceButton;
-    private JButton addDiscountDetailsButton;
-    private JButton updateDiscountDetailsButton;
+    private JButton customerAccountButton;
+    private JButton vehicleRecordButton;
+    private JButton discountDetailsButton;
+    private JButton manageJobsButton;
+    private JButton managePartsButton;
+    private JButton jobSheetInvoiceButton;
+    private JButton manageBookingsButton;
+    private JPanel customerVehiclePanel;
+    private JPanel receptionPanel;
+    private JPanel jobsPanel;
+    private JPanel stockControlPanel;
 
     public ForepersonPage(JFrame window) {
         window.setContentPane(mainPanel);
@@ -73,7 +65,7 @@ public class ForepersonPage {
                     int quantityText = rs.getInt("quantity");
 
                     if (quantityText < lowThresholdText) {
-                        JOptionPane.showMessageDialog(null, nameText + " is low in stock!");
+                        JOptionPane.showMessageDialog(null, nameText + " is low in stock!", "Low Stock Alert", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             }
@@ -89,7 +81,7 @@ public class ForepersonPage {
             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
 
             connection.setAutoCommit(false);
-            try (PreparedStatement statement = connection.prepareStatement("SELECT UserAccounts.username, CustomerAccount.hasPaid FROM UserAccounts INNER JOIN CustomerAccount ON UserAccounts.AccountID = CustomerAccount.AccountID")) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT UserAccounts.username, Booking.servicePaid, Booking.motPaid FROM UserAccounts INNER JOIN Booking INNER JOIN CustomerAccount ON UserAccounts.AccountID = CustomerAccount.AccountID")) {
                 ResultSet rs = statement.executeQuery();
 
                 while (rs.next()){
@@ -97,7 +89,7 @@ public class ForepersonPage {
                     int hasPaid = rs.getInt("hasPaid");
 
                     if (hasPaid == 0) {
-                        JOptionPane.showMessageDialog(null, usernameText + " has not paid!");
+                        JOptionPane.showMessageDialog(null, usernameText + " has not paid!", "Late Payment Alert", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             }
@@ -108,174 +100,228 @@ public class ForepersonPage {
             ex.printStackTrace();
         }
 
-
-        addCustomerAccountButton.addActionListener(new ActionListener() {
+        customerAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RegisterCustAccount registerCustAccount = new RegisterCustAccount();
-                contentPanel.removeAll();
-                contentPanel.add(registerCustAccount.getMainPanel());
-                contentPanel.revalidate();
+                String[] buttons = new String[] {"Add", "Update", "Delete"};
+                int result = JOptionPane.showOptionDialog(null, "Choose options below:","Customer Account", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
+                if (result == 0) {
+                    RegisterCustAccount registerCustAccount = new RegisterCustAccount();
+                    contentPanel.removeAll();
+                    contentPanel.add(registerCustAccount.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 1) {
+                    UpdateCustAccount updateCustAccount = new UpdateCustAccount();
+                    contentPanel.removeAll();
+                    contentPanel.add(updateCustAccount.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 2) {
+                    DeleteCustAccount deleteCustAccount = new DeleteCustAccount();
+                    contentPanel.removeAll();
+                    contentPanel.add(deleteCustAccount.getMainPanel());
+                    contentPanel.revalidate();
+                }
             }
         });
 
-        updateCustomerAccountButton.addActionListener(new ActionListener() {
+        vehicleRecordButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UpdateCustAccount updateCustAccount = new UpdateCustAccount();
-                contentPanel.removeAll();
-                contentPanel.add(updateCustAccount.getMainPanel());
-                contentPanel.revalidate();
+                String[] buttons = new String[] {"Add", "Update", "Delete"};
+                int result = JOptionPane.showOptionDialog(null, "Choose options below:","Vehicle Record", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
+                if (result == 0) {
+                    CreateVehicleRecord createVehicleRecord = new CreateVehicleRecord();
+                    contentPanel.removeAll();
+                    contentPanel.add(createVehicleRecord.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 1) {
+                    UpdateVehicleRecord updateVehicleRecord = new UpdateVehicleRecord();
+                    contentPanel.removeAll();
+                    contentPanel.add(updateVehicleRecord.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 2) {
+                    DeleteVehicleRecord deleteVehicleRecord = new DeleteVehicleRecord();
+                    contentPanel.removeAll();
+                    contentPanel.add(deleteVehicleRecord.getMainPanel());
+                    contentPanel.revalidate();
+                }
             }
         });
 
-        deleteCustomerAccountButton.addActionListener(new ActionListener() {
+        discountDetailsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DeleteCustAccount deleteCustAccount = new DeleteCustAccount();
-                contentPanel.removeAll();
-                contentPanel.add(deleteCustAccount.getMainPanel());
-                contentPanel.revalidate();
+                String[] buttons = new String[] {"Add", "Update"};
+                int result = JOptionPane.showOptionDialog(null, "Choose options below:","Discount Details", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
+                if (result == 0) {
+                    AddDiscountDetails addDiscountDetails = new AddDiscountDetails();
+                    contentPanel.removeAll();
+                    contentPanel.add(addDiscountDetails.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 1) {
+                    UpdateDiscountDetails updateDiscountDetails = new UpdateDiscountDetails();
+                    contentPanel.removeAll();
+                    contentPanel.add(updateDiscountDetails.getMainPanel());
+                    contentPanel.revalidate();
+                }
             }
         });
 
-        addVehicleRecordButton.addActionListener(new ActionListener() {
+        manageJobsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateVehicleRecord createVehicleRecord = new CreateVehicleRecord();
-                contentPanel.removeAll();
-                contentPanel.add(createVehicleRecord.getMainPanel());
-                contentPanel.revalidate();
+                String[] buttons = new String[] {"Add", "Update", "View", "Use Parts"};
+                int result = JOptionPane.showOptionDialog(null, "Choose options below:","Manage Jobs", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
+                if (result == 0) {
+                    AddJob addJob = new AddJob();
+                    contentPanel.removeAll();
+                    contentPanel.add(addJob.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 1) {
+                    UpdateJob updateJob = new UpdateJob();
+                    contentPanel.removeAll();
+                    contentPanel.add(updateJob.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 2) {
+                    ViewJobs viewJobs = new ViewJobs();
+                    contentPanel.removeAll();
+                    contentPanel.add(viewJobs.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 3) {
+                    UseParts useParts = new UseParts();
+                    contentPanel.removeAll();
+                    contentPanel.add(useParts.getMainPanel());
+                    contentPanel.revalidate();
+                }
             }
         });
 
-        updateVehicleRecordButton.addActionListener(new ActionListener() {
+        jobSheetInvoiceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UpdateVehicleRecord updateVehicleRecord = new UpdateVehicleRecord();
-                contentPanel.removeAll();
-                contentPanel.add(updateVehicleRecord.getMainPanel());
-                contentPanel.revalidate();
+                String[] buttons = new String[] {"Job Sheet", "Invoice"};
+                int result = JOptionPane.showOptionDialog(null, "Choose options below:","Job Sheet / Invoice", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
+                if (result == 0) {
+                    JobSheetReport jobSheetReport = new JobSheetReport();
+                    contentPanel.removeAll();
+                    contentPanel.add(jobSheetReport.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 1) {
+                    Invoice invoice = new Invoice();
+                    contentPanel.removeAll();
+                    contentPanel.add(invoice.getMainPanel());
+                    contentPanel.revalidate();
+                }
             }
         });
 
-        deleteVehicleRecordButton.addActionListener(new ActionListener() {
+        managePartsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DeleteVehicleRecord deleteVehicleRecord = new DeleteVehicleRecord();
-                contentPanel.removeAll();
-                contentPanel.add(deleteVehicleRecord.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        addPartsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddParts addParts = new AddParts();
-                contentPanel.removeAll();
-                contentPanel.add(addParts.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        updatePartsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                UpdateParts updateParts = new UpdateParts();
-                contentPanel.removeAll();
-                contentPanel.add(updateParts.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        searchPartsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SearchParts searchParts = new SearchParts();
-                contentPanel.removeAll();
-                contentPanel.add(searchParts.getMainPanel());
-                contentPanel.revalidate();
+                String[] buttons = new String[] {"Add", "Update", "Search", "Order", "Sell"};
+                int result = JOptionPane.showOptionDialog(null, "Choose options below:","Manage Parts", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
+                if (result == 0) {
+                    AddParts addParts = new AddParts();
+                    contentPanel.removeAll();
+                    contentPanel.add(addParts.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 1) {
+                    UpdateParts updateParts = new UpdateParts();
+                    contentPanel.removeAll();
+                    contentPanel.add(updateParts.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 2) {
+                    SearchParts searchParts = new SearchParts();
+                    contentPanel.removeAll();
+                    contentPanel.add(searchParts.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 3) {
+                    OrderParts orderParts = new OrderParts();
+                    contentPanel.removeAll();
+                    contentPanel.add(orderParts.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 4) {
+                    SellParts sellParts = new SellParts();
+                    contentPanel.removeAll();
+                    contentPanel.add(sellParts.getMainPanel());
+                    contentPanel.revalidate();
+                }
             }
         });
 
         manageStockButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ManageStock manageStock = new ManageStock();
-                contentPanel.removeAll();
-                contentPanel.add(manageStock.getMainPanel());
-                contentPanel.revalidate();
+                String[] buttons = new String[] {"Manage Stock", "Stock Level Report"};
+                int result = JOptionPane.showOptionDialog(null, "Choose options below:","Manage Stock", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
+                if (result == 0) {
+                    ManageStock manageStock = new ManageStock();
+                    contentPanel.removeAll();
+                    contentPanel.add(manageStock.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 1) {
+                    StockLevelReport stockLevelReport = new StockLevelReport();
+                    contentPanel.removeAll();
+                    contentPanel.add(stockLevelReport.getMainPanel());
+                    contentPanel.revalidate();
+                }
             }
         });
 
-        addJobButton.addActionListener(new ActionListener() {
+        managePaymentsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                AddJob addJob = new AddJob();
-                contentPanel.removeAll();
-                contentPanel.add(addJob.getMainPanel());
-                contentPanel.revalidate();
+                String[] buttons = new String[] {"Record", "View"};
+                int result = JOptionPane.showOptionDialog(null, "Choose options below:","Manage Payments", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
+                if (result == 0) {
+                    MakePayment makePayment = new MakePayment();
+                    contentPanel.removeAll();
+                    contentPanel.add(makePayment.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 1) {
+
+                }
             }
         });
 
-        updateJobButton.addActionListener(new ActionListener() {
+        manageBookingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UpdateJob updateJob = new UpdateJob();
-                contentPanel.removeAll();
-                contentPanel.add(updateJob.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        viewJobsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ViewJobs viewJobs = new ViewJobs();
-                contentPanel.removeAll();
-                contentPanel.add(viewJobs.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        usePartsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                UseParts useParts = new UseParts();
-                contentPanel.removeAll();
-                contentPanel.add(useParts.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        stockLevelReportButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                StockLevelReport stockLevelReport = new StockLevelReport();
-                contentPanel.removeAll();
-                contentPanel.add(stockLevelReport.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        addDiscountDetailsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddDiscountDetails addDiscountDetails = new AddDiscountDetails();
-                contentPanel.removeAll();
-                contentPanel.add(addDiscountDetails.getMainPanel());
-                contentPanel.revalidate();
-            }
-        });
-
-        updateDiscountDetailsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                UpdateDiscountDetails updateDiscountDetails = new UpdateDiscountDetails();
-                contentPanel.removeAll();
-                contentPanel.add(updateDiscountDetails.getMainPanel());
-                contentPanel.revalidate();
+                String[] buttons = new String[] {"Generate MOT Reminder","MOT Booking", "Service Booking", "View Bookings"};
+                int result = JOptionPane.showOptionDialog(null, "Choose options below:","Manage Bookings", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
+                if (result == 0) {
+                    MOT_Reminder mot_reminder = new MOT_Reminder();
+                    contentPanel.removeAll();
+                    contentPanel.add(mot_reminder.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 1) {
+                    MOTServiceBooking motServiceBooking = new MOTServiceBooking();
+                    contentPanel.removeAll();
+                    contentPanel.add(motServiceBooking.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 2) {
+                    ServiceBooking serviceBooking = new ServiceBooking();
+                    contentPanel.removeAll();
+                    contentPanel.add(serviceBooking.getMainPanel());
+                    contentPanel.revalidate();
+                }
             }
         });
     }

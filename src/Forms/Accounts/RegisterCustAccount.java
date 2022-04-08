@@ -29,13 +29,19 @@ public class RegisterCustAccount {
     private JTextField daytimePhoneNo;
     private JTextField homePhoneNo;
     private JTextField eveningPhoneNo;
-    private JComboBox discountPlan;
     private JTextArea address;
     private JLabel customerDetailsLabel;
     private JLabel homePhoneNoLabel;
     private JLabel daytimePhoneNoLabel;
     private JLabel eveningPhoneNoLabel;
+    private JLabel companyNameLabel;
+    private JTextField companyName;
+    private JComboBox discountPlan;
     private JLabel discountPlanLabel;
+    private JLabel discountPriceLabel;
+    private JLabel discountPercentageLabel;
+    private JTextField discountPrice;
+    private JTextField discountPercentage;
 
     public RegisterCustAccount() {
 
@@ -46,10 +52,11 @@ public class RegisterCustAccount {
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
 
                     String usernameText = username.getText();
+                    String passwordText = String.valueOf(password.getPassword());
                     String firstNameText = firstName.getText();
                     String lastNameText = lastName.getText();
-                    String passwordText = String.valueOf(password.getPassword());
                     String emailText = email.getText();
+                    String companyNameText = companyName.getText();
                     String addressText = address.getText();
                     String mobileNoText = mobileNo.getText();
                     String homePhoneNoText = homePhoneNo.getText();
@@ -57,6 +64,8 @@ public class RegisterCustAccount {
                     String eveningPhoneNoText = eveningPhoneNo.getText();
                     String membershipTypeText = membershipType.getSelectedItem().toString();
                     String discountPlanText = discountPlan.getSelectedItem().toString();
+                    String discountPriceText = discountPrice.getText();
+                    String discountPercentageText = discountPercentage.getText();
 
                     connection.setAutoCommit(false);
                     try (PreparedStatement statement = connection.prepareStatement("INSERT INTO UserAccounts (username, firstName, lastName, password, email, phoneNo) VALUES (?,?,?,?,?,?)")) {
@@ -69,17 +78,20 @@ public class RegisterCustAccount {
                         statement.executeUpdate();
                     }
 
-                    try (PreparedStatement stmtInsert = connection.prepareStatement("INSERT INTO CustomerAccount (address, homePhoneNo, daytimePhoneNo, eveningPhoneNo, membershipType, AccountID) VALUES (?,?,?,?,?, LAST_INSERT_ID())")) {
+                    try (PreparedStatement stmtInsert = connection.prepareStatement("INSERT INTO CustomerAccount (address, homePhoneNo, daytimePhoneNo, eveningPhoneNo, membershipType, AccountID, companyName) VALUES (?,?,?,?,?, LAST_INSERT_ID(), ?)")) {
                         stmtInsert.setString(1, addressText);
                         stmtInsert.setString(2, homePhoneNoText);
                         stmtInsert.setString(3, daytimePhoneNoText);
                         stmtInsert.setString(4, eveningPhoneNoText);
                         stmtInsert.setString(5, membershipTypeText);
+                        stmtInsert.setString(6, companyNameText);
                         stmtInsert.executeUpdate();
                     }
 
-                    try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO Discounts (discountPlan, CustomerAccountID) VALUES (?, LAST_INSERT_ID())")) {
-                        stmt.setString(1,discountPlanText);
+                    try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO Discounts (discountPlan, discountPrice, discountPercentage, CustomerAccountID) VALUES (?,?,?, LAST_INSERT_ID())")) {
+                        stmt.setString(1, discountPlanText);
+                        stmt.setString(2, discountPriceText);
+                        stmt.setString(3, discountPercentageText);
                         stmt.executeUpdate();
                     }
 

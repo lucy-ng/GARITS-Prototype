@@ -16,7 +16,6 @@ public class JobSheetReport {
     private JTextField estimatedTime2;
     private JList workCarriedOut;
     private JProgressBar progressBar2;
-    private JButton printButton;
     private JTable tblSpareParts;
     private JPanel mainPanel;
     private JLabel vehicleRegistrationNumberLabel;
@@ -32,6 +31,7 @@ public class JobSheetReport {
     private JLabel telephoneNumberLabel;
     private JLabel customerNameLabel;
     private JLabel modelLabel;
+    private JButton printButton;
 
     public JobSheetReport() {
 

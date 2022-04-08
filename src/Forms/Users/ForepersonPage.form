@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Forms.Users.ForepersonPage">
-  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="3" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
       <xy x="20" y="20" width="1093" height="435"/>
@@ -10,16 +10,11 @@
     </properties>
     <border type="none"/>
     <children>
-      <hspacer id="391ae">
-        <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-      </hspacer>
-      <grid id="e8b88" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="e8b88" binding="customerVehiclePanel" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="344" height="59"/>
+            <preferred-size width="100" height="59"/>
           </grid>
         </constraints>
         <properties>
@@ -27,82 +22,54 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="74572" class="javax.swing.JButton" binding="addCustomerAccountButton" default-binding="true">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="127" height="30"/>
-              </grid>
-            </constraints>
-            <properties>
-              <text value="Add Customer Account"/>
-            </properties>
-          </component>
           <component id="f04a9" class="javax.swing.JLabel" binding="accountsLabel">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="111" height="16"/>
+              </grid>
             </constraints>
             <properties>
               <foreground color="-1"/>
               <text value="Customer Account and Vehicle Records"/>
             </properties>
           </component>
-          <component id="946ca" class="javax.swing.JButton" binding="updateCustomerAccountButton" default-binding="true">
+          <component id="cbb49" class="javax.swing.JButton" binding="customerAccountButton" default-binding="true">
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="127" height="30"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="111" height="30"/>
               </grid>
             </constraints>
             <properties>
-              <text value="Update Customer Account"/>
+              <text value="Customer Account"/>
             </properties>
           </component>
-          <component id="38f45" class="javax.swing.JButton" binding="addVehicleRecordButton" default-binding="true">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="108" height="30"/>
-              </grid>
-            </constraints>
-            <properties>
-              <text value="Add Vehicle Record"/>
-            </properties>
-          </component>
-          <component id="80cea" class="javax.swing.JButton" binding="deleteCustomerAccountButton" default-binding="true">
+          <component id="e9560" class="javax.swing.JButton" binding="vehicleRecordButton" default-binding="true">
             <constraints>
               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="127" height="30"/>
+                <preferred-size width="111" height="30"/>
               </grid>
             </constraints>
             <properties>
-              <text value="Delete Customer Account"/>
+              <text value="Vehicle Record"/>
             </properties>
           </component>
-          <component id="252e2" class="javax.swing.JButton" binding="updateVehicleRecordButton" default-binding="true">
+          <component id="971c3" class="javax.swing.JButton" binding="discountDetailsButton" default-binding="true">
             <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="108" height="30"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="111" height="30"/>
               </grid>
             </constraints>
             <properties>
-              <text value="Update Vehicle Record"/>
-            </properties>
-          </component>
-          <component id="898d4" class="javax.swing.JButton" binding="deleteVehicleRecordButton" default-binding="true">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="108" height="30"/>
-              </grid>
-            </constraints>
-            <properties>
-              <text value="Delete Vehicle Record"/>
+              <text value="Discount Details"/>
             </properties>
           </component>
         </children>
       </grid>
-      <grid id="e872d" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="e872d" binding="jobsPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="344" height="59"/>
+          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="100" height="59"/>
           </grid>
         </constraints>
         <properties>
@@ -110,70 +77,38 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="aed5" class="javax.swing.JButton" binding="addJobButton">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Add Job"/>
-            </properties>
-          </component>
           <component id="4e698" class="javax.swing.JLabel" binding="jobsLabel">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <foreground color="-1"/>
               <text value="Jobs"/>
             </properties>
           </component>
-          <component id="62eba" class="javax.swing.JButton" binding="updateJobButton">
+          <component id="96b6f" class="javax.swing.JButton" binding="manageJobsButton" default-binding="true">
             <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Update Job"/>
+              <text value="Manage Jobs"/>
             </properties>
           </component>
-          <component id="68421" class="javax.swing.JButton" binding="viewJobsButton" default-binding="true">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="View Jobs"/>
-            </properties>
-          </component>
-          <component id="c92a" class="javax.swing.JButton" binding="usePartsButton" default-binding="true">
+          <component id="443f4" class="javax.swing.JButton" binding="jobSheetInvoiceButton" default-binding="true">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Use Parts"/>
-            </properties>
-          </component>
-          <component id="f3c00" class="javax.swing.JButton" binding="jobSheetButton" default-binding="true">
-            <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Job Sheet"/>
-            </properties>
-          </component>
-          <component id="fa376" class="javax.swing.JButton" binding="invoiceButton" default-binding="true">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Invoice"/>
+              <text value="Job Sheet / Invoice"/>
             </properties>
           </component>
         </children>
       </grid>
-      <grid id="a84fd" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="a84fd" binding="stockControlPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="344" height="59"/>
+          <grid row="2" column="4" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="100" height="59"/>
           </grid>
         </constraints>
         <properties>
@@ -181,70 +116,38 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="be6fd" class="javax.swing.JButton" binding="addPartsButton">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Add Parts"/>
-            </properties>
-          </component>
           <component id="eea7f" class="javax.swing.JLabel" binding="stockControlLabel">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <foreground color="-1"/>
               <text value="Stock Control"/>
             </properties>
           </component>
-          <component id="da4fd" class="javax.swing.JButton" binding="searchPartsButton">
+          <component id="1ef27" class="javax.swing.JButton" binding="managePartsButton">
             <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Search Parts"/>
+              <text value="Manage Parts"/>
             </properties>
           </component>
-          <component id="4053a" class="javax.swing.JButton" binding="sellPartsButton" default-binding="true">
+          <component id="9141a" class="javax.swing.JButton" binding="manageStockButton" default-binding="true">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Sell Parts"/>
-            </properties>
-          </component>
-          <component id="8e194" class="javax.swing.JButton" binding="manageStockButton" default-binding="true">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <text value="Manage Stock"/>
             </properties>
           </component>
-          <component id="82c0f" class="javax.swing.JButton" binding="updatePartsButton" default-binding="true">
-            <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Update Parts"/>
-            </properties>
-          </component>
-          <component id="eb2c9" class="javax.swing.JButton" binding="orderPartsButton" default-binding="true">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Order Parts"/>
-            </properties>
-          </component>
         </children>
       </grid>
-      <grid id="c58a7" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="c58a7" binding="receptionPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
-            <preferred-size width="344" height="59"/>
+            <preferred-size width="100" height="59"/>
           </grid>
         </constraints>
         <properties>
@@ -254,66 +157,34 @@
         <children>
           <component id="369ee" class="javax.swing.JLabel" binding="receptionLabel">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <foreground color="-1"/>
               <text value="Reception"/>
             </properties>
           </component>
-          <component id="84119" class="javax.swing.JButton" binding="generateMOTReminderButton" default-binding="true">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Generate MOT Reminder"/>
-            </properties>
-          </component>
-          <component id="ec45d" class="javax.swing.JButton" binding="monthlyReportButton" default-binding="true">
-            <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Monthly Report"/>
-            </properties>
-          </component>
-          <component id="e58a9" class="javax.swing.JButton" binding="stockLevelReportButton">
-            <constraints>
-              <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Stock Level Report"/>
-            </properties>
-          </component>
-          <component id="886ca" class="javax.swing.JButton" binding="makePaymentButton" default-binding="true">
+          <component id="886ca" class="javax.swing.JButton" binding="managePaymentsButton">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Make Payment"/>
+              <text value="Manage Payments"/>
             </properties>
           </component>
-          <component id="9e184" class="javax.swing.JButton" binding="addDiscountDetailsButton" default-binding="true">
+          <component id="bb918" class="javax.swing.JButton" binding="manageBookingsButton">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Add Discount Details"/>
-            </properties>
-          </component>
-          <component id="a0159" class="javax.swing.JButton" binding="updateDiscountDetailsButton" default-binding="true">
-            <constraints>
-              <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="Update Discount Details"/>
+              <text value="Manage Bookings"/>
             </properties>
           </component>
         </children>
       </grid>
       <grid id="64c3a" binding="contentPanel" layout-manager="CardLayout" hgap="0" vgap="0">
         <constraints>
-          <grid row="1" column="1" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="2" row-span="2" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <background color="-16537100"/>
@@ -323,7 +194,7 @@
       </grid>
       <component id="7e78a" class="javax.swing.JLabel" binding="forepersonPageTitle">
         <constraints>
-          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font name="Calibri Light" size="28" style="1"/>
@@ -331,9 +202,14 @@
           <text value="Foreperson Page"/>
         </properties>
       </component>
-      <hspacer id="50731">
+      <hspacer id="b1949">
         <constraints>
-          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+      </hspacer>
+      <hspacer id="67a22">
+        <constraints>
+          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
       </hspacer>
     </children>

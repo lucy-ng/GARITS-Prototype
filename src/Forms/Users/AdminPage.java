@@ -22,15 +22,6 @@ public class AdminPage {
         return mainPanel;
     }
 
-    // Set and return content panel
-    public JPanel getContentPanel() { return contentPanel; }
-
-    // Return buttons
-    public JButton getAddAccountButton() {
-        return addButton;
-    }
-    public JButton getUpdateAccountButton() { return updateButton; }
-
     public AdminPage(JFrame window) {
         window.setContentPane(mainPanel);
         window.setVisible(true);

@@ -1,6 +1,9 @@
 package Database;
 
+import java.math.BigDecimal;
+
 public class CustomerAccount {
+    private String companyName;
     private String username;
     private String firstName;
     private String lastName;
@@ -12,8 +15,11 @@ public class CustomerAccount {
     private String eveningPhoneNo;
     private String membershipType;
     private String discountPlan;
+    private BigDecimal discountPrice;
+    private int discountPercentage;
 
-    public CustomerAccount(String username, String firstName, String lastName, String email, String phoneNo, String address, String homePhoneNo, String daytimePhoneNo, String eveningPhoneNo, String membershipType, String discountPlan) {
+    public CustomerAccount(String companyName, String username, String firstName, String lastName, String email, String phoneNo, String address, String homePhoneNo, String daytimePhoneNo, String eveningPhoneNo, String membershipType, String discountPlan, BigDecimal discountPrice, int discountPercentage) {
+        this.companyName = companyName;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,8 +31,9 @@ public class CustomerAccount {
         this.eveningPhoneNo = eveningPhoneNo;
         this.membershipType = membershipType;
         this.discountPlan = discountPlan;
+        this.discountPrice = discountPrice;
+        this.discountPercentage = discountPercentage;
     }
-
 
     public String getUsername() {
         return username;
@@ -71,4 +78,17 @@ public class CustomerAccount {
     public String getDiscountPlan() {
         return discountPlan;
     }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public BigDecimal getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public int getDiscountPercentage() {
+        return discountPercentage;
+    }
+
 }
