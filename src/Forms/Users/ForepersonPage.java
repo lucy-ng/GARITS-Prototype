@@ -1,7 +1,6 @@
 package Forms.Users;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -16,10 +15,7 @@ import Forms.Discounts.AddDiscountDetails;
 import Forms.Discounts.UpdateDiscountDetails;
 import Forms.Jobs.*;
 import Forms.Payments.MakePayment;
-import Forms.Reception.Invoice;
-import Forms.Reception.MOTServiceBooking;
-import Forms.Reception.MOT_Reminder;
-import Forms.Reception.ServiceBooking;
+import Forms.Reception.*;
 import Forms.StockControl.*;
 import Forms.Vehicles.CreateVehicleRecord;
 import Forms.Vehicles.DeleteVehicleRecord;
@@ -86,10 +82,18 @@ public class ForepersonPage {
 
                 while (rs.next()){
                     String usernameText = rs.getString("username");
-                    int hasPaid = rs.getInt("hasPaid");
+                    int servicePaid = rs.getInt("servicePaid");
+                    int motPaid = rs.getInt("motPaid");
 
-                    if (hasPaid == 0) {
-                        JOptionPane.showMessageDialog(null, usernameText + " has not paid!", "Late Payment Alert", JOptionPane.WARNING_MESSAGE);
+                    if (servicePaid == 0 && motPaid == 0) {
+                        JOptionPane.showMessageDialog(null, usernameText + " has not paid for MOT!", "Late Payment Alert", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, usernameText + " has not paid for service!", "Late Payment Alert", JOptionPane.WARNING_MESSAGE);
+                    }
+                    else if (motPaid == 1 && servicePaid == 0) {
+                        JOptionPane.showMessageDialog(null, usernameText + " has not paid for service!", "Late Payment Alert", JOptionPane.WARNING_MESSAGE);
+                    }
+                    else if (motPaid == 0 && servicePaid == 1) {
+                        JOptionPane.showMessageDialog(null, usernameText + " has not paid for MOT!", "Late Payment Alert", JOptionPane.WARNING_MESSAGE);
                     }
                 }
             }
@@ -302,7 +306,7 @@ public class ForepersonPage {
         manageBookingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[] buttons = new String[] {"Generate MOT Reminder","MOT Booking", "Service Booking", "View Bookings"};
+                String[] buttons = new String[] {"Generate MOT Reminder","MOT Booking", "Service Booking", "MOT and Service Booking", "View Bookings"};
                 int result = JOptionPane.showOptionDialog(null, "Choose options below:","Manage Bookings", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
                 if (result == 0) {
                     MOT_Reminder mot_reminder = new MOT_Reminder();
@@ -311,15 +315,20 @@ public class ForepersonPage {
                     contentPanel.revalidate();
                 }
                 else if (result == 1) {
-                    MOTServiceBooking motServiceBooking = new MOTServiceBooking();
+                    MOTBooking motBooking = new MOTBooking();
                     contentPanel.removeAll();
-                    contentPanel.add(motServiceBooking.getMainPanel());
+                    contentPanel.add(motBooking.getMainPanel());
                     contentPanel.revalidate();
                 }
                 else if (result == 2) {
                     ServiceBooking serviceBooking = new ServiceBooking();
                     contentPanel.removeAll();
                     contentPanel.add(serviceBooking.getMainPanel());
+                    contentPanel.revalidate();
+                } else if (result == 3) {
+                    MOTServiceBooking motServiceBooking = new MOTServiceBooking();
+                    contentPanel.removeAll();
+                    contentPanel.add(motServiceBooking.getMainPanel());
                     contentPanel.revalidate();
                 }
             }

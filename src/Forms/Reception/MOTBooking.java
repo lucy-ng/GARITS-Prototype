@@ -8,22 +8,22 @@ import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ServiceBooking {
-    private JLabel serviceBookingLabel;
+public class MOTBooking {
+    private JLabel MOTBookingLabel;
     private JPanel mainPanel;
-    private JTextField regNoSearchField;
-    private JButton searchVehicleButton;
-    private JScrollPane regNoScrollPane;
+    private JLabel MOTDateLabel;
+    private JTextField motDate;
     private JLabel registrationNumberLabel;
     private JTextField regNo;
-    private JLabel serviceDateLabel;
-    private JTextField serviceDate;
     private JLabel amountLabel;
     private JTextField amount;
     private JComboBox havePaid;
     private JButton bookButton;
+    private JButton searchVehicleButton;
+    private JScrollPane regNoScrollPane;
+    private JTextField regNoSearchField;
 
-    public ServiceBooking() {
+    public MOTBooking() {
         bookButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -31,7 +31,7 @@ public class ServiceBooking {
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
 
                     String regNoText = regNo.getText();
-                    String serviceDateText = serviceDate.getText();
+                    String motDateText = motDate.getText();
                     String amountText = amount.getText();
                     String havePaidText = havePaid.getSelectedItem().toString();
                     int havePaid = 0;
@@ -49,8 +49,8 @@ public class ServiceBooking {
                     ResultSet resultSet = stmt.executeQuery();
 
                     while (resultSet.next()) {
-                        PreparedStatement statement = connection.prepareStatement("INSERT INTO Booking (serviceDate, serviceAmount, servicePaid, CustomerAccountID, registrationNo) VALUES (?,?,?,?,?)");
-                        statement.setString(1, serviceDateText);
+                        PreparedStatement statement = connection.prepareStatement("INSERT INTO Booking (motDate, motAmount, motPaid, CustomerAccountID, registrationNo) VALUES (?,?,?,?,?)");
+                        statement.setString(1, motDateText);
                         statement.setString(2, amountText);
                         statement.setInt(3, havePaid);
                         statement.setInt(4, resultSet.getInt("CustomerAccountID"));
@@ -58,7 +58,7 @@ public class ServiceBooking {
 
                         statement.executeUpdate();
                     }
-                    JOptionPane.showMessageDialog(null, "Service booked!");
+                    JOptionPane.showMessageDialog(null, "MOT booked!");
                     connection.setAutoCommit(true);
                     connection.close();
 
@@ -116,6 +116,7 @@ public class ServiceBooking {
                 }
             }
         });
+
     }
 
     public JPanel getMainPanel() {
