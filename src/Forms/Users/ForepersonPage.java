@@ -12,6 +12,7 @@ import Forms.Accounts.DeleteCustAccount;
 import Forms.Accounts.RegisterCustAccount;
 import Forms.Accounts.UpdateCustAccount;
 import Forms.Discounts.AddDiscountDetails;
+import Forms.Discounts.UpdateDiscountDetails;
 import Forms.Jobs.AddJob;
 import Forms.Jobs.UpdateJob;
 import Forms.Jobs.UseParts;
@@ -264,6 +265,16 @@ public class ForepersonPage {
                 AddDiscountDetails addDiscountDetails = new AddDiscountDetails();
                 contentPanel.removeAll();
                 contentPanel.add(addDiscountDetails.getMainPanel());
+                contentPanel.revalidate();
+            }
+        });
+
+        updateDiscountDetailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                UpdateDiscountDetails updateDiscountDetails = new UpdateDiscountDetails();
+                contentPanel.removeAll();
+                contentPanel.add(updateDiscountDetails.getMainPanel());
                 contentPanel.revalidate();
             }
         });

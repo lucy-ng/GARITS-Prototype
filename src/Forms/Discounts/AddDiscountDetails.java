@@ -26,6 +26,7 @@ public class AddDiscountDetails {
     private JTable searchResults;
 
     public AddDiscountDetails() {
+
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
