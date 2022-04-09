@@ -46,7 +46,7 @@ public class DeleteVehicleRecord {
             PreparedStatement statement = connection.prepareStatement("SELECT AccountID from CustomerAccount");
             ResultSet rs = statement.executeQuery();
 
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT registrationNo, colour, make, model, chassisNo, engineSerial, year FROM Vehicles WHERE AccountID = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT registrationNo, colour, make, model, chassisNo, engineSerial, year FROM Vehicles WHERE CustomerAccountID = (SELECT CustomerAccountID FROM CustomerAccount WHERE AccountID = ?)");
 
 
             while (rs.next()) {

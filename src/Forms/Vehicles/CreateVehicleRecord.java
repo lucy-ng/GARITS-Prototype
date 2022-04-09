@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
@@ -97,7 +99,7 @@ public class CreateVehicleRecord {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = searchField.getText();
-                ArrayList<EmployeeAccount> employeeAccountList = new ArrayList<>();
+                ArrayList<CustomerAccount> customerAccountList = new ArrayList<>();
                 try {
                     Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
                     connection.setAutoCommit(false);
@@ -105,46 +107,51 @@ public class CreateVehicleRecord {
                     statement.setString(1, text);
                     ResultSet rs = statement.executeQuery();
 
-                    PreparedStatement stmt = connection.prepareStatement("SELECT EmployeePosition, Department, labourRate FROM EmployeeAccount WHERE AccountID = (SELECT AccountID FROM UserAccounts where username = ?)");
+                    PreparedStatement stmt = connection.prepareStatement("SELECT address, homePhoneNo, daytimePhoneNo, eveningPhoneNo, membershipType, companyName FROM CustomerAccount WHERE AccountID = (SELECT AccountID FROM UserAccounts where username = ?)");
+                    stmt.setString(1, text);
                     ResultSet rsrs = stmt.executeQuery();
 
-                    EmployeeAccount employeeAccount;
+                    CustomerAccount customerAccount;
 
                     while (rs.next()) {
-                        String usernameText = rs.getString("username");
-                        String firstNameText = rs.getString("firstName");
-                        String lastNameText = rs.getString("lastName");
-                        String emailText = rs.getString("email");
-                        String phoneNoText = rs.getString("phoneNo");
-                        String employeePositionText = rsrs.getString("EmployeePosition");
-                        String departmentText = rsrs.getString("Department");
-                        BigDecimal labourRateValue = rsrs.getBigDecimal("labourRate");
+                        while (rsrs.next()) {
+                            String usernameText = rs.getString("username");
+                            String firstNameText = rs.getString("firstName");
+                            String lastNameText = rs.getString("lastName");
+                            String emailText = rs.getString("email");
+                            String phoneNoText = rs.getString("phoneNo");
 
-                        employeeAccount = new EmployeeAccount(usernameText, firstNameText, lastNameText, emailText, phoneNoText, employeePositionText, departmentText, labourRateValue);
-                        employeeAccountList.add(employeeAccount);
+                            String addressText = rsrs.getString("address");
+                            String homePhoneNoText = rsrs.getString("homePhoneNo");
+                            String daytimePhoneNoText = rsrs.getString("daytimePhoneNo");
+                            String eveningPhoneNoText = rsrs.getString("eveningPhoneNo");
+                            String membershipTypeText = rsrs.getString("membershipType");
+                            String companyNameText = rsrs.getString("companyName");
 
-                        Object[] row = new Object[8];
-                        for (int i = 0; i < employeeAccountList.size(); i++) {
-                            row[0] = employeeAccount.getUsername();
-                            row[1] = employeeAccount.getFirstName();
-                            row[2] = employeeAccount.getLastName();
-                            row[3] = employeeAccount.getEmail();
-                            row[4] = employeeAccount.getPhoneNo();
-                            row[5] = employeeAccount.getEmployeePosition();
-                            row[6] = employeeAccount.getDepartment();
-                            row[7] = employeeAccount.getLabourRate();
+                            customerAccount = new CustomerAccount(companyNameText, usernameText, firstNameText, lastNameText, emailText, phoneNoText, addressText, homePhoneNoText, daytimePhoneNoText, eveningPhoneNoText, membershipTypeText);
+                            customerAccountList.add(customerAccount);
+
+                            Object[] row = new Object[4];
+                            for (int i = 0; i < customerAccountList.size(); i++) {
+                                row[0] = customerAccount.getCompanyName();
+                                row[1] = customerAccount.getUsername();
+                                row[2] = customerAccount.getFirstName();
+                                row[3] = customerAccount.getLastName();
+                            }
+
+                            Object[][] data =  {row};
+                            String[] columnNames = {"Company Name", "Username", "First Name", "Last Name"};
+                            searchResults = new JTable(data, columnNames);
+                            scrollPane.setViewportView(searchResults);
+                            searchResults.setVisible(true);
+                            fillResults();
                         }
-
-                        Object[][] data =  {row};
-                        String[] columnNames = {"Username", "First Name", "Last Name", "Email", "Phone Number", "Employee Position", "Department", "Labour Rate"};
-                        searchResults = new JTable(data, columnNames);
-                        scrollPane.setViewportView(searchResults);
-                        searchResults.setVisible(true);
                     }
                     connection.setAutoCommit(true);
                     connection.close();
                 } catch (SQLException sqlException) {
-                    sqlException.printStackTrace();;
+                    sqlException.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Fields cannot be null!");
                 }
             }
         });
@@ -166,7 +173,7 @@ public class CreateVehicleRecord {
 
                     connection.setAutoCommit(false);
 
-                    try (PreparedStatement statement = connection.prepareStatement("INSERT INTO Vehicles (registrationNo, colour, make, model, chassisNo, engineSerial, year, AccountID) VALUES (?,?,?,?,?,?,?,(SELECT AccountID FROM UserAccounts WHERE username = ?))")) {
+                    try (PreparedStatement statement = connection.prepareStatement("INSERT INTO Vehicles (registrationNo, colour, make, model, chassisNo, engineSerial, year, CustomerAccountID) VALUES (?,?,?,?,?,?,?,(SELECT CustomerAccountID FROM CustomerAccount WHERE AccountID = (SELECT AccountID FROM UserAccounts WHERE username = ?)))")) {
                         statement.setString(1, registrationNoText);
                         statement.setString(2, colourText);
                         statement.setString(3, makeText);
@@ -191,5 +198,16 @@ public class CreateVehicleRecord {
 
     public JPanel getMainPanel() {
         return mainPanel;
+    }
+
+    public void fillResults() {
+        searchResults.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                int selectedRow = searchResults.getSelectedRow();
+                username.setText(searchResults.getModel().getValueAt(selectedRow, 1).toString());
+            }
+        });
     }
 }
