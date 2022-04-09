@@ -69,7 +69,7 @@ public class JobSheetReport {
 
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
-            PreparedStatement statement = connection.prepareStatement("SELECT registrationNo, make, model FROM Vehicles WHERE AccountID = (SELECT AccountID FROM UserAccounts WHERE username = ?)");
+            PreparedStatement statement = connection.prepareStatement("SELECT registrationNo, make, model FROM Vehicles WHERE CustomerAccountID = (SELECT CustomerAccountID FROM CustomerAccount WHERE AccountID = (SELECT AccountID FROM UserAccounts WHERE username = ?))");
             statement.setString(1, custName);
             ResultSet resultSet = statement.executeQuery();
 

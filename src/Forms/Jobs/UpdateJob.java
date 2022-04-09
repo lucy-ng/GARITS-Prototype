@@ -31,6 +31,8 @@ public class UpdateJob {
     private JTextField newJobID;
     private JLabel actualTimeHoursLabel;
     private JTextField actualTime;
+    private JLabel registrationNumberLabel;
+    private JTextField registrationNumber;
     private JTable jobsTable;
 
     public UpdateJob() {
@@ -105,6 +107,7 @@ public class UpdateJob {
                     String estimatedTimeText = estimatedTime.getText();
                     String actualTimeText = actualTime.getText();
                     String statusText = status.getSelectedItem().toString();
+                    String regNoText = registrationNumber.getText();
 
                     connection.setAutoCommit(false);
 
@@ -113,13 +116,14 @@ public class UpdateJob {
                         stmt.executeUpdate();
                     }
 
-                    try (PreparedStatement statement = connection.prepareStatement("UPDATE Job SET jobID = ?, description = ?, estimatedTime = ?, actualTime = ?, jobStatus = ? WHERE jobID = ?")) {
+                    try (PreparedStatement statement = connection.prepareStatement("UPDATE Job SET jobID = ?, description = ?, estimatedTime = ?, actualTime = ?, jobStatus = ?, registrationNo = ? WHERE jobID = ?")) {
                         statement.setString(1, newJobIDText);
                         statement.setString(2, descriptionText);
                         statement.setString(3, estimatedTimeText);
                         statement.setString(4, actualTimeText);
                         statement.setString(5, statusText);
-                        statement.setString(6, jobIDText);
+                        statement.setString(6, regNoText);
+                        statement.setString(7, jobIDText);
                         statement.executeUpdate();
                     }
 
