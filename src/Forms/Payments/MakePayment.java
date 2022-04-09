@@ -60,60 +60,47 @@ public class MakePayment {
                     stmt.setString(1, text);
                     ResultSet rsrs = stmt.executeQuery();
 
-                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT discountPlan, discountPrice, discountPercentage FROM Discounts WHERE CustomerAccountID = (SELECT CustomerAccountID FROM CustomerAccount where AccountID = (SELECT AccountID FROM UserAccounts where username = ?))");
-                    preparedStatement.setString(1,text);
-                    ResultSet r = preparedStatement.executeQuery();
-
                     CustomerAccount customerAccount;
 
                     while (rs.next()) {
                         while (rsrs.next()) {
-                            while (r.next()) {
-                                String usernameText = rs.getString("username");
-                                String firstNameText = rs.getString("firstName");
-                                String lastNameText = rs.getString("lastName");
-                                String emailText = rs.getString("email");
-                                String phoneNoText = rs.getString("phoneNo");
+                            String usernameText = rs.getString("username");
+                            String firstNameText = rs.getString("firstName");
+                            String lastNameText = rs.getString("lastName");
+                            String emailText = rs.getString("email");
+                            String phoneNoText = rs.getString("phoneNo");
 
-                                String addressText = rsrs.getString("address");
-                                String homePhoneNoText = rsrs.getString("homePhoneNo");
-                                String daytimePhoneNoText = rsrs.getString("daytimePhoneNo");
-                                String eveningPhoneNoText = rsrs.getString("eveningPhoneNo");
-                                String membershipTypeText = rsrs.getString("membershipType");
+                            String addressText = rsrs.getString("address");
+                            String homePhoneNoText = rsrs.getString("homePhoneNo");
+                            String daytimePhoneNoText = rsrs.getString("daytimePhoneNo");
+                            String eveningPhoneNoText = rsrs.getString("eveningPhoneNo");
+                            String membershipTypeText = rsrs.getString("membershipType");
+                            String companyNameText = rsrs.getString("companyName");
 
-                                String discountPlanText = r.getString("discountPlan");
-                                String companyNameText = rsrs.getString("companyName");
-                                BigDecimal discountPriceText = r.getBigDecimal("discountPrice");
-                                int discountPercentageText = r.getInt("discountPercentage");
+                            customerAccount = new CustomerAccount(companyNameText, usernameText, firstNameText, lastNameText, emailText, phoneNoText, addressText, homePhoneNoText, daytimePhoneNoText, eveningPhoneNoText, membershipTypeText);
+                            customerAccountList.add(customerAccount);
 
-                                customerAccount = new CustomerAccount(companyNameText, usernameText, firstNameText, lastNameText, emailText, phoneNoText, addressText, homePhoneNoText, daytimePhoneNoText, eveningPhoneNoText, membershipTypeText, discountPlanText, discountPriceText, discountPercentageText);
-                                customerAccountList.add(customerAccount);
-
-                                Object[] row = new Object[14];
-                                for (int i = 0; i < customerAccountList.size(); i++) {
-                                    row[0] = customerAccount.getCompanyName();
-                                    row[1] = customerAccount.getUsername();
-                                    row[2] = customerAccount.getFirstName();
-                                    row[3] = customerAccount.getLastName();
-                                    row[4] = customerAccount.getEmail();
-                                    row[5] = customerAccount.getPhoneNo();
-                                    row[6] = customerAccount.getAddress();
-                                    row[7] = customerAccount.getHomePhoneNo();
-                                    row[8] = customerAccount.getDaytimePhoneNo();
-                                    row[9] = customerAccount.getEveningPhoneNo();
-                                    row[10] = customerAccount.getMembershipType();
-                                    row[11] = customerAccount.getDiscountPlan();
-                                    row[12] = customerAccount.getDiscountPrice();
-                                    row[13] = customerAccount.getDiscountPercentage();
-                                }
-
-                                Object[][] data =  {row};
-                                String[] columnNames = {"Company Name", "Username", "First Name", "Last Name", "Email", "Phone Number", "Address", "Home Phone", "Daytime Phone", "Evening Phone", "Membership Type", "Discount Plan", "Discount Price", "Discount Percentage"};
-                                searchResults = new JTable(data, columnNames);
-                                scrollPane.setViewportView(searchResults);
-                                searchResults.setVisible(true);
-                                fillResults();
+                            Object[] row = new Object[11];
+                            for (int i = 0; i < customerAccountList.size(); i++) {
+                                row[0] = customerAccount.getCompanyName();
+                                row[1] = customerAccount.getUsername();
+                                row[2] = customerAccount.getFirstName();
+                                row[3] = customerAccount.getLastName();
+                                row[4] = customerAccount.getEmail();
+                                row[5] = customerAccount.getPhoneNo();
+                                row[6] = customerAccount.getAddress();
+                                row[7] = customerAccount.getHomePhoneNo();
+                                row[8] = customerAccount.getDaytimePhoneNo();
+                                row[9] = customerAccount.getEveningPhoneNo();
+                                row[10] = customerAccount.getMembershipType();
                             }
+
+                            Object[][] data =  {row};
+                            String[] columnNames = {"Company Name", "Username", "First Name", "Last Name", "Email", "Phone Number", "Address", "Home Phone", "Daytime Phone", "Evening Phone", "Membership Type"};
+                            searchResults = new JTable(data, columnNames);
+                            scrollPane.setViewportView(searchResults);
+                            searchResults.setVisible(true);
+                            fillResults();
                         }
                     }
                     connection.setAutoCommit(true);

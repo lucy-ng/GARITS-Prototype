@@ -37,11 +37,9 @@ public class RegisterCustAccount {
     private JLabel companyNameLabel;
     private JTextField companyName;
     private JComboBox discountPlan;
-    private JLabel discountPlanLabel;
-    private JLabel discountPriceLabel;
-    private JLabel discountPercentageLabel;
-    private JTextField discountPrice;
+    private JTextField minimumDiscountPrice;
     private JTextField discountPercentage;
+    private JTextField maximumDiscountPrice;
 
     public RegisterCustAccount() {
 
@@ -63,9 +61,6 @@ public class RegisterCustAccount {
                     String daytimePhoneNoText = daytimePhoneNo.getText();
                     String eveningPhoneNoText = eveningPhoneNo.getText();
                     String membershipTypeText = membershipType.getSelectedItem().toString();
-                    String discountPlanText = discountPlan.getSelectedItem().toString();
-                    String discountPriceText = discountPrice.getText();
-                    String discountPercentageText = discountPercentage.getText();
 
                     connection.setAutoCommit(false);
                     try (PreparedStatement statement = connection.prepareStatement("INSERT INTO UserAccounts (username, firstName, lastName, password, email, phoneNo) VALUES (?,?,?,?,?,?)")) {
@@ -86,13 +81,6 @@ public class RegisterCustAccount {
                         stmtInsert.setString(5, membershipTypeText);
                         stmtInsert.setString(6, companyNameText);
                         stmtInsert.executeUpdate();
-                    }
-
-                    try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO Discounts (discountPlan, discountPrice, discountPercentage, CustomerAccountID) VALUES (?,?,?, LAST_INSERT_ID())")) {
-                        stmt.setString(1, discountPlanText);
-                        stmt.setString(2, discountPriceText);
-                        stmt.setString(3, discountPercentageText);
-                        stmt.executeUpdate();
                     }
 
                     JOptionPane.showMessageDialog(null, "Account created!");

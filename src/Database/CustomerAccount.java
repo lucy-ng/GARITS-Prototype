@@ -15,10 +15,37 @@ public class CustomerAccount {
     private String eveningPhoneNo;
     private String membershipType;
     private String discountPlan;
-    private BigDecimal discountPrice;
+    private BigDecimal minimumDiscountPrice;
+    private BigDecimal maximumDiscountPrice;
     private int discountPercentage;
 
-    public CustomerAccount(String companyName, String username, String firstName, String lastName, String email, String phoneNo, String address, String homePhoneNo, String daytimePhoneNo, String eveningPhoneNo, String membershipType, String discountPlan, BigDecimal discountPrice, int discountPercentage) {
+    public CustomerAccount(String companyName, String username, String firstName, String lastName, String email, String phoneNo, String address, String homePhoneNo, String daytimePhoneNo, String eveningPhoneNo, String membershipType) {
+        this.companyName = companyName;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNo = phoneNo;
+        this.address = address;
+        this.homePhoneNo = homePhoneNo;
+        this.daytimePhoneNo = daytimePhoneNo;
+        this.eveningPhoneNo = eveningPhoneNo;
+        this.membershipType = membershipType;
+    }
+
+    public CustomerAccount(String companyName, String username, String firstName, String lastName, String membershipType, String discountPlan, BigDecimal minimumDiscountPrice, BigDecimal maximumDiscountPrice, int discountPercentage) {
+        this.companyName = companyName;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.membershipType = membershipType;
+        this.discountPlan = discountPlan;
+        this.minimumDiscountPrice = minimumDiscountPrice;
+        this.maximumDiscountPrice = maximumDiscountPrice;
+        this.discountPercentage = discountPercentage;
+    }
+
+    public CustomerAccount(String companyName, String username, String firstName, String lastName, String email, String phoneNo, String address, String homePhoneNo, String daytimePhoneNo, String eveningPhoneNo, String membershipType, String discountPlan, BigDecimal minimumDiscountPrice, BigDecimal maximumDiscountPrice, int discountPercentage) {
         this.companyName = companyName;
         this.username = username;
         this.firstName = firstName;
@@ -31,8 +58,17 @@ public class CustomerAccount {
         this.eveningPhoneNo = eveningPhoneNo;
         this.membershipType = membershipType;
         this.discountPlan = discountPlan;
-        this.discountPrice = discountPrice;
+        this.minimumDiscountPrice = minimumDiscountPrice;
+        this.maximumDiscountPrice = maximumDiscountPrice;
         this.discountPercentage = discountPercentage;
+    }
+
+    public CustomerAccount(String companyName, String username, String firstName, String lastName, String membershipType) {
+        this.companyName = companyName;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.membershipType = membershipType;
     }
 
     public String getUsername() {
@@ -75,16 +111,20 @@ public class CustomerAccount {
         return membershipType;
     }
 
+    public BigDecimal getMinimumDiscountPrice() {
+        return minimumDiscountPrice;
+    }
+
+    public BigDecimal getMaximumDiscountPrice() {
+        return maximumDiscountPrice;
+    }
+
     public String getDiscountPlan() {
         return discountPlan;
     }
 
     public String getCompanyName() {
         return companyName;
-    }
-
-    public BigDecimal getDiscountPrice() {
-        return discountPrice;
     }
 
     public int getDiscountPercentage() {

@@ -1,7 +1,5 @@
 package Forms.Jobs;
 
-import Database.Part;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
@@ -11,9 +9,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.math.BigDecimal;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Vector;
 
 public class JobSheetReport {
@@ -47,8 +43,8 @@ public class JobSheetReport {
     private JTable jobsTable;
     private JTable partsTable;
 
-    public JobSheetReport(String regNo, String customerName) {
-        custName.setText(customerName);
+    public JobSheetReport(String regNo, String custName) {
+        this.custName.setText(custName);
 
         Vector jobHeaders = new Vector();
         jobHeaders.addElement("Description");
@@ -74,7 +70,7 @@ public class JobSheetReport {
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
             PreparedStatement statement = connection.prepareStatement("SELECT registrationNo, make, model FROM Vehicles WHERE AccountID = (SELECT AccountID FROM UserAccounts WHERE username = ?)");
-            statement.setString(1, customerName);
+            statement.setString(1, custName);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()){
@@ -86,7 +82,7 @@ public class JobSheetReport {
                 model.setText(modelText);
 
                 PreparedStatement stmt = connection.prepareStatement("SELECT phoneNo FROM UserAccounts WHERE username = ?");
-                stmt.setString(1, customerName);
+                stmt.setString(1, custName);
                 ResultSet rs = stmt.executeQuery();
 
                 while (rs.next()) {
