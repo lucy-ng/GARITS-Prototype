@@ -16,13 +16,11 @@ public class UpdateJob {
     private JLabel tableOfJobsLabel;
     private JTextField description;
     private JComboBox status;
-    private JTextField vehicleDetails;
     private JTextField mechanic;
     private JButton updateButton;
     private JPanel mainPanel;
     private JLabel descriptionLabel;
     private JLabel statusLabel;
-    private JLabel vehicleDetailsLabel;
     private JLabel mechanicLabel;
     private JLabel estimatedTimeLabel;
     private JTextField estimatedTime;
@@ -31,6 +29,8 @@ public class UpdateJob {
     private JScrollPane resultsJobs;
     private JLabel newJobIDLabel;
     private JTextField newJobID;
+    private JLabel actualTimeHoursLabel;
+    private JTextField actualTime;
     private JTable jobsTable;
 
     public UpdateJob() {
@@ -40,8 +40,8 @@ public class UpdateJob {
         headers.addElement("Job ID");
         headers.addElement("Description");
         headers.addElement("Estimated Time");
+        headers.addElement("Actual Time");
         headers.addElement("Job Status");
-        headers.addElement("Registration Number");
         headers.addElement("Mechanic");
         Vector rows = new Vector();
         jobsTable = new JTable(rows, headers);
@@ -55,7 +55,7 @@ public class UpdateJob {
             PreparedStatement statement = connection.prepareStatement("SELECT * from Job");
             ResultSet rs = statement.executeQuery();
 
-            PreparedStatement stmt = connection.prepareStatement("SELECT firstName FROM UserAccounts WHERE AccountID = (SELECT AccountID FROM EmployeeAccount WHERE jobID = ?)");
+            PreparedStatement stmt = connection.prepareStatement("SELECT firstName FROM UserAccounts WHERE AccountID = (SELECT AccountID FROM Job WHERE jobID = ?)");
 
             Job job;
 
@@ -66,12 +66,12 @@ public class UpdateJob {
                     int jobID = rs.getInt("jobID");
                     String description = rs.getString("description");
                     String estimatedTime = rs.getString("estimatedTime");
+                    String actualTime = rs.getString("actualTime");
                     String jobStatus = rs.getString("jobStatus");
-                    String registrationNo = rs.getString("registrationNo");
 
                     String firstName = r.getString("firstName");
 
-                    job = new Job(jobID, description, estimatedTime, jobStatus, registrationNo);
+                    job = new Job(jobID, description, estimatedTime, actualTime,jobStatus);
                     jobList.add(job);
 
                     Object[] row = new Object[6];
@@ -79,8 +79,8 @@ public class UpdateJob {
                         row[0] = job.getJobID();
                         row[1] = job.getDescription();
                         row[2] = job.getEstimatedTime();
-                        row[3] = job.getJobStatus();
-                        row[4] = job.getRegistrationNo();
+                        row[3] = job.getActualTime();
+                        row[4] = job.getJobStatus();
                         row[5] = firstName;
                     }
 
@@ -101,29 +101,25 @@ public class UpdateJob {
                     String jobIDText = jobID.getText();
                     String newJobIDText = newJobID.getText();
                     String mechanicText = mechanic.getText();
-                    String vehicleDetailsText = vehicleDetails.getText();
                     String descriptionText = description.getText();
                     String estimatedTimeText = estimatedTime.getText();
+                    String actualTimeText = actualTime.getText();
                     String statusText = status.getSelectedItem().toString();
 
                     connection.setAutoCommit(false);
-                    try (PreparedStatement updateStmt = connection.prepareStatement("UPDATE EmployeeAccount SET JobID = null WHERE jobID = ?")) {
-                        updateStmt.setString(1, jobIDText);
-                        updateStmt.executeUpdate();
-                    }
 
-                    try (PreparedStatement stmt = connection.prepareStatement("UPDATE EmployeeAccount SET JobID = ? WHERE AccountID = (SELECT AccountID FROM UserAccounts WHERE firstName = ?)")) {
-                        stmt.setString(1, newJobIDText);
-                        stmt.setString(2, mechanicText);
+                    try (PreparedStatement stmt = connection.prepareStatement("UPDATE Job SET AccountID = (SELECT AccountID FROM UserAccounts WHERE firstName = ?)")) {
+                        stmt.setString(1, mechanicText);
                         stmt.executeUpdate();
                     }
 
-                    try (PreparedStatement statement = connection.prepareStatement("UPDATE Job SET description = ?, estimatedTime = ?, jobStatus = ?, registrationNo = ? WHERE jobID = ?")) {
-                        statement.setString(1, descriptionText);
-                        statement.setString(2, estimatedTimeText);
-                        statement.setString(3, statusText);
-                        statement.setString(4, vehicleDetailsText);
-                        statement.setString(5, jobIDText);
+                    try (PreparedStatement statement = connection.prepareStatement("UPDATE Job SET jobID = ?, description = ?, estimatedTime = ?, actualTime = ?, jobStatus = ? WHERE jobID = ?")) {
+                        statement.setString(1, newJobIDText);
+                        statement.setString(2, descriptionText);
+                        statement.setString(3, estimatedTimeText);
+                        statement.setString(4, actualTimeText);
+                        statement.setString(5, statusText);
+                        statement.setString(6, jobIDText);
                         statement.executeUpdate();
                     }
 

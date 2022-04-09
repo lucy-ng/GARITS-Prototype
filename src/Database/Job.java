@@ -4,15 +4,22 @@ public class Job {
     private int jobID;
     private String description;
     private String estimatedTime;
+    private String actualTime;
     private String jobStatus;
-    private String registrationNo;
 
-    public Job(int jobID, String description, String estimatedTime, String jobStatus, String registrationNo) {
+    public Job(int jobID, String description, String estimatedTime, String jobStatus) {
         this.jobID = jobID;
         this.description = description;
         this.estimatedTime = estimatedTime;
         this.jobStatus = jobStatus;
-        this.registrationNo = registrationNo;
+    }
+
+    public Job(int jobID, String description, String estimatedTime, String actualTime,String jobStatus) {
+        this.jobID = jobID;
+        this.description = description;
+        this.estimatedTime = estimatedTime;
+        this.actualTime = actualTime;
+        this.jobStatus = jobStatus;
     }
 
     public int getJobID() {
@@ -31,7 +38,5 @@ public class Job {
         return jobStatus;
     }
 
-    public String getRegistrationNo() {
-        return registrationNo;
-    }
+    public String getActualTime() { return actualTime; }
 }

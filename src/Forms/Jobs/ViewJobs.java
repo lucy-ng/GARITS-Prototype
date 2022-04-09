@@ -23,8 +23,8 @@ public class ViewJobs {
         headers.addElement("Job ID");
         headers.addElement("Description");
         headers.addElement("Estimated Time");
+        headers.addElement("Actual Time");
         headers.addElement("Job Status");
-        headers.addElement("Registration Number");
         headers.addElement("Mechanic");
         Vector rows = new Vector();
         jobsTable = new JTable(rows, headers);
@@ -38,7 +38,7 @@ public class ViewJobs {
             PreparedStatement statement = connection.prepareStatement("SELECT * from Job");
             ResultSet rs = statement.executeQuery();
 
-            PreparedStatement stmt = connection.prepareStatement("SELECT firstName FROM UserAccounts WHERE AccountID = (SELECT AccountID FROM EmployeeAccount WHERE jobID = ?)");
+            PreparedStatement stmt = connection.prepareStatement("SELECT firstName FROM UserAccounts WHERE AccountID = (SELECT AccountID FROM Job WHERE jobID = ?)");
 
             Job job;
 
@@ -49,12 +49,12 @@ public class ViewJobs {
                     int jobID = rs.getInt("jobID");
                     String description = rs.getString("description");
                     String estimatedTime = rs.getString("estimatedTime");
+                    String actualTime = rs.getString("actualTime");
                     String jobStatus = rs.getString("jobStatus");
-                    String registrationNo = rs.getString("registrationNo");
 
                     String firstName = r.getString("firstName");
 
-                    job = new Job(jobID, description, estimatedTime, jobStatus, registrationNo);
+                    job = new Job(jobID, description, estimatedTime, actualTime,jobStatus);
                     jobList.add(job);
 
                     Object[] row = new Object[6];
@@ -62,8 +62,8 @@ public class ViewJobs {
                         row[0] = job.getJobID();
                         row[1] = job.getDescription();
                         row[2] = job.getEstimatedTime();
-                        row[3] = job.getJobStatus();
-                        row[4] = job.getRegistrationNo();
+                        row[3] = job.getActualTime();
+                        row[4] = job.getJobStatus();
                         row[5] = firstName;
                     }
 
@@ -72,7 +72,7 @@ public class ViewJobs {
             }
             connection.close();
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();;
+            sqlException.printStackTrace();
         }
     }
 

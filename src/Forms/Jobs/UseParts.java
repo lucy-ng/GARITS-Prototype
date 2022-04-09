@@ -91,7 +91,6 @@ public class UseParts {
         headers.addElement("Description");
         headers.addElement("Estimated Time");
         headers.addElement("Job Status");
-        headers.addElement("Registration Number");
         headers.addElement("Mechanic");
         Vector rows = new Vector();
         jobsTable = new JTable(rows, headers);
@@ -117,21 +116,19 @@ public class UseParts {
                     String description = rs.getString("description");
                     String estimatedTime = rs.getString("estimatedTime");
                     String jobStatus = rs.getString("jobStatus");
-                    String registrationNo = rs.getString("registrationNo");
 
                     String firstName = r.getString("firstName");
 
-                    job = new Job(jobID, description, estimatedTime, jobStatus, registrationNo);
+                    job = new Job(jobID, description, estimatedTime, jobStatus);
                     jobList.add(job);
 
-                    Object[] row = new Object[6];
+                    Object[] row = new Object[5];
                     for (int i = 0; i < jobList.size(); i++) {
                         row[0] = job.getJobID();
                         row[1] = job.getDescription();
                         row[2] = job.getEstimatedTime();
                         row[3] = job.getJobStatus();
-                        row[4] = job.getRegistrationNo();
-                        row[5] = firstName;
+                        row[4] = firstName;
                     }
 
                     jobsTableModel.addRow(row);
