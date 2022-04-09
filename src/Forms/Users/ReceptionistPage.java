@@ -213,7 +213,7 @@ public class ReceptionistPage {
         managePartsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[] buttons = new String[] {"Add", "Update", "Search", "Order", "Sell"};
+                String[] buttons = new String[] {"Add", "Update", "Search", "Order", "Sell", "Record Delivery"};
                 int result = JOptionPane.showOptionDialog(null, "Choose options below:","Manage Parts", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
                 if (result == 0) {
                     AddParts addParts = new AddParts();
@@ -243,6 +243,12 @@ public class ReceptionistPage {
                     SellParts sellParts = new SellParts();
                     contentPanel.removeAll();
                     contentPanel.add(sellParts.getMainPanel());
+                    contentPanel.revalidate();
+                }
+                else if (result == 5) {
+                    DeliverParts deliverParts = new DeliverParts();
+                    contentPanel.removeAll();
+                    contentPanel.add(deliverParts.getMainPanel());
                     contentPanel.revalidate();
                 }
             }
