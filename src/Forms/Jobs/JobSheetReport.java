@@ -57,7 +57,7 @@ public class JobSheetReport {
                 }
                 Graphics2D graphics2D = (Graphics2D)graphics;
                 graphics2D.translate(pageFormat.getImageableX()*2,(pageFormat.getImageableY()*2));
-                graphics2D.scale(0.5,0.5);
+                graphics2D.scale(0.95,1.6);
                 panel.paint(graphics2D);
                 return Printable.PAGE_EXISTS;
             }
