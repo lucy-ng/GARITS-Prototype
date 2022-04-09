@@ -12,10 +12,10 @@ public class MechanicPage {
     private JButton pickJobButton;
     private JLabel jobsLabel;
     private JButton updateJobButton;
-    private JLabel mechanicPageTitle;
     private JButton searchPartsButton;
     private JPanel contentPanel;
     private JLabel partsLabel;
+    private JLabel mechanicPageTitle;
 
     public MechanicPage(JFrame window) {
         window.setContentPane(mainPanel);

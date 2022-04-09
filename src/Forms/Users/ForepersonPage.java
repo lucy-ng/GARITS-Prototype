@@ -156,26 +156,6 @@ public class ForepersonPage {
             }
         });
 
-        discountDetailsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String[] buttons = new String[] {"Add", "Update"};
-                int result = JOptionPane.showOptionDialog(null, "Choose options below:","Discount Details", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
-                if (result == 0) {
-                    AddDiscountDetails addDiscountDetails = new AddDiscountDetails();
-                    contentPanel.removeAll();
-                    contentPanel.add(addDiscountDetails.getMainPanel());
-                    contentPanel.revalidate();
-                }
-                else if (result == 1) {
-                    UpdateDiscountDetails updateDiscountDetails = new UpdateDiscountDetails();
-                    contentPanel.removeAll();
-                    contentPanel.add(updateDiscountDetails.getMainPanel());
-                    contentPanel.revalidate();
-                }
-            }
-        });
-
         manageJobsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -214,10 +194,20 @@ public class ForepersonPage {
                 String[] buttons = new String[] {"Job Sheet", "Invoice"};
                 int result = JOptionPane.showOptionDialog(null, "Choose options below:","Job Sheet / Invoice", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
                 if (result == 0) {
-                    JobSheetReport jobSheetReport = new JobSheetReport();
-                    contentPanel.removeAll();
-                    contentPanel.add(jobSheetReport.getMainPanel());
-                    contentPanel.revalidate();
+                    String regNoMessage = "Enter registration number:";
+                    JTextField regNoText = new JTextField();
+                    int regNoResult = JOptionPane.showOptionDialog(null, new Object[] {regNoMessage, regNoText}, "Registration Number", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    if (regNoResult == JOptionPane.OK_OPTION) {
+                        String custNameMessage = "Enter customer username:";
+                        JTextField custNameText = new JTextField();
+                        int custNameResult = JOptionPane.showOptionDialog(null, new Object[] {custNameMessage, custNameText}, "Customer Username", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                        if (custNameResult == JOptionPane.OK_OPTION) {
+                            JobSheetReport jobSheetReport = new JobSheetReport(regNoText.getText(), custNameMessage);
+                            contentPanel.removeAll();
+                            contentPanel.add(jobSheetReport.getMainPanel());
+                            contentPanel.revalidate();
+                        }
+                    }
                 }
                 else if (result == 1) {
                     Invoice invoice = new Invoice();
