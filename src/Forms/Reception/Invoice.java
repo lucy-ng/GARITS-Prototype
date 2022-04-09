@@ -21,14 +21,14 @@ public class Invoice {
     private JLabel modelLabel;
     private JTextField model;
     private JLabel descriptionOfWorkLabel;
-    private JList descriptionWork;
-    private JTable itemsUsed;
     private JTable labour;
     private JButton printButton;
     private JLabel itemsUsedLabel;
     private JLabel labourLabel;
     private JTextPane address;
     private JTextPane customerAddressTextPane;
+    private JScrollPane workDescription;
+    private JScrollPane usedItems;
 
     public Invoice() {
 
