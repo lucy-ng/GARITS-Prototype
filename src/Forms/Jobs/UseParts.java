@@ -21,8 +21,8 @@ public class UseParts {
     private JScrollPane resultsJobs;
     private JLabel partNameLabel;
     private JTextField partName;
-    private JLabel jobIDLabel;
-    private JTextField jobID;
+    private JLabel registrationNumberLabel;
+    private JTextField regNo;
     private JButton useButton;
     private JLabel newQuantityLabel;
     private JTextField newQuantity;
@@ -90,6 +90,7 @@ public class UseParts {
         headers.addElement("Job ID");
         headers.addElement("Description");
         headers.addElement("Estimated Time");
+        headers.addElement("Actual Time");
         headers.addElement("Job Status");
         headers.addElement("Mechanic");
         Vector rows = new Vector();
@@ -104,7 +105,7 @@ public class UseParts {
             PreparedStatement statement = connection.prepareStatement("SELECT * from Job");
             ResultSet rs = statement.executeQuery();
 
-            PreparedStatement stmt = connection.prepareStatement("SELECT firstName FROM UserAccounts WHERE AccountID = (SELECT AccountID FROM EmployeeAccount WHERE jobID = ?)");
+            PreparedStatement stmt = connection.prepareStatement("SELECT firstName FROM UserAccounts WHERE AccountID = (SELECT AccountID FROM Job WHERE jobID = ?)");
 
             Job job;
 
@@ -115,20 +116,22 @@ public class UseParts {
                     int jobID = rs.getInt("jobID");
                     String description = rs.getString("description");
                     String estimatedTime = rs.getString("estimatedTime");
+                    String actualTime = rs.getString("actualTime");
                     String jobStatus = rs.getString("jobStatus");
 
                     String firstName = r.getString("firstName");
 
-                    job = new Job(jobID, description, estimatedTime, jobStatus);
+                    job = new Job(jobID, description, estimatedTime, actualTime,jobStatus);
                     jobList.add(job);
 
-                    Object[] row = new Object[5];
+                    Object[] row = new Object[6];
                     for (int i = 0; i < jobList.size(); i++) {
                         row[0] = job.getJobID();
                         row[1] = job.getDescription();
                         row[2] = job.getEstimatedTime();
-                        row[3] = job.getJobStatus();
-                        row[4] = firstName;
+                        row[3] = job.getActualTime();
+                        row[4] = job.getJobStatus();
+                        row[5] = firstName;
                     }
 
                     jobsTableModel.addRow(row);
@@ -247,32 +250,28 @@ public class UseParts {
                     int newQuantityText = Integer.parseInt(newQuantity.getText());
                     Date dateUsedText = Date.valueOf(dateUsed.getText());
                     int amountUsedText = Integer.parseInt(amountUsed.getText());
+                    String regNoText = regNo.getText();
 
                     PreparedStatement selectStmt = connection.prepareStatement("SELECT partID FROM SpareParts WHERE name = ?");
                     selectStmt.setString(1, partNameText);
                     ResultSet rs = selectStmt.executeQuery();
 
                     while (rs.next()) {
-                        PreparedStatement insertStmt = connection.prepareStatement("INSERT INTO SparePartsUse(amountUsed, partUseDate, partID) VALUES (?,?,?)");
+                        PreparedStatement insertStmt = connection.prepareStatement("INSERT INTO SparePartsUse(amountUsed, partUseDate, partID, registrationNo) VALUES (?,?,?,?)");
                         insertStmt.setInt(1, amountUsedText);
                         insertStmt.setDate(2, dateUsedText);
                         insertStmt.setInt(3, rs.getInt("partID"));
-                    }
+                        insertStmt.setString(4, regNoText);
+                        insertStmt.executeUpdate();
 
-                    try (PreparedStatement updatePartStmt = connection.prepareStatement("UPDATE SpareParts SET quantity = ? WHERE name = ?")) {
+                        PreparedStatement updatePartStmt = connection.prepareStatement("UPDATE SpareParts SET quantity = ? WHERE name = ?");
                         updatePartStmt.setInt(1,  newQuantityText);
                         updatePartStmt.setString(2, partNameText);
                         updatePartStmt.executeUpdate();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
                     }
-
-                    try (PreparedStatement updateJobStmt = connection.prepareStatement("UPDATE Job SET partID = (SELECT partID FROM SpareParts WHERE name = ?)")) {
-                        updateJobStmt.setString(1, partNameText);
-                        updateJobStmt.executeUpdate();
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
+                    JOptionPane.showMessageDialog(null, "Part used!");
+                    connection.setAutoCommit(true);
+                    connection.close();
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 }

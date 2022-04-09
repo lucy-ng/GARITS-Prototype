@@ -9,7 +9,7 @@ import java.awt.event.*;
 public class MechanicPage {
     private JPanel mainPanel;
     private JButton viewJobsButton;
-    private JButton pickJobButton;
+    private JButton usePartsButton;
     private JLabel jobsLabel;
     private JButton updateJobButton;
     private JButton searchPartsButton;
@@ -34,17 +34,20 @@ public class MechanicPage {
         updateJobButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UpdateJob updateJob = new UpdateJob();
+                UpdateJobMechanic updateJobMechanic = new UpdateJobMechanic();
                 contentPanel.removeAll();
-                contentPanel.add(updateJob.getMainPanel());
+                contentPanel.add(updateJobMechanic.getMainPanel());
                 contentPanel.revalidate();
             }
         });
 
-        pickJobButton.addActionListener(new ActionListener() {
+        usePartsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                UseParts useParts = new UseParts();
+                contentPanel.removeAll();
+                contentPanel.add(useParts.getMainPanel());
+                contentPanel.revalidate();
             }
         });
 
@@ -71,7 +74,7 @@ public class MechanicPage {
     }
 
     public JButton getPickJobButton() {
-        return pickJobButton;
+        return usePartsButton;
     }
 
     public JButton getUpdateJobButton() {
