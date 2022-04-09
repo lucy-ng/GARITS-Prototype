@@ -2,10 +2,10 @@ package Forms.Jobs;
 
 import Database.EmployeeAccount;
 import Database.Job;
-import Database.Part;
 import Database.Vehicle;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -36,33 +36,44 @@ public class AddJob {
     private JScrollPane resultsSpareParts;
     private JComboBox jobStatus;
     private JTable sparePartsTable;
+    private JTable vehicleSearchResults;
+    private JTable mechanicSearchResults;
+    private JTable jobSearchResults;
 
     public void displayMechanics() {
-        resultsJobs.setPreferredSize(new Dimension(500,500));
-        resultsMechanic.setPreferredSize(new Dimension(500,500));
-        resultsVehicle.setPreferredSize(new Dimension(500,500));
+        Vector headers = new Vector();
+        headers.addElement("Username");
+        headers.addElement("First Name");
+        headers.addElement("Last Name");
+        headers.addElement("Email");
+        headers.addElement("Phone Number");
+        headers.addElement("Role");
+        headers.addElement("Department");
+        headers.addElement("Labour Rate");
+        Vector rows = new Vector();
+        mechanicSearchResults = new JTable(rows, headers);
+        DefaultTableModel mechanicSearchResultsModel = (DefaultTableModel) mechanicSearchResults.getModel();
+        resultsMechanic.setViewportView(mechanicSearchResults);
+        mechanicSearchResults.setVisible(true);
 
         ArrayList<EmployeeAccount> employeeAccountList = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
-            connection.setAutoCommit(false);
-            PreparedStatement statement = connection.prepareStatement("SELECT UserAccounts.username, UserAccounts.firstName, UserAccounts.lastName, UserAccounts.email, UserAccounts.phoneNo," +
-                    "EmployeeAccount.EmployeePosition, EmployeeAccount.Department, EmployeeAccount.labourRate from UserAccounts INNER JOIN EmployeeAccount ON UserAccounts.AccountID = EmployeeAccount.AccountID WHERE EmployeeAccount.EmployeePosition = 'Mechanic' ");
+            PreparedStatement statement = connection.prepareStatement("SELECT UserAccounts.username, UserAccounts.firstName, UserAccounts.lastName, UserAccounts.email, UserAccounts.phoneNo, EmployeeAccount.EmployeePosition, EmployeeAccount.Department, EmployeeAccount.labourRate from UserAccounts INNER JOIN EmployeeAccount ON UserAccounts.AccountID = EmployeeAccount.AccountID WHERE EmployeeAccount.EmployeePosition = 'Mechanic' ");
             ResultSet rs = statement.executeQuery();
 
-            EmployeeAccount employeeAccount;
-
             while (rs.next()) {
-                String usernameText = rs.getString("username");
-                String firstNameText = rs.getString("firstName");
-                String lastNameText = rs.getString("lastName");
-                String emailText = rs.getString("email");
-                String phoneNoText = rs.getString("phoneNo");
-                String employeePositionText = rs.getString("EmployeePosition");
-                String departmentText = rs.getString("Department");
-                BigDecimal labourRateValue = rs.getBigDecimal("labourRate");
+                String username = rs.getString("username");
+                String firstName = rs.getString("firstName");
+                String lastName = rs.getString("lastName");
+                String email = rs.getString("email");
+                String phoneNumber = rs.getString("phoneNo");
+                String role = rs.getString("EmployeePosition");
+                String department = rs.getString("Department");
+                BigDecimal labourRate = rs.getBigDecimal("labourRate");
 
-                employeeAccount = new EmployeeAccount(usernameText, firstNameText, lastNameText, emailText, phoneNoText, employeePositionText, departmentText, labourRateValue);
+                EmployeeAccount employeeAccount;
+                employeeAccount = new EmployeeAccount(username, firstName, lastName, email, phoneNumber, role, department, labourRate);
                 employeeAccountList.add(employeeAccount);
 
                 Object[] row = new Object[8];
@@ -76,14 +87,8 @@ public class AddJob {
                     row[6] = employeeAccount.getDepartment();
                     row[7] = employeeAccount.getLabourRate();
                 }
-
-                Object[][] data =  {row};
-                String[] columnNames = {"Username", "First Name", "Last Name", "Email", "Phone Number", "Employee Position", "Department", "Labour Rate"};
-                JTable mechanicResults = new JTable(data, columnNames);
-                resultsMechanic.setViewportView(mechanicResults);
-                mechanicResults.setVisible(true);
+                mechanicSearchResultsModel.addRow(row);
             }
-            connection.setAutoCommit(true);
             connection.close();
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
@@ -91,51 +96,90 @@ public class AddJob {
     }
 
     public void displayVehicles() {
+        Vector vehicleHeaders = new Vector();
+        vehicleHeaders.addElement("Username");
+        vehicleHeaders.addElement("Registration Number");
+        vehicleHeaders.addElement("Colour");
+        vehicleHeaders.addElement("Make");
+        vehicleHeaders.addElement("Model");
+        vehicleHeaders.addElement("Chassis Number");
+        vehicleHeaders.addElement("Engine Serial");
+        vehicleHeaders.addElement("Year");
+        Vector vehicleRows = new Vector();
+        vehicleSearchResults = new JTable(vehicleRows, vehicleHeaders);
+        DefaultTableModel vehicleTableModel = (DefaultTableModel) vehicleSearchResults.getModel();
+        resultsVehicle.setViewportView(vehicleSearchResults);
+        vehicleSearchResults.setVisible(true);
+
         ArrayList<Vehicle> vehicleList = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
-            PreparedStatement statement = connection.prepareStatement("SELECT registrationNo, colour, make, model, chassisNo, engineSerial, year from Vehicles");
+            PreparedStatement statement = connection.prepareStatement("SELECT AccountID from CustomerAccount");
             ResultSet rs = statement.executeQuery();
-            Vehicle vehicle;
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT registrationNo, colour, make, model, chassisNo, engineSerial, year FROM Vehicles WHERE AccountID = ?");
 
             while (rs.next()) {
-                String registrationNo = rs.getString("registrationNo");
-                String colour = rs.getString("colour");
-                String make = rs.getString("make");
-                String model = rs.getString("model");
-                String chassisNo = rs.getString("chassisNo");
-                String engineSerial = rs.getString("engineSerial");
-                String year = rs.getString("year");
+                PreparedStatement selectStmt = connection.prepareStatement("SELECT username FROM UserAccounts WHERE AccountID = ?");
+                selectStmt.setInt(1, rs.getInt("AccountID"));
+                ResultSet r = selectStmt.executeQuery();
+                while (r.next()) {
+                    preparedStatement.setInt(1, rs.getInt("AccountID"));
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        String username = r.getString("username");
+                        String registrationNo = resultSet.getString("registrationNo");
+                        String colour = resultSet.getString("colour");
+                        String make = resultSet.getString("make");
+                        String model = resultSet.getString("model");
+                        String chassisNo = resultSet.getString("chassisNo");
+                        String engineSerial = resultSet.getString("engineSerial");
+                        String year = resultSet.getString("year");
 
-                vehicle = new Vehicle(registrationNo, colour, make, model, chassisNo, engineSerial, year);
-                vehicleList.add(vehicle);
+                        Vehicle vehicle;
+                        vehicle = new Vehicle(registrationNo, colour, make, model, chassisNo, engineSerial, year);
+                        vehicleList.add(vehicle);
 
-                Object[] row = new Object[7];
-                for (int i = 0; i < vehicleList.size(); i++) {
-                    row[0] = vehicle.getRegistrationNo();
-                    row[1] = vehicle.getColour();
-                    row[2] = vehicle.getMake();
-                    row[3] = vehicle.getModel();
-                    row[4] = vehicle.getChassisNo();
-                    row[5] = vehicle.getEngineSerial();
-                    row[6] = vehicle.getYear();
+                        Object[] row = new Object[8];
+                        for (int i = 0; i < vehicleList.size(); i++) {
+                            row[0] = username;
+                            row[1] = vehicle.getRegistrationNo();
+                            row[2] = vehicle.getColour();
+                            row[3] = vehicle.getMake();
+                            row[4] = vehicle.getModel();
+                            row[5] = vehicle.getChassisNo();
+                            row[6] = vehicle.getEngineSerial();
+                            row[7] = vehicle.getYear();
+                        }
+                        vehicleTableModel.addRow(row);
+                    }
                 }
-
-                Object[][] data =  {row};
-                String[] columnNames = {"Registration Number", "Colour", "Make", "Model", "Chassis Number", "Engine Serial", "Year"};
-                JTable searchResults = new JTable(data, columnNames);
-                resultsVehicle.setViewportView(searchResults);
-                searchResults.setVisible(true);
             }
             connection.close();
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();;
+            sqlException.printStackTrace();
         }
     }
 
     public AddJob() {
+        resultsJobs.setPreferredSize(new Dimension(500,500));
+        resultsMechanic.setPreferredSize(new Dimension(500,500));
+        resultsVehicle.setPreferredSize(new Dimension(500,500));
+
         displayMechanics();
         displayVehicles();
+
+        Vector jobHeaders = new Vector();
+        jobHeaders.addElement("Username");
+        jobHeaders.addElement("Registration Number");
+        jobHeaders.addElement("Colour");
+        jobHeaders.addElement("Make");
+        jobHeaders.addElement("Model");
+        Vector jobRows = new Vector();
+        jobSearchResults = new JTable(jobRows, jobHeaders);
+        DefaultTableModel jobTableModel = (DefaultTableModel) jobSearchResults.getModel();
+        resultsJobs.setViewportView(jobSearchResults);
+        jobSearchResults.setVisible(true);
 
         ArrayList<Job> jobList = new ArrayList<>();
         try {
@@ -162,12 +206,7 @@ public class AddJob {
                     row[3] = job.getJobStatus();
                     row[4] = job.getRegistrationNo();
                 }
-
-                Object[][] data =  {row};
-                String[] columnNames = {"JobID", "Description", "Estimated Time", "Job Status", "Registration Number"};
-                JTable jobSearchResults = new JTable(data, columnNames);
-                resultsJobs.setViewportView(jobSearchResults);
-                jobSearchResults.setVisible(true);
+                jobTableModel.addRow(row);
             }
             connection.close();
         } catch (SQLException sqlException) {

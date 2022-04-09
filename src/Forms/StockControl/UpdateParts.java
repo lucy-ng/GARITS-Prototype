@@ -3,12 +3,14 @@ package Forms.StockControl;
 import Database.Part;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class UpdateParts {
     private JLabel updatePartsTitle;
@@ -36,9 +38,61 @@ public class UpdateParts {
     private JTextField lowThreshold;
     private JLabel oldPartNameLabel;
     private JTextField oldPartName;
+    private JTable partsTable;
 
     public UpdateParts() {
         scrollPane.setPreferredSize(new Dimension(500,500));
+
+        Vector partHeaders = new Vector();
+        partHeaders.addElement("Part Name");
+        partHeaders.addElement("Manufacturer");
+        partHeaders.addElement("Vehicle Type");
+        partHeaders.addElement("Year");
+        partHeaders.addElement("Price");
+        partHeaders.addElement("Quantity");
+        partHeaders.addElement("Low Threshold");
+        Vector partRows = new Vector();
+        partsTable = new JTable(partRows, partHeaders);
+        DefaultTableModel partsTableModel = (DefaultTableModel) partsTable.getModel();
+        scrollPane.setViewportView(partsTable);
+        partsTable.setVisible(true);
+
+        ArrayList<Part> partList = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
+            PreparedStatement statement = connection.prepareStatement("SELECT * from SpareParts");
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString("name");
+                String manufacturer = rs.getString("manufacturer");
+                String vehicleType = rs.getString("vehicleType");
+                String year = rs.getString("year");
+                BigDecimal price = rs.getBigDecimal("price");
+                int quantity = rs.getInt("quantity");
+                int lowThreshold = rs.getInt("lowThreshold");
+
+                Part part;
+                part = new Part(name, manufacturer, vehicleType, year, price, quantity, lowThreshold);
+                partList.add(part);
+
+                Object[] row = new Object[7];
+                for (int i = 0; i < partList.size(); i++) {
+                    row[0] = part.getName();
+                    row[1] = part.getManufacturer();
+                    row[2] = part.getVehicleType();
+                    row[3] = part.getYear();
+                    row[4] = part.getPrice();
+                    row[5] = part.getQuantity();
+                    row[6] = part.getLowThreshold();
+                }
+
+                partsTableModel.addRow(row);
+            }
+            connection.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
 
         searchButton.addActionListener(new ActionListener() {
             @Override

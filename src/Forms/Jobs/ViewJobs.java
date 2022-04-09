@@ -14,9 +14,7 @@ public class ViewJobs {
     private JLabel addJobLabel;
     private JPanel mainPanel;
     private JLabel tableOfJobsLabel;
-    private JTextField searchJob;
     private JButton searchButton;
-    private JLabel searchForJobLabel;
     private JScrollPane scrollPane;
     private JTable jobsTable;
 
@@ -76,13 +74,6 @@ public class ViewJobs {
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();;
         }
-
-        searchButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
     }
 
     public JPanel getMainPanel() {

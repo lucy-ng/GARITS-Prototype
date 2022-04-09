@@ -2,11 +2,13 @@ package Forms.Vehicles;
 
 import Database.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class UpdateVehicleRecord {
     private JTextField usernameSearchField;
@@ -37,8 +39,139 @@ public class UpdateVehicleRecord {
     private JLabel yearLabel;
     private JLabel updateVehicleRecordTitle;
     private JTable searchResults;
+    private JTable vehicleSearchResults;
 
     public UpdateVehicleRecord() {
+        Vector headers = new Vector();
+        headers.addElement("Company Name");
+        headers.addElement("Username");
+        headers.addElement("First Name");
+        headers.addElement("Last Name");
+        Vector rows = new Vector();
+        searchResults = new JTable(rows, headers);
+        DefaultTableModel accountTableModel = (DefaultTableModel) searchResults.getModel();
+        usernameScrollPane.setViewportView(searchResults);
+        searchResults.setVisible(true);
+
+        ArrayList<CustomerAccount> customerAccountList = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
+            PreparedStatement statement = connection.prepareStatement("SELECT AccountID, CustomerAccountID, address, homePhoneNo, daytimePhoneNo, eveningPhoneNo, membershipType, companyName from CustomerAccount");
+            ResultSet rs = statement.executeQuery();
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT discountPlan, discountPrice, discountPercentage FROM Discounts WHERE CustomerAccountID = ?");
+
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM UserAccounts WHERE AccountID = ?");
+
+            while (rs.next()) {
+                preparedStatement.setInt(1, rs.getInt("CustomerAccountID"));
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    stmt.setInt(1, rs.getInt("AccountID"));
+                    ResultSet r = stmt.executeQuery();
+                    while (r.next()) {
+                        String username = r.getString("username");
+                        String firstName = r.getString("firstName");
+                        String lastName = r.getString("lastName");
+                        String email = r.getString("email");
+                        String phoneNumber = r.getString("phoneNo");
+                        String address = rs.getString("address");
+                        String homePhoneNo = rs.getString("homePhoneNo");
+                        String daytimePhoneNo = rs.getString("daytimePhoneNo");
+                        String eveningPhoneNo = rs.getString("eveningPhoneNo");
+                        String membershipType = rs.getString("membershipType");
+                        String companyName = rs.getString("companyName");
+                        String discountPlan = resultSet.getString("discountPlan");
+                        BigDecimal discountPrice = resultSet.getBigDecimal("discountPrice");
+                        int discountPercentage = resultSet.getInt("discountPercentage");
+
+                        CustomerAccount customerAccount;
+                        customerAccount = new CustomerAccount(companyName, username, firstName, lastName, email, phoneNumber, address, homePhoneNo, daytimePhoneNo, eveningPhoneNo, membershipType, discountPlan, discountPrice, discountPercentage);
+                        customerAccountList.add(customerAccount);
+
+                        Object[] row = new Object[4];
+                        for (int i = 0; i < customerAccountList.size(); i++) {
+                            row[0] = customerAccount.getCompanyName();
+                            row[1] = customerAccount.getUsername();
+                            row[2] = customerAccount.getFirstName();
+                            row[3] = customerAccount.getLastName();
+                        }
+                        accountTableModel.addRow(row);
+                    }
+                }
+            }
+            connection.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
+
+        Vector vehicleHeaders = new Vector();
+        vehicleHeaders.addElement("Username");
+        vehicleHeaders.addElement("Registration Number");
+        vehicleHeaders.addElement("Colour");
+        vehicleHeaders.addElement("Make");
+        vehicleHeaders.addElement("Model");
+        vehicleHeaders.addElement("Chassis Number");
+        vehicleHeaders.addElement("Engine Serial");
+        vehicleHeaders.addElement("Year");
+        Vector vehicleRows = new Vector();
+        vehicleSearchResults = new JTable(vehicleRows, vehicleHeaders);
+        DefaultTableModel vehicleTableModel = (DefaultTableModel) vehicleSearchResults.getModel();
+        regNoScrollPane.setViewportView(vehicleSearchResults);
+        vehicleSearchResults.setVisible(true);
+
+        ArrayList<Vehicle> vehicleList = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
+            PreparedStatement statement = connection.prepareStatement("SELECT AccountID from CustomerAccount");
+            ResultSet rs = statement.executeQuery();
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT registrationNo, colour, make, model, chassisNo, engineSerial, year FROM Vehicles WHERE AccountID = ?");
+
+
+            while (rs.next()) {
+                PreparedStatement selectStmt = connection.prepareStatement("SELECT username FROM UserAccounts WHERE AccountID = ?");
+                selectStmt.setInt(1, rs.getInt("AccountID"));
+                ResultSet r = selectStmt.executeQuery();
+                while (r.next()) {
+                    preparedStatement.setInt(1, rs.getInt("AccountID"));
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    while (resultSet.next()) {
+                        String username = r.getString("username");
+                        String registrationNo = resultSet.getString("registrationNo");
+                        String colour = resultSet.getString("colour");
+                        String make = resultSet.getString("make");
+                        String model = resultSet.getString("model");
+                        String chassisNo = resultSet.getString("chassisNo");
+                        String engineSerial = resultSet.getString("engineSerial");
+                        String year = resultSet.getString("year");
+
+                        Vehicle vehicle;
+                        vehicle = new Vehicle(registrationNo, colour, make, model, chassisNo, engineSerial, year);
+                        vehicleList.add(vehicle);
+
+                        Object[] row = new Object[8];
+                        for (int i = 0; i < vehicleList.size(); i++) {
+                            row[0] = username;
+                            row[1] = vehicle.getRegistrationNo();
+                            row[2] = vehicle.getColour();
+                            row[3] = vehicle.getMake();
+                            row[4] = vehicle.getModel();
+                            row[5] = vehicle.getChassisNo();
+                            row[6] = vehicle.getEngineSerial();
+                            row[7] = vehicle.getYear();
+                        }
+                        vehicleTableModel.addRow(row);
+                    }
+                }
+            }
+            connection.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
+
         searchAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

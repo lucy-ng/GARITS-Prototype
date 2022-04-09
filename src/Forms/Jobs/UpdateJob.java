@@ -3,11 +3,13 @@ package Forms.Jobs;
 import Database.Job;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class UpdateJob {
     private JLabel updateJobTitle;
@@ -29,9 +31,23 @@ public class UpdateJob {
     private JScrollPane resultsJobs;
     private JLabel newJobIDLabel;
     private JTextField newJobID;
+    private JTable jobsTable;
 
     public UpdateJob() {
         resultsJobs.setPreferredSize(new Dimension(500,500));
+
+        Vector headers = new Vector();
+        headers.addElement("Job ID");
+        headers.addElement("Description");
+        headers.addElement("Estimated Time");
+        headers.addElement("Job Status");
+        headers.addElement("Registration Number");
+        headers.addElement("Mechanic");
+        Vector rows = new Vector();
+        jobsTable = new JTable(rows, headers);
+        DefaultTableModel jobsTableModel = (DefaultTableModel) jobsTable.getModel();
+        resultsJobs.setViewportView(jobsTable);
+        jobsTable.setVisible(true);
 
         ArrayList<Job> jobList = new ArrayList<>();
         try {
@@ -68,16 +84,12 @@ public class UpdateJob {
                         row[5] = firstName;
                     }
 
-                    Object[][] data =  {row};
-                    String[] columnNames = {"JobID", "Description", "Estimated Time", "Job Status", "Registration Number", "Mechanic"};
-                    JTable jobSearchResults = new JTable(data, columnNames);
-                    resultsJobs.setViewportView(jobSearchResults);
-                    jobSearchResults.setVisible(true);
+                    jobsTableModel.addRow(row);
                 }
             }
             connection.close();
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();;
+            sqlException.printStackTrace();
         }
 
         updateButton.addActionListener(new ActionListener() {

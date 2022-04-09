@@ -1,13 +1,16 @@
 package Forms.Vehicles;
 
+import Database.CustomerAccount;
 import Database.EmployeeAccount;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class CreateVehicleRecord {
     private JLabel createVehicleRecordTitle;
@@ -35,6 +38,70 @@ public class CreateVehicleRecord {
     private JTable searchResults;
 
     public CreateVehicleRecord() {
+        Vector headers = new Vector();
+        headers.addElement("Company Name");
+        headers.addElement("Username");
+        headers.addElement("First Name");
+        headers.addElement("Last Name");
+        Vector rows = new Vector();
+        searchResults = new JTable(rows, headers);
+        DefaultTableModel accountTableModel = (DefaultTableModel) searchResults.getModel();
+        scrollPane.setViewportView(searchResults);
+        searchResults.setVisible(true);
+
+        ArrayList<CustomerAccount> customerAccountList = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
+            PreparedStatement statement = connection.prepareStatement("SELECT AccountID, CustomerAccountID, address, homePhoneNo, daytimePhoneNo, eveningPhoneNo, membershipType, companyName from CustomerAccount");
+            ResultSet rs = statement.executeQuery();
+
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT discountPlan, discountPrice, discountPercentage FROM Discounts WHERE CustomerAccountID = ?");
+
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM UserAccounts WHERE AccountID = ?");
+
+            while (rs.next()) {
+                preparedStatement.setInt(1, rs.getInt("CustomerAccountID"));
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    stmt.setInt(1, rs.getInt("AccountID"));
+                    ResultSet r = stmt.executeQuery();
+                    while (r.next()) {
+                        String username = r.getString("username");
+                        String firstName = r.getString("firstName");
+                        String lastName = r.getString("lastName");
+                        String email = r.getString("email");
+                        String phoneNumber = r.getString("phoneNo");
+                        String address = rs.getString("address");
+                        String homePhoneNo = rs.getString("homePhoneNo");
+                        String daytimePhoneNo = rs.getString("daytimePhoneNo");
+                        String eveningPhoneNo = rs.getString("eveningPhoneNo");
+                        String membershipType = rs.getString("membershipType");
+                        String companyName = rs.getString("companyName");
+                        String discountPlan = resultSet.getString("discountPlan");
+                        BigDecimal discountPrice = resultSet.getBigDecimal("discountPrice");
+                        int discountPercentage = resultSet.getInt("discountPercentage");
+
+                        CustomerAccount customerAccount;
+                        customerAccount = new CustomerAccount(companyName, username, firstName, lastName, email, phoneNumber, address, homePhoneNo, daytimePhoneNo, eveningPhoneNo, membershipType, discountPlan, discountPrice, discountPercentage);
+                        customerAccountList.add(customerAccount);
+
+                        Object[] row = new Object[4];
+                        for (int i = 0; i < customerAccountList.size(); i++) {
+                            row[0] = customerAccount.getCompanyName();
+                            row[1] = customerAccount.getUsername();
+                            row[2] = customerAccount.getFirstName();
+                            row[3] = customerAccount.getLastName();
+                        }
+                        accountTableModel.addRow(row);
+                    }
+                }
+            }
+            connection.close();
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        }
+
+
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
