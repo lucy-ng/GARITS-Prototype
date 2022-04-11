@@ -29,6 +29,7 @@ public class StockLevelReport extends Component {
     private JScrollPane stockTable;
 
 
+
     public StockLevelReport() {
         ArrayList<Stock> stockList = new ArrayList<>();
         try {
@@ -98,7 +99,7 @@ public class StockLevelReport extends Component {
                 }
                 Graphics2D graphics2D = (Graphics2D)graphics;
                 graphics2D.translate(pageFormat.getImageableX()*2,(pageFormat.getImageableY()*2));
-                graphics2D.scale(0.5,0.5);
+                graphics2D.scale(1,1);
                 panel.paint(graphics2D);
                 return Printable.PAGE_EXISTS;
             }
@@ -107,9 +108,23 @@ public class StockLevelReport extends Component {
         if(returningResult){
             try {
                 // here
+
+                reportPeriod1.setBorder(BorderFactory.createLineBorder(Color.black));
+                reportPeriod2.setBorder(BorderFactory.createLineBorder(Color.black));
+                reportDate.setBorder(BorderFactory.createLineBorder(Color.black));
+                stockLevelTitle.setForeground(Color.black);
+                tableOfStockLabel.setForeground(Color.black);
+                reportPeriodLabel.setForeground(Color.black);
+                reportDateLabel.setForeground(Color.black);
+                mainPanel.setOpaque(false);
                 printButton.setVisible(false);
                 printerJob.print();
+
                 printButton.setVisible(true);
+                stockLevelTitle.setForeground(Color.white);
+                tableOfStockLabel.setForeground(Color.white);
+                reportPeriodLabel.setForeground(Color.white);
+                reportDateLabel.setForeground(Color.white);
             }catch (PrinterException printerException){
                 JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
             }
@@ -121,4 +136,6 @@ public class StockLevelReport extends Component {
     public JPanel getMainPanel() {
         return mainPanel;
     }
+
+
 }
