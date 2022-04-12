@@ -213,10 +213,20 @@ public class ForepersonPage {
                     }
                 }
                 else if (result == 1) {
-                    Invoice invoice = new Invoice();
-                    contentPanel.removeAll();
-                    contentPanel.add(invoice.getMainPanel());
-                    contentPanel.revalidate();
+                    String regNoMessage = "Enter registration number:";
+                    JTextField regNoText = new JTextField();
+                    int regNoResult = JOptionPane.showOptionDialog(null, new Object[] {regNoMessage, regNoText}, "Registration Number", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                    if (regNoResult == JOptionPane.OK_OPTION) {
+                        String custNameMessage = "Enter customer username:";
+                        JTextField custNameText = new JTextField();
+                        int custNameResult = JOptionPane.showOptionDialog(null, new Object[]{custNameMessage, custNameText}, "Customer Username", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                        if (custNameResult == JOptionPane.OK_OPTION) {
+                            Invoice invoice = new Invoice(regNoText.getText(), custNameText.getText());
+                            contentPanel.removeAll();
+                            contentPanel.add(invoice.getMainPanel());
+                            contentPanel.revalidate();
+                        }
+                    }
                 }
             }
         });
