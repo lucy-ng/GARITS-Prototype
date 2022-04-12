@@ -1,6 +1,5 @@
 package Forms.Users;
 
-import Forms.Accounts.DeleteCustAccount;
 import Forms.Accounts.RegisterCustAccount;
 import Forms.Accounts.UpdateCustAccount;
 import Forms.Jobs.*;
@@ -35,7 +34,7 @@ public class ReceptionistPage {
     private JPanel contentPanel;
     private JPanel customerVehiclePanel;
     private JLabel accountsLabel;
-    private JButton customerAccountButton;
+    private JButton addCustomerAccountButton;
     private JButton vehicleRecordButton;
     private JPanel receptionPanel;
     private JLabel receptionLabel;
@@ -111,29 +110,13 @@ public class ReceptionistPage {
             ex.printStackTrace();
         }
 
-        customerAccountButton.addActionListener(new ActionListener() {
+        addCustomerAccountButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[] buttons = new String[] {"Add", "Update", "Delete"};
-                int result = JOptionPane.showOptionDialog(null, "Choose options below:","Customer Account", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
-                if (result == 0) {
-                    RegisterCustAccount registerCustAccount = new RegisterCustAccount();
-                    contentPanel.removeAll();
-                    contentPanel.add(registerCustAccount.getMainPanel());
-                    contentPanel.revalidate();
-                }
-                else if (result == 1) {
-                    UpdateCustAccount updateCustAccount = new UpdateCustAccount();
-                    contentPanel.removeAll();
-                    contentPanel.add(updateCustAccount.getMainPanel());
-                    contentPanel.revalidate();
-                }
-                else if (result == 2) {
-                    DeleteCustAccount deleteCustAccount = new DeleteCustAccount();
-                    contentPanel.removeAll();
-                    contentPanel.add(deleteCustAccount.getMainPanel());
-                    contentPanel.revalidate();
-                }
+                RegisterCustAccount registerCustAccount = new RegisterCustAccount();
+                contentPanel.removeAll();
+                contentPanel.add(registerCustAccount.getMainPanel());
+                contentPanel.revalidate();
             }
         });
 
