@@ -1,9 +1,9 @@
 package Forms.StockControl;
 
+import Database.Job;
 import Database.Stock;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,136 +11,72 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
-import java.math.BigDecimal;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Vector;
+
 
 public class StockLevelReport extends Component {
     private JPanel mainPanel;
     private JLabel stockLevelTitle;
     private JTextPane address;
-    private JTextField dateFrom;
+    private JTextField reportPeriod1;
     private JTextField reportDate;
     private JButton printButton;
     private JLabel tableOfStockLabel;
     private JLabel reportPeriodLabel;
     private JLabel reportDateLabel;
-    private JTextField dateTo;
+    private JTextField reportPeriod2;
     private JScrollPane stockTable;
-    private JLabel dateFromLabel;
-    private JLabel dateToLabel;
-    private JButton searchButton;
-    private JTable sparePartsTable;
 
-    public StockLevelReport(String dateFromValue, String dateToValue) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Calendar calendar = Calendar.getInstance();
-        java.util.Date date = calendar.getTime();
-        String dateFromText = simpleDateFormat.format(date);
 
-        reportDate.setText(dateFromText);
-        dateFrom.setText(dateFromValue);
-        dateTo.setText(dateToValue);
 
-        Vector headers = new Vector();
-        headers.addElement("Part Name");
-        headers.addElement("Code");
-        headers.addElement("Manufacturer");
-        headers.addElement("Vehicle Type");
-        headers.addElement("Year");
-        headers.addElement("Price");
-        headers.addElement("Quantity");
-        headers.addElement("Low Threshold");
-        headers.addElement("Amount Used");
-        headers.addElement("Amount Delivered");
-        Vector rows = new Vector();
-        sparePartsTable = new JTable(rows, headers);
-        DefaultTableModel sparePartsModel = (DefaultTableModel) sparePartsTable.getModel();
-        stockTable.setViewportView(sparePartsTable);
-        sparePartsTable.setVisible(true);
-
+    public StockLevelReport() {
         ArrayList<Stock> stockList = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
-            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM SparePartsOrder, SpareParts WHERE (SparePartsOrder.deliveryDate BETWEEN date(?) AND date(?)) AND (SpareParts.partID = SparePartsOrder.partID)");
-            stmt.setDate(1, Date.valueOf(dateFromValue));
-            stmt.setDate(2, Date.valueOf(dateToValue));
-            ResultSet resultSet = stmt.executeQuery();
-
-            while (resultSet.next()) {
-                String nameOrder = resultSet.getString("name");
-                String codeOrder = resultSet.getString("code");
-                String manufacturerOrder = resultSet.getString("manufacturer");
-                String vehicleTypeOrder = resultSet.getString("vehicleType");
-                String yearOrder = resultSet.getString("year");
-                BigDecimal priceOrder = resultSet.getBigDecimal("price");
-                int quantityOrder = resultSet.getInt("quantity");
-                int lowThresholdOrder = resultSet.getInt("lowThreshold");
-                int amountDeliveredOrder = resultSet.getInt("amountDelivered");
-
-                Stock stockOrder;
-                stockOrder = new Stock(nameOrder,codeOrder,manufacturerOrder,vehicleTypeOrder,yearOrder,priceOrder,quantityOrder,lowThresholdOrder);
-                stockList.add(stockOrder);
-
-                Object[] rowOrder = new Object[10];
-                for (int i = 0; i < stockList.size(); i++) {
-                    rowOrder[0] = stockOrder.getName();
-                    rowOrder[1] = stockOrder.getCode();
-                    rowOrder[2] = stockOrder.getManufacturer();
-                    rowOrder[3] = stockOrder.getVehicleType();
-                    rowOrder[4] = stockOrder.getYear();
-                    rowOrder[5] = stockOrder.getPrice();
-                    rowOrder[6] = stockOrder.getQuantity();
-                    rowOrder[7] = stockOrder.getLowThreshold();
-                    rowOrder[8] = 0;
-                    rowOrder[9] = amountDeliveredOrder;
-                }
-                sparePartsModel.addRow(rowOrder);
-            }
-
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM SparePartsUse, SpareParts WHERE (SparePartsUse.partUseDate BETWEEN date(?) AND date(?)) AND (SpareParts.partID = SparePartsUse.partID)");
-            statement.setDate(1, Date.valueOf(dateFromValue));
-            statement.setDate(2, Date.valueOf(dateToValue));
+            PreparedStatement statement = connection.prepareStatement("SELECT * from SpareParts");
             ResultSet rs = statement.executeQuery();
+            Stock stock;
 
             while (rs.next()) {
+                int partID = rs.getInt("partID");
                 String name = rs.getString("name");
                 String code = rs.getString("code");
                 String manufacturer = rs.getString("manufacturer");
                 String vehicleType = rs.getString("vehicleType");
                 String year = rs.getString("year");
-                BigDecimal price = rs.getBigDecimal("price");
+                Float price = rs.getFloat("price");
                 int quantity = rs.getInt("quantity");
                 int lowThreshold = rs.getInt("lowThreshold");
-                int amountUsed = rs.getInt("amountUsed");
 
-                Stock stock;
-                stock = new Stock(name,code,manufacturer,vehicleType,year,price,quantity,lowThreshold);
+                stock = new Stock(partID,name,code,manufacturer,vehicleType,year,price,quantity,lowThreshold);
                 stockList.add(stock);
 
-                Object[] row = new Object[10];
+                Object[] row = new Object[9];
                 for (int i = 0; i < stockList.size(); i++) {
-                    row[0] = stock.getName();
-                    row[1] = stock.getCode();
-                    row[2] = stock.getManufacturer();
-                    row[3] = stock.getVehicleType();
-                    row[4] = stock.getYear();
-                    row[5] = stock.getPrice();
-                    row[6] = stock.getQuantity();
-                    row[7] = stock.getLowThreshold();
-                    row[8] = amountUsed;
-                    row[9] = 0;
+                    row[0] = stock.getPartID();
+                    row[1] = stock.getName();
+                    row[2] = stock.getCode();
+                    row[3] = stock.getManufacturer();
+                    row[4] = stock.getVehicleType();
+                    row[5] = stock.getYear();
+                    row[6] = stock.getPrice();
+                    row[7] = stock.getQuantity();
+                    row[8] = stock.getLowThreshold();
                 }
-                sparePartsModel.addRow(row);
-            }
 
+                Object[][] data =  {row};
+                String[] columnNames = {"partID","name","code","manufacturer","vehicleType","year","price","quantity","lowThreshold"};
+                JTable stockResults = new JTable(data, columnNames);
+                stockTable.setViewportView(stockResults);
+                stockTable.setVisible(true);
+            }
             connection.close();
 
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
 
@@ -163,7 +99,7 @@ public class StockLevelReport extends Component {
                 }
                 Graphics2D graphics2D = (Graphics2D)graphics;
                 graphics2D.translate(pageFormat.getImageableX()*2,(pageFormat.getImageableY()*2));
-                graphics2D.scale(0.5,0.5);
+                graphics2D.scale(1,1);
                 panel.paint(graphics2D);
                 return Printable.PAGE_EXISTS;
             }
@@ -172,9 +108,23 @@ public class StockLevelReport extends Component {
         if(returningResult){
             try {
                 // here
+
+                reportPeriod1.setBorder(BorderFactory.createLineBorder(Color.black));
+                reportPeriod2.setBorder(BorderFactory.createLineBorder(Color.black));
+                reportDate.setBorder(BorderFactory.createLineBorder(Color.black));
+                stockLevelTitle.setForeground(Color.black);
+                tableOfStockLabel.setForeground(Color.black);
+                reportPeriodLabel.setForeground(Color.black);
+                reportDateLabel.setForeground(Color.black);
+                mainPanel.setOpaque(false);
                 printButton.setVisible(false);
                 printerJob.print();
+
                 printButton.setVisible(true);
+                stockLevelTitle.setForeground(Color.white);
+                tableOfStockLabel.setForeground(Color.white);
+                reportPeriodLabel.setForeground(Color.white);
+                reportDateLabel.setForeground(Color.white);
             }catch (PrinterException printerException){
                 JOptionPane.showMessageDialog(this, "Print Error: " + printerException.getMessage());
             }
@@ -186,4 +136,6 @@ public class StockLevelReport extends Component {
     public JPanel getMainPanel() {
         return mainPanel;
     }
+
+
 }
