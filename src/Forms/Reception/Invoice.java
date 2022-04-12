@@ -51,7 +51,7 @@ public class Invoice {
                 }
                 Graphics2D graphics2D = (Graphics2D)graphics;
                 graphics2D.translate(pageFormat.getImageableX()*2,(pageFormat.getImageableY()*2));
-                graphics2D.scale(1.85,1.6);
+                graphics2D.scale(1,1);
                 panel.paint(graphics2D);
                 return Printable.PAGE_EXISTS;
             }
@@ -60,9 +60,25 @@ public class Invoice {
         if(returningResult){
             try {
                 // here
+                mainPanel.setSize(700,700);
+                customerNameLabel.setForeground(Color.black);
+                vehicleRegistrationNumberLabel.setForeground(Color.black);
+                makeLabel.setForeground(Color.black);
+                modelLabel.setForeground(Color.black);
+                descriptionOfWorkLabel.setForeground(Color.black);
+                itemsUsedLabel.setForeground(Color.black);
+                invoiceLabel.setForeground(Color.black);
+                mainPanel.setOpaque(false);
                 printButton.setVisible(false);
                 printerJob.print();
                 printButton.setVisible(true);
+                customerNameLabel.setForeground(Color.white);
+                vehicleRegistrationNumberLabel.setForeground(Color.white);
+                makeLabel.setForeground(Color.white);
+                modelLabel.setForeground(Color.white);
+                descriptionOfWorkLabel.setForeground(Color.white);
+                itemsUsedLabel.setForeground(Color.white);
+                invoiceLabel.setForeground(Color.white);
             }catch (PrinterException printerException){
                 JOptionPane.showMessageDialog(null, "Print Error: " + printerException.getMessage());
             }

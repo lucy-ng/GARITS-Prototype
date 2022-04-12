@@ -181,11 +181,15 @@ public class StockLevelReport extends Component {
                 tableOfStockLabel.setForeground(Color.black);
                 reportPeriodLabel.setForeground(Color.black);
                 reportDateLabel.setForeground(Color.black);
+                dateFromLabel.setForeground(Color.black);
+                dateToLabel.setForeground(Color.black);
                 mainPanel.setOpaque(false);
                 printButton.setVisible(false);
                 printerJob.print();
 
                 printButton.setVisible(true);
+                dateFromLabel.setForeground(Color.white);
+                dateToLabel.setForeground(Color.white);
                 stockLevelTitle.setForeground(Color.white);
                 tableOfStockLabel.setForeground(Color.white);
                 reportPeriodLabel.setForeground(Color.white);
