@@ -37,6 +37,8 @@ public class StockLevelReport extends Component {
     private JTable sparePartsTable;
 
     public StockLevelReport(String dateFromValue, String dateToValue) {
+        stockTable.setSize(500,500);
+
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();

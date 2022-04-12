@@ -55,9 +55,6 @@ public class FranchiseePage {
         window.setContentPane(mainPanel);
         window.setVisible(true);
 
-        window.setContentPane(mainPanel);
-        window.setVisible(true);
-
         // Low stock alert
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");

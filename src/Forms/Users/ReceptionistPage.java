@@ -17,6 +17,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ReceptionistPage {
     private JPanel mainPanel;
@@ -269,7 +272,19 @@ public class ReceptionistPage {
                     String[] options = new String[] {"Automatic", "On Demand"};
                     int option = JOptionPane.showOptionDialog(null, "Choose options below:","Automatic or On Demand", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                     if (option == 0) {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        Calendar calendar = Calendar.getInstance();
+                        Date date = calendar.getTime();
+                        String dateFrom = simpleDateFormat.format(date);
 
+                        Calendar calendarLater = Calendar.getInstance();
+                        calendarLater.add(Calendar.MONTH, 1);
+                        Date dateLater = calendarLater.getTime();
+                        String dateTo = simpleDateFormat.format(dateLater);
+                        StockLevelReport stockLevelReport = new StockLevelReport(dateFrom, dateTo);
+                        contentPanel.removeAll();
+                        contentPanel.add(stockLevelReport.getMainPanel());
+                        contentPanel.revalidate();
                     }
                     else if (option == 1) {
                         String dateFrom = JOptionPane.showInputDialog("Enter Date From (YYYY-MM-DD):");
