@@ -1,5 +1,7 @@
 package Database;
 
+import java.math.BigDecimal;
+
 public class Stock {
     private int partID;
     private String name;
@@ -7,12 +9,23 @@ public class Stock {
     private String manufacturer;
     private String vehicleType;
     private String year;
-    private float price;
+    private BigDecimal price;
     private int quantity;
     private int lowThreshold;
 
-    public Stock(int partID, String name, String code, String manufacturer, String vehicleType, String year, float price, int quantity, int lowThreshold) {
+    public Stock(int partID, String name, String code, String manufacturer, String vehicleType, String year, BigDecimal price, int quantity, int lowThreshold) {
         this.partID = partID;
+        this.name = name;
+        this.code = code;
+        this.manufacturer = manufacturer;
+        this.vehicleType = vehicleType;
+        this.year = year;
+        this.price = price;
+        this.quantity = quantity;
+        this.lowThreshold = lowThreshold;
+    }
+
+    public Stock(String name, String code, String manufacturer, String vehicleType, String year, BigDecimal price, int quantity, int lowThreshold) {
         this.name = name;
         this.code = code;
         this.manufacturer = manufacturer;
@@ -47,7 +60,7 @@ public class Stock {
         return year;
     }
 
-    public float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 

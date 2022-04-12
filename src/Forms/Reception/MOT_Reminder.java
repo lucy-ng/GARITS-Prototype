@@ -6,14 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Vector;
 
 public class MOT_Reminder {
     private JLabel monthlyReportTitle;
-    private JTextField date;
+    private JTextField dateToday;
     private JButton sendReminderButton;
-    private JLabel dateLabel;
+    private JLabel dateTodayLabel;
     private JLabel MOTTestRemindersLabel;
     private JPanel mainPanel;
     private JButton enterDateButton;
@@ -22,6 +21,10 @@ public class MOT_Reminder {
     private JTextField username;
     private JLabel customerEmailLabel;
     private JTextField email;
+    private JLabel MOTDateLabel;
+    private JTextField motDate;
+    private JLabel registrationNumberLabel;
+    private JTextField regNo;
     private JTable motTable;
 
     public MOT_Reminder() {
@@ -83,7 +86,7 @@ public class MOT_Reminder {
         enterDateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LocalDate today = LocalDate.parse(date.getText());
+                LocalDate today = LocalDate.parse(dateToday.getText());
                 Date sevenDays = Date.valueOf(today.plusDays(7));
 
                 try {

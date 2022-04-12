@@ -15,6 +15,11 @@ public class PartOrder {
         this.partID = partID;
     }
 
+    public PartOrder(int amountOrdered, Date partOrderDate) {
+        this.amountOrdered = amountOrdered;
+        this.partOrderDate = partOrderDate;
+    }
+
     public int getPartOrderID() {
         return partOrderID;
     }
