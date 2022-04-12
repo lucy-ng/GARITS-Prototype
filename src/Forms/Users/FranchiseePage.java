@@ -85,7 +85,7 @@ public class FranchiseePage {
             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
 
             connection.setAutoCommit(false);
-            try (PreparedStatement statement = connection.prepareStatement("SELECT UserAccounts.username, Booking.servicePaid, Booking.motPaid FROM UserAccounts INNER JOIN Booking INNER JOIN CustomerAccount ON UserAccounts.AccountID = CustomerAccount.AccountID")) {
+            try (PreparedStatement statement = connection.prepareStatement("SELECT UserAccounts.username, Booking.servicePaid, Booking.motPaid FROM UserAccounts, Booking, CustomerAccount WHERE UserAccounts.AccountID = CustomerAccount.AccountID")) {
                 ResultSet rs = statement.executeQuery();
 
                 while (rs.next()){
@@ -377,10 +377,32 @@ public class FranchiseePage {
                     contentPanel.add(motServiceBooking.getMainPanel());
                     contentPanel.revalidate();
                 } else if (result == 4) {
-                    MonthlyReport monthlyReport = new MonthlyReport();
-                    contentPanel.removeAll();
-                    contentPanel.add(monthlyReport.getMainPanel());
-                    contentPanel.revalidate();
+                    String[] options = new String[] {"Automatic", "On Demand"};
+                    int option = JOptionPane.showOptionDialog(null, "Choose options below:","Automatic or On Demand", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                    if (option == 0) {
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        Calendar calendar = Calendar.getInstance();
+                        Date date = calendar.getTime();
+                        String dateFrom = simpleDateFormat.format(date);
+
+                        Calendar calendarLater = Calendar.getInstance();
+                        calendarLater.add(Calendar.MONTH, 1);
+                        Date dateLater = calendarLater.getTime();
+                        String dateTo = simpleDateFormat.format(dateLater);
+                        MonthlyReport monthlyReport = new MonthlyReport(dateFrom, dateTo);
+                        contentPanel.removeAll();
+                        contentPanel.add(monthlyReport.getMainPanel());
+                        contentPanel.revalidate();
+                    }
+                    else if (option == 1) {
+                        String dateFrom = JOptionPane.showInputDialog("Enter Date From (YYYY-MM-DD):");
+                        String dateTo = JOptionPane.showInputDialog("Enter Date To (YYYY-MM-DD):");
+
+                        MonthlyReport monthlyReport = new MonthlyReport(dateFrom, dateTo);
+                        contentPanel.removeAll();
+                        contentPanel.add(monthlyReport.getMainPanel());
+                        contentPanel.revalidate();
+                    }
                 }
             }
         });
