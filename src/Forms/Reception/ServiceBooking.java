@@ -106,12 +106,9 @@ public class ServiceBooking {
                     if (havePaidText.equals("Yes")) {
                         havePaid = 1;
                     }
-                    else if (havePaidText.equals("No")) {
-                        havePaid = 0;
-                    }
 
                     connection.setAutoCommit(false);
-                    PreparedStatement stmt = connection.prepareStatement("SELECT CustomerAccountID FROM CustomerAccount WHERE AccountID = (SELECT AccountID FROM Vehicles WHERE registrationNo = ?)");
+                    PreparedStatement stmt = connection.prepareStatement("SELECT CustomerAccountID FROM Vehicles WHERE registrationNo = ?");
                     stmt.setString(1, regNoText);
                     ResultSet resultSet = stmt.executeQuery();
 

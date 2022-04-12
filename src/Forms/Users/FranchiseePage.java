@@ -352,7 +352,7 @@ public class FranchiseePage {
         manageBookingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[] buttons = new String[] {"Generate MOT Reminder","MOT Booking", "Service Booking", "MOT and Service Booking", "View Bookings"};
+                String[] buttons = new String[] {"Generate MOT Reminder","MOT Booking", "Service Booking", "MOT and Service Booking", "Monthly Report"};
                 int result = JOptionPane.showOptionDialog(null, "Choose options below:","Manage Bookings", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, buttons, buttons[0]);
                 if (result == 0) {
                     MOT_Reminder mot_reminder = new MOT_Reminder();
@@ -375,6 +375,11 @@ public class FranchiseePage {
                     MOTServiceBooking motServiceBooking = new MOTServiceBooking();
                     contentPanel.removeAll();
                     contentPanel.add(motServiceBooking.getMainPanel());
+                    contentPanel.revalidate();
+                } else if (result == 4) {
+                    MonthlyReport monthlyReport = new MonthlyReport();
+                    contentPanel.removeAll();
+                    contentPanel.add(monthlyReport.getMainPanel());
                     contentPanel.revalidate();
                 }
             }
