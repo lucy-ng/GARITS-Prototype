@@ -2,6 +2,7 @@ package Forms.Jobs;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.LabelView;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -164,7 +165,7 @@ public class JobSheetReport {
                 }
                 Graphics2D graphics2D = (Graphics2D)graphics;
                 graphics2D.translate(pageFormat.getImageableX()*2,(pageFormat.getImageableY()*2));
-                graphics2D.scale(1.0,1.0);
+                graphics2D.scale(0.7,1.0);
                 panel.paint(graphics2D);
                 return Printable.PAGE_EXISTS;
             }
@@ -173,9 +174,36 @@ public class JobSheetReport {
         if(returningResult){
             try {
                 // here
+                jobSheetLabel.setForeground(Color.black);
+                MOTDateBookedInLabel.setForeground(Color.black);
+                serviceDateBookedInLabel.setForeground(Color.black);
+                vehicleRegistrationNumberLabel.setForeground(Color.black);
+                makeLabel.setForeground(Color.black);
+                modelLabel.setForeground(Color.black);
+                customerNameLabel.setForeground(Color.black);
+                telephoneNumberLabel.setForeground(Color.black);
+                workRequiredLabel.setForeground(Color.black);
+                sparePartsLabel.setForeground(Color.black);
+                estimatedTimeLabel.setForeground(Color.black);
+                actualTimeLabel.setForeground(Color.black);
+                signatureLabel.setForeground(Color.black);
+                mainPanel.setOpaque(false);
                 printButton.setVisible(false);
                 printerJob.print();
                 printButton.setVisible(true);
+                MOTDateBookedInLabel.setForeground(Color.white);
+                serviceDateBookedInLabel.setForeground(Color.white);
+                vehicleRegistrationNumberLabel.setForeground(Color.white);
+                makeLabel.setForeground(Color.white);
+                modelLabel.setForeground(Color.white);
+                customerNameLabel.setForeground(Color.white);
+                telephoneNumberLabel.setForeground(Color.white);
+                workRequiredLabel.setForeground(Color.white);
+                sparePartsLabel.setForeground(Color.white);
+                estimatedTimeLabel.setForeground(Color.white);
+                actualTimeLabel.setForeground(Color.white);
+                signatureLabel.setForeground(Color.white);
+                jobSheetLabel.setForeground(Color.white);
             }catch (PrinterException printerException){
                 JOptionPane.showMessageDialog(null, "Print Error: " + printerException.getMessage());
             }
