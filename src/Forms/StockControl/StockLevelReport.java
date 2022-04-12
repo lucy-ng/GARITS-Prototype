@@ -1,9 +1,9 @@
 package Forms.StockControl;
 
-import Database.Job;
 import Database.Stock;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,71 +11,136 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.math.BigDecimal;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Calendar;
+import java.util.Vector;
 
 public class StockLevelReport extends Component {
     private JPanel mainPanel;
     private JLabel stockLevelTitle;
     private JTextPane address;
-    private JTextField reportPeriod1;
+    private JTextField dateFrom;
     private JTextField reportDate;
     private JButton printButton;
     private JLabel tableOfStockLabel;
     private JLabel reportPeriodLabel;
     private JLabel reportDateLabel;
-    private JTextField reportPeriod2;
+    private JTextField dateTo;
     private JScrollPane stockTable;
+    private JLabel dateFromLabel;
+    private JLabel dateToLabel;
+    private JButton searchButton;
+    private JTable sparePartsTable;
 
+    public StockLevelReport(String dateFromValue, String dateToValue) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date date = calendar.getTime();
+        String dateFromText = simpleDateFormat.format(date);
 
-    public StockLevelReport() {
+        reportDate.setText(dateFromText);
+        dateFrom.setText(dateFromValue);
+        dateTo.setText(dateToValue);
+
+        Vector headers = new Vector();
+        headers.addElement("Part Name");
+        headers.addElement("Code");
+        headers.addElement("Manufacturer");
+        headers.addElement("Vehicle Type");
+        headers.addElement("Year");
+        headers.addElement("Price");
+        headers.addElement("Quantity");
+        headers.addElement("Low Threshold");
+        headers.addElement("Amount Used");
+        headers.addElement("Amount Delivered");
+        Vector rows = new Vector();
+        sparePartsTable = new JTable(rows, headers);
+        DefaultTableModel sparePartsModel = (DefaultTableModel) sparePartsTable.getModel();
+        stockTable.setViewportView(sparePartsTable);
+        sparePartsTable.setVisible(true);
+
         ArrayList<Stock> stockList = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26","in2018t26","5CrmPJHN");
-            PreparedStatement statement = connection.prepareStatement("SELECT * from SpareParts");
+            PreparedStatement stmt = connection.prepareStatement("SELECT * FROM SparePartsOrder, SpareParts WHERE (SparePartsOrder.deliveryDate BETWEEN date(?) AND date(?)) AND (SpareParts.partID = SparePartsOrder.partID)");
+            stmt.setDate(1, Date.valueOf(dateFromValue));
+            stmt.setDate(2, Date.valueOf(dateToValue));
+            ResultSet resultSet = stmt.executeQuery();
+
+            while (resultSet.next()) {
+                String nameOrder = resultSet.getString("name");
+                String codeOrder = resultSet.getString("code");
+                String manufacturerOrder = resultSet.getString("manufacturer");
+                String vehicleTypeOrder = resultSet.getString("vehicleType");
+                String yearOrder = resultSet.getString("year");
+                BigDecimal priceOrder = resultSet.getBigDecimal("price");
+                int quantityOrder = resultSet.getInt("quantity");
+                int lowThresholdOrder = resultSet.getInt("lowThreshold");
+                int amountDeliveredOrder = resultSet.getInt("amountDelivered");
+
+                Stock stockOrder;
+                stockOrder = new Stock(nameOrder,codeOrder,manufacturerOrder,vehicleTypeOrder,yearOrder,priceOrder,quantityOrder,lowThresholdOrder);
+                stockList.add(stockOrder);
+
+                Object[] rowOrder = new Object[10];
+                for (int i = 0; i < stockList.size(); i++) {
+                    rowOrder[0] = stockOrder.getName();
+                    rowOrder[1] = stockOrder.getCode();
+                    rowOrder[2] = stockOrder.getManufacturer();
+                    rowOrder[3] = stockOrder.getVehicleType();
+                    rowOrder[4] = stockOrder.getYear();
+                    rowOrder[5] = stockOrder.getPrice();
+                    rowOrder[6] = stockOrder.getQuantity();
+                    rowOrder[7] = stockOrder.getLowThreshold();
+                    rowOrder[8] = 0;
+                    rowOrder[9] = amountDeliveredOrder;
+                }
+                sparePartsModel.addRow(rowOrder);
+            }
+
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM SparePartsUse, SpareParts WHERE (SparePartsUse.partUseDate BETWEEN date(?) AND date(?)) AND (SpareParts.partID = SparePartsUse.partID)");
+            statement.setDate(1, Date.valueOf(dateFromValue));
+            statement.setDate(2, Date.valueOf(dateToValue));
             ResultSet rs = statement.executeQuery();
-            Stock stock;
 
             while (rs.next()) {
-                int partID = rs.getInt("partID");
                 String name = rs.getString("name");
                 String code = rs.getString("code");
                 String manufacturer = rs.getString("manufacturer");
                 String vehicleType = rs.getString("vehicleType");
                 String year = rs.getString("year");
-                Float price = rs.getFloat("price");
+                BigDecimal price = rs.getBigDecimal("price");
                 int quantity = rs.getInt("quantity");
                 int lowThreshold = rs.getInt("lowThreshold");
+                int amountUsed = rs.getInt("amountUsed");
 
-                stock = new Stock(partID,name,code,manufacturer,vehicleType,year,price,quantity,lowThreshold);
+                Stock stock;
+                stock = new Stock(name,code,manufacturer,vehicleType,year,price,quantity,lowThreshold);
                 stockList.add(stock);
 
-                Object[] row = new Object[9];
+                Object[] row = new Object[10];
                 for (int i = 0; i < stockList.size(); i++) {
-                    row[0] = stock.getPartID();
-                    row[1] = stock.getName();
-                    row[2] = stock.getCode();
-                    row[3] = stock.getManufacturer();
-                    row[4] = stock.getVehicleType();
-                    row[5] = stock.getYear();
-                    row[6] = stock.getPrice();
-                    row[7] = stock.getQuantity();
-                    row[8] = stock.getLowThreshold();
+                    row[0] = stock.getName();
+                    row[1] = stock.getCode();
+                    row[2] = stock.getManufacturer();
+                    row[3] = stock.getVehicleType();
+                    row[4] = stock.getYear();
+                    row[5] = stock.getPrice();
+                    row[6] = stock.getQuantity();
+                    row[7] = stock.getLowThreshold();
+                    row[8] = amountUsed;
+                    row[9] = 0;
                 }
-
-                Object[][] data =  {row};
-                String[] columnNames = {"partID","name","code","manufacturer","vehicleType","year","price","quantity","lowThreshold"};
-                JTable stockResults = new JTable(data, columnNames);
-                stockTable.setViewportView(stockResults);
-                stockTable.setVisible(true);
+                sparePartsModel.addRow(row);
             }
+
             connection.close();
 
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
 
 

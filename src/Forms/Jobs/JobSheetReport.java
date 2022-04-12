@@ -14,32 +14,32 @@ import java.util.Vector;
 
 public class JobSheetReport {
     private JLabel jobSheetLabel;
-    private JTextField vehicleRegNo;
-    private JTextField make;
-    private JTextField custName;
-    private JTextField estimatedTime;
     private JPanel mainPanel;
+    private JLabel MOTDateBookedInLabel;
+    private JTextPane address;
+    private JTextField motDate;
+    private JLabel serviceDateBookedInLabel;
+    private JTextField serviceDate;
     private JLabel vehicleRegistrationNumberLabel;
+    private JTextField vehicleRegNo;
     private JLabel makeLabel;
-    private JLabel signatureLabel;
-    private JLabel estimatedTimeLabel;
-    private JLabel customerNameLabel;
-    private JButton printButton;
-    private JLabel workRequiredLabel;
+    private JTextField make;
     private JLabel modelLabel;
     private JTextField model;
+    private JLabel customerNameLabel;
+    private JTextField custName;
     private JLabel telephoneNumberLabel;
     private JTextField teleNo;
-    private JTextPane address;
-    private JTextField actualTime;
-    private JLabel actualTimeLabel;
-    private JScrollPane partsScrollPane;
+    private JLabel workRequiredLabel;
     private JScrollPane workRequiredScollPane;
-    private JTextField motDate;
-    private JTextField serviceDate;
     private JLabel sparePartsLabel;
-    private JLabel MOTDateBookedInLabel;
-    private JLabel serviceDateBookedInLabel;
+    private JScrollPane partsScrollPane;
+    private JLabel estimatedTimeLabel;
+    private JTextField estimatedTime;
+    private JLabel actualTimeLabel;
+    private JTextField actualTime;
+    private JLabel signatureLabel;
+    private JButton printButton;
     private JTable jobsTable;
     private JTable partsTable;
 
@@ -164,7 +164,7 @@ public class JobSheetReport {
                 }
                 Graphics2D graphics2D = (Graphics2D)graphics;
                 graphics2D.translate(pageFormat.getImageableX()*2,(pageFormat.getImageableY()*2));
-                graphics2D.scale(0.95,1.6);
+                graphics2D.scale(1.0,1.0);
                 panel.paint(graphics2D);
                 return Printable.PAGE_EXISTS;
             }

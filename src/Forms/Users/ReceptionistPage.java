@@ -272,14 +272,14 @@ public class ReceptionistPage {
 
                     }
                     else if (option == 1) {
-                        String reply;
-                        String date;
-                        date = JOptionPane.showInputDialog("Enter Date:");
+                        String dateFrom = JOptionPane.showInputDialog("Enter Date From (YYYY-MM-DD):");
+                        String dateTo = JOptionPane.showInputDialog("Enter Date To (YYYY-MM-DD):");
+
+                        StockLevelReport stockLevelReport = new StockLevelReport(dateFrom, dateTo);
+                        contentPanel.removeAll();
+                        contentPanel.add(stockLevelReport.getMainPanel());
+                        contentPanel.revalidate();
                     }
-                    StockLevelReport stockLevelReport = new StockLevelReport();
-                    contentPanel.removeAll();
-                    contentPanel.add(stockLevelReport.getMainPanel());
-                    contentPanel.revalidate();
                 }
             }
         });
