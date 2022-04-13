@@ -1,6 +1,8 @@
 package Forms.Users;
 
+import Database.DBbackup;
 import Forms.Accounts.*;
+import Database.*;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -56,5 +58,13 @@ public class AdminPage {
             }
         });
 
+        backupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                DBbackup backup = new DBbackup();
+
+
+            }
+        });
     }
 }
