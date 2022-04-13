@@ -63,10 +63,12 @@ public class AdminPage {
         backupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                backup();
-                JOptionPane.showMessageDialog(null,"Database backup created");
 
-
+               int response = JOptionPane.showConfirmDialog(null,"Do you want to continue ?","confirm",JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE);
+               if (response==JOptionPane.YES_OPTION) {
+                   JOptionPane.showMessageDialog(null, "Database backup created");
+                   backup();
+               }
             }
         });
     }

@@ -4,17 +4,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class DBbackup {
     public static void backup() {
         try {
 
             Connection conn = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
-            Process process = Runtime.getRuntime().exec("cmd /c mysqldump --column-statistics=0 -h smcse-stuproj00 -u in2018t26 -p5CrmPJHN in2018t26 --single-transaction > C:\\MySQLBackup\\DB_backup.sql", null,
+            Process process = Runtime.getRuntime().exec("cmd /c mysqldump --column-statistics=0 -h smcse-stuproj00 -u in2018t26 -p5CrmPJHN in2018t26 --single-transaction > C:\\MySQLBackup\\DB_backup__%date:~-4,4%%date:~-7,2%%date:~-10,2%_.sql", null,
                     new File("C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin"));
 
 
