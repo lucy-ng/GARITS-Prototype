@@ -7,6 +7,8 @@ import Database.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+import static Database.DBbackup.backup;
+
 public class AdminPage {
     private JButton addButton;
     private JButton updateButton;
@@ -61,7 +63,8 @@ public class AdminPage {
         backupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DBbackup backup = new DBbackup();
+                backup();
+                JOptionPane.showMessageDialog(null,"Database backup created");
 
 
             }

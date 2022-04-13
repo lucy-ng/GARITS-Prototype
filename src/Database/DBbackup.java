@@ -10,14 +10,14 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DBbackup {
-    public  void Connection() {
-
+    public static void backup() {
         try {
 
             Connection conn = DriverManager.getConnection("jdbc:mysql://smcse-stuproj00/in2018t26", "in2018t26", "5CrmPJHN");
-            Statement statement = conn.createStatement();
-            Process process = Runtime.getRuntime().exec("ping 8.8.8.8");
-            Runtime.getRuntime().exec("cmd.exe /c start MySQLWorkbench.exe");
+            Process process = Runtime.getRuntime().exec("cmd /c mysqldump --column-statistics=0 -h smcse-stuproj00 -u in2018t26 -p5CrmPJHN in2018t26 --single-transaction > C:\\MySQLBackup\\DB_backup.sql", null,
+                    new File("C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin"));
+
+
 
 
             StringBuilder output = new StringBuilder();
@@ -47,9 +47,22 @@ public class DBbackup {
 
 
 
+    }
+
+
+    public static void restore() {
 
     }
+
+
+
+
+
+
+
+
     }
+
 
 
 
